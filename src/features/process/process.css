@@ -1,0 +1,90 @@
+/* ===== PROCESS SECTION ===== */
+.process-section {
+  padding: var(--section-padding);
+  background: var(--bg-dark);
+}
+
+.process-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 60px;
+}
+
+.process-header h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.15;
+  max-width: 400px;
+}
+
+.process-header h2 .highlight {
+  color: var(--yellow);
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.process-step {
+  padding: 32px 24px;
+  background: var(--gray-800);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: var(--transition);
+  position: relative;
+}
+
+.process-step:hover {
+  border-color: var(--purple);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(123, 47, 255, 0.15);
+}
+
+.process-step-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(123, 47, 255, 0.15);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.process-step-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--purple-light);
+}
+
+.process-step-number {
+  position: absolute;
+  top: 32px;
+  right: 24px;
+  font-size: 2rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.05);
+}
+
+.process-step h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.process-step p {
+  font-size: 0.85rem;
+  color: var(--gray-400);
+  line-height: 1.6;
+}
+
+
+@media (max-width: 1024px) {
+  .process-steps { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .process-steps { grid-template-columns: 1fr; }
+}

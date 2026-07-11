@@ -1,0 +1,127 @@
+/* ===== LANDING PAGES SECTION ===== */
+.landing-section {
+  padding: var(--section-padding);
+  background: var(--bg-dark);
+  position: relative;
+}
+
+.landing-section .container {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.landing-content {
+  flex: 1;
+}
+
+.landing-content h2 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.landing-content h2 .highlight {
+  color: var(--blue-light);
+}
+
+.landing-content p {
+  color: var(--gray-400);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 440px;
+}
+
+.landing-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  margin-bottom: 32px;
+}
+
+.landing-feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--gray-400);
+  font-weight: 500;
+}
+
+.landing-feature .icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-feature .icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--blue-light);
+}
+
+.landing-mockup {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.landing-mockup-card {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(123, 47, 255, 0.2);
+  max-width: 480px;
+  position: relative;
+}
+
+.landing-mockup-card img {
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+}
+
+.mockup-nav-arrows {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% + 80px);
+  left: -40px;
+  pointer-events: none;
+}
+
+.mockup-nav-arrow {
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 1.2rem;
+  cursor: pointer;
+  pointer-events: all;
+  transition: var(--transition);
+}
+
+.mockup-nav-arrow:hover {
+  background: var(--purple);
+  border-color: var(--purple);
+}
+
+
+@media (max-width: 1024px) {
+  .landing-section .container { flex-direction: column; }
+}
+@media (max-width: 768px) {
+  .landing-content h2 { font-size: 2rem; }
+}

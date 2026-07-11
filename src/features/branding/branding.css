@@ -1,0 +1,116 @@
+/* ===== BRANDING SECTION ===== */
+.branding-section {
+  padding: var(--section-padding);
+  background: var(--gray-100);
+  color: var(--bg-dark);
+  position: relative;
+}
+
+.branding-section .container {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.branding-images {
+  flex: 1;
+  display: flex;
+  gap: 16px;
+  max-width: 480px;
+}
+
+.branding-images img {
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.branding-img-main {
+  width: 60%;
+  height: 380px;
+}
+
+.branding-img-side {
+  width: 40%;
+  height: 380px;
+}
+
+.branding-content {
+  flex: 1;
+}
+
+.branding-content h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  color: var(--bg-dark);
+}
+
+.branding-content h2 .highlight {
+  color: var(--purple);
+}
+
+.branding-content > p {
+  color: var(--gray-600);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 420px;
+}
+
+.branding-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.branding-feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  font-weight: 500;
+}
+
+.branding-feature .icon {
+  width: 32px;
+  height: 32px;
+  background: rgba(123, 47, 255, 0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.branding-feature .icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--purple);
+}
+
+/* Decorative circle */
+.branding-section .decor-circle {
+  position: absolute;
+  right: -60px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 120px;
+  height: 120px;
+  border: 2px solid var(--gray-200);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+
+@media (max-width: 1024px) {
+  .branding-section .container { flex-direction: column; }
+}
+@media (max-width: 768px) {
+  .branding-content h2 { font-size: 2rem; }
+  .branding-features { grid-template-columns: 1fr; }
+  .branding-images { flex-direction: column; }
+  .branding-img-main, .branding-img-side { width: 100%; height: 240px; }
+}
