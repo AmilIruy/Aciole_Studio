@@ -112,7 +112,42 @@
   color: var(--bg-dark);
 }
 
+/* ===== TV / Large screens ===== */
+@media (min-width: 1920px) {
+  .header {
+    padding: 20px 0;
+  }
 
+  .header-logo img {
+    height: 40px;
+  }
+
+  .header-nav {
+    gap: 44px;
+  }
+
+  .header-nav a {
+    font-size: 1rem;
+  }
+
+  .header-cta {
+    padding: 12px 30px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ===== Tablet / Mobile ===== */
 @media (max-width: 768px) {
-  .header-nav { display: none; }
+  .header {
+    padding: 12px 0;
+  }
+
+  .header-logo img {
+    height: 28px;
+  }
+
+  .header-nav,
+  .header-right {
+    display: none;
+  }
 }

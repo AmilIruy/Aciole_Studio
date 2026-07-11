@@ -156,11 +156,107 @@
   flex-shrink: 0;
 }
 
+/* ===== TV / 4K ===== */
+@media (min-width: 1920px) {
+  .motion-section .container {
+    gap: 100px;
+  }
 
-@media (max-width: 1024px) {
-  .motion-section .container { flex-direction: column; }
+  .motion-video-card {
+    max-width: 640px;
+  }
+
+  .motion-video-card img {
+    height: 460px;
+  }
+
+  .play-btn {
+    width: 80px;
+    height: 80px;
+  }
+
+  .play-btn svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .motion-content h2 {
+    font-size: 3.2rem;
+  }
+
+  .motion-content p {
+    font-size: 1.1rem;
+    max-width: 520px;
+  }
+
+  .motion-features {
+    gap: 16px 32px;
+  }
+
+  .motion-feature {
+    font-size: 1rem;
+  }
 }
+
+/* ===== Tablet (até 1024px) ===== */
+@media (max-width: 1024px) {
+  .motion-section .container {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .motion-video-card {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .motion-content {
+    width: 100%;
+  }
+}
+
+/* ===== Mobile (até 768px) ===== */
 @media (max-width: 768px) {
-  .motion-content h2 { font-size: 2rem; }
-  .motion-features { grid-template-columns: 1fr; }
+  .motion-content h2 {
+    font-size: 2rem;
+  }
+
+  .motion-features {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
+  }
+
+  .motion-video-card img {
+    height: 260px;
+  }
+
+  .play-btn {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+/* ===== Mobile Small (até 480px) ===== */
+@media (max-width: 480px) {
+  .motion-content h2 {
+    font-size: 1.7rem;
+  }
+
+  .motion-features {
+    grid-template-columns: 1fr;
+  }
+
+  .motion-video-card img {
+    height: 220px;
+  }
+
+  .play-btn {
+    width: 52px;
+    height: 52px;
+  }
+
+  .play-btn svg {
+    width: 20px;
+    height: 20px;
+  }
 }

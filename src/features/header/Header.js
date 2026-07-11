@@ -1,8 +1,12 @@
 import './header.css';
+import './mobileMenu.css';
 import logo from '../../assets/aciole11.png';
+import { MobileMenu } from './MobileMenu.js';
 
 export function Header() {
   return `
+    ${MobileMenu()}
+
     <header class="header" id="header">
       <div class="container">
         <a href="#" class="header-logo" id="header-logo">
@@ -35,6 +39,19 @@ export function Header() {
           </div>
           <a href="#footer-cta" class="header-cta" id="header-cta-btn">Contato</a>
         </div>
+
+        <!-- Hamburger — visível apenas em mobile -->
+        <button
+          class="hamburger"
+          id="hamburger-btn"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
       </div>
     </header>
   `;

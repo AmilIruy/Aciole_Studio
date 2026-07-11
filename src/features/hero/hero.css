@@ -83,12 +83,104 @@
   pointer-events: none;
 }
 
+/* ===== TV / 4K ===== */
+@media (min-width: 1920px) {
+  .hero {
+    padding-top: 180px;
+    padding-bottom: 120px;
+  }
 
-@media (max-width: 1024px) {
-  .hero-title { font-size: 3rem; }
-  .hero .container { flex-direction: column; }
-  .hero-image { max-width: 360px; }
+  .hero-title {
+    font-size: 5.5rem;
+    letter-spacing: -2px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    max-width: 560px;
+    margin-bottom: 48px;
+  }
+
+  .hero-image img {
+    max-width: 640px;
+  }
 }
+
+/* ===== Tablet (até 1024px) ===== */
+@media (max-width: 1024px) {
+  .hero .container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero-subtitle {
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  .hero-image {
+    max-width: 360px;
+    margin: 0 auto;
+  }
+}
+
+/* ===== Mobile (até 768px) ===== */
 @media (max-width: 768px) {
-  .hero-title { font-size: 2.4rem; }
+  .hero {
+    padding-top: 100px;
+    padding-bottom: 60px;
+    min-height: auto;
+  }
+
+  .hero .container {
+    gap: 32px;
+  }
+
+  .hero-title {
+    font-size: 2.4rem;
+    letter-spacing: -0.5px;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 28px;
+  }
+
+  .hero-image {
+    max-width: 280px;
+  }
+}
+
+/* ===== Mobile Small (até 480px) ===== */
+@media (max-width: 480px) {
+  .hero {
+    padding-top: 88px;
+  }
+
+  .hero-title {
+    font-size: 1.9rem;
+    letter-spacing: -0.3px;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+  }
+
+  .hero-image {
+    max-width: 220px;
+  }
+
+  .hero-image img {
+    filter: drop-shadow(0 0 30px rgba(100, 48, 188, 0.25));
+  }
 }

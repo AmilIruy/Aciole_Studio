@@ -24,6 +24,7 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 16px;
+  flex-shrink: 0;
 }
 
 .footer-cta-right p {
@@ -44,6 +45,7 @@
   font-weight: 700;
   letter-spacing: 0.5px;
   transition: var(--transition);
+  white-space: nowrap;
 }
 
 .footer-cta-btn:hover {
@@ -85,12 +87,98 @@
   color: var(--white);
 }
 
+/* ===== TV / 4K ===== */
+@media (min-width: 1920px) {
+  .footer-cta {
+    padding: 90px 0;
+  }
 
-@media (max-width: 1024px) {
-  .footer-cta .container { flex-direction: column; text-align: center; }
-  .footer-cta-right { align-items: center; }
-  .footer-cta-right p { text-align: center; }
+  .footer-cta h2 {
+    font-size: 2.8rem;
+    max-width: 640px;
+  }
+
+  .footer-cta-right p {
+    font-size: 1rem;
+    max-width: 420px;
+  }
+
+  .footer-cta-btn {
+    padding: 20px 48px;
+    font-size: 1.05rem;
+  }
+
+  .footer {
+    padding: 32px 0;
+  }
+
+  .footer p,
+  .footer-links a {
+    font-size: 0.9rem;
+  }
 }
+
+/* ===== Tablet (até 1024px) ===== */
+@media (max-width: 1024px) {
+  .footer-cta .container {
+    flex-direction: column;
+    text-align: center;
+    gap: 32px;
+  }
+
+  .footer-cta-right {
+    align-items: center;
+  }
+
+  .footer-cta-right p {
+    text-align: center;
+  }
+}
+
+/* ===== Mobile (até 768px) ===== */
 @media (max-width: 768px) {
-  .footer-cta h2 { font-size: 1.6rem; }
+  .footer-cta {
+    padding: 48px 0;
+  }
+
+  .footer-cta h2 {
+    font-size: 1.6rem;
+  }
+
+  .footer-cta-right p {
+    font-size: 0.82rem;
+  }
+
+  .footer .container {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .footer-links {
+    gap: 16px;
+  }
+}
+
+/* ===== Mobile Small (até 480px) ===== */
+@media (max-width: 480px) {
+  .footer-cta {
+    padding: 40px 0;
+  }
+
+  .footer-cta h2 {
+    font-size: 1.4rem;
+  }
+
+  .footer-cta-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 16px 24px;
+  }
+
+  .footer-links {
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }

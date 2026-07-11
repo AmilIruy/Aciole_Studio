@@ -11,6 +11,7 @@
   justify-content: space-between;
   align-items: flex-end;
   margin-bottom: 48px;
+  gap: 20px;
 }
 
 .projects-header h2 {
@@ -26,6 +27,7 @@
 .projects-nav {
   display: flex;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 .projects-nav button {
@@ -143,7 +145,104 @@
   margin-top: 40px;
 }
 
+/* ===== TV / 4K ===== */
+@media (min-width: 1920px) {
+  .projects-header {
+    margin-bottom: 64px;
+  }
 
+  .projects-header h2 {
+    font-size: 3rem;
+  }
+
+  .projects-carousel {
+    gap: 32px;
+  }
+
+  .project-card {
+    min-width: 380px;
+  }
+
+  .project-card-image {
+    height: 260px;
+  }
+
+  .project-card-info {
+    padding: 24px;
+  }
+
+  .project-card-info h3 {
+    font-size: 1.15rem;
+    margin-bottom: 6px;
+  }
+
+  .project-card-info span {
+    font-size: 0.9rem;
+  }
+
+  .projects-nav button {
+    width: 52px;
+    height: 52px;
+    font-size: 1.4rem;
+  }
+}
+
+/* ===== Tablet (até 1024px) ===== */
+@media (max-width: 1024px) {
+  .project-card {
+    min-width: 280px;
+  }
+}
+
+/* ===== Mobile (até 768px) ===== */
 @media (max-width: 768px) {
-  .projects-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .projects-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .projects-header h2 {
+    font-size: 1.9rem;
+  }
+
+  .project-card {
+    min-width: 260px;
+  }
+
+  .project-card-image {
+    height: 170px;
+  }
+
+  .projects-carousel {
+    gap: 16px;
+  }
+
+  .projects-cta {
+    margin-top: 28px;
+  }
+}
+
+/* ===== Mobile Small (até 480px) ===== */
+@media (max-width: 480px) {
+  .projects-header h2 {
+    font-size: 1.65rem;
+  }
+
+  .project-card {
+    min-width: 240px;
+  }
+
+  .project-card-image {
+    height: 155px;
+  }
+
+  .project-card-info {
+    padding: 16px;
+  }
+
+  .projects-cta {
+    justify-content: center;
+  }
 }

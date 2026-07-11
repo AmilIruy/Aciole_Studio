@@ -65,7 +65,6 @@ export function BrandingSection() {
           </a>
         </div>
       </div>
-      <div class="decor-circle"></div>
     </section>
   `;
 }
