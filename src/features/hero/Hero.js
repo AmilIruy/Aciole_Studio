@@ -1,14 +1,14 @@
 import './hero.css';
-import heroLogo from '../../assets/aciole11.png';
 
 export function Hero() {
   return `
     <section class="hero" id="hero">
+      <canvas id="hero-canvas" class="hero-bg-canvas"></canvas>
       <div class="container">
         <div class="hero-content">
           <h1 class="hero-title">
             EXPERIÊNCIAS
-            <span class="blue-light">DIGITAIS</span>
+            <span class="blue-light">{DIGITAIS}</span>
             QUE GERAM
             <span class="highlight-yellow">RESULTADOS.</span>
           </h1>
@@ -20,7 +20,7 @@ export function Hero() {
           </a>
         </div>
         <div class="hero-image">
-          <img src="${heroLogo}" alt="Aciole Studio Logo 3D" />
+          <!-- Espaço reservado para manter o layout flexbox -->
         </div>
       </div>
     </section>

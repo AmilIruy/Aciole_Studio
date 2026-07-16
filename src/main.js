@@ -3,6 +3,7 @@ import './index.css';
 import { Header } from './features/header/Header.js';
 import { initMobileMenu } from './features/header/MobileMenu.js';
 import { Hero } from './features/hero/Hero.js';
+import { initHero3D } from './features/hero/HeroScene.js';
 import { MotionSection } from './features/motion/MotionSection.js';
 import { LandingPagesSection } from './features/landingPages/LandingPagesSection.js';
 import { BrandingSection } from './features/branding/BrandingSection.js';
@@ -30,6 +31,7 @@ document.getElementById('root').innerHTML = `
 // Initialize feature specific scripts
 initProjects();
 initMobileMenu();
+initHero3D();
 
 // Intersection Observer for scroll animations
 const observer = new IntersectionObserver(

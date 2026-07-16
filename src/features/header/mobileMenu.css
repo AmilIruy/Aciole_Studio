@@ -10,11 +10,13 @@
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .mobile-menu-backdrop.is-visible {
   opacity: 1;
+  pointer-events: auto;
 }
 
 /* Trava scroll no body */
