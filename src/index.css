@@ -72,6 +72,10 @@ button {
   transition: var(--transition);
 }
 
+h3 {
+  text-transform: uppercase;
+}
+
 /* ===== CONTAINER ===== */
 .container {
   max-width: var(--container-width);

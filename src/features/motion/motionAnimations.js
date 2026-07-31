@@ -1,0 +1,227 @@
+/**
+ * motionAnimations.js
+ *
+ * Responsável por toda a lógica de animação da seção Motion Design.
+ * Mantém a estrutura organizada, com helpers reutilizáveis e configurações
+ * centralizadas para facilitar manutenção e leitura.
+ */
+
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const MOTION_ANIMATION_CONFIG = {
+  titleMaskSize: '2200vw',
+  titleRevealDuration: 0.6,
+  cardFadeDuration: 1,
+  cardLineDuration: 0.7,
+  cardLineStagger: 0.08,
+};
+
+let lenisInstance = null;
+
+function safePlay(video) {
+  if (!video || video.paused === false) return;
+  video.play().catch(() => {});
+}
+
+function safePause(video) {
+  if (!video || video.paused) return;
+  video.pause();
+}
+
+function setupVideoPlaybackTrigger(video, triggerElement, start, end) {
+  if (!video || !triggerElement) return;
+
+  ScrollTrigger.create({
+    trigger: triggerElement,
+    start,
+    end,
+    onEnter: () => safePlay(video),
+    onLeave: () => safePause(video),
+    onEnterBack: () => safePlay(video),
+    onLeaveBack: () => safePause(video),
+  });
+}
+
+export function initLenis() {
+  if (lenisInstance) return lenisInstance;
+
+  lenisInstance = new Lenis({
+    lerp: 0.1,
+    smoothWheel: true,
+    syncTouch: false,
+  });
+
+  gsap.ticker.add((time) => {
+    lenisInstance.raf(time * 1000);
+  });
+  gsap.ticker.lagSmoothing(0);
+  lenisInstance.on('scroll', ScrollTrigger.update);
+
+  return lenisInstance;
+}
+
+function getTargetMaskPosition() {
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  // Extrai o número configurado (ex: 2200vw -> 22)
+  const maskMultiplier = parseFloat(MOTION_ANIMATION_CONFIG.titleMaskSize) / 100;
+  const iw = maskMultiplier * vw; 
+  // Proporção do viewBox do SVG (572.09 / 234.37)
+  const ih = iw / (572.09 / 234.37);
+  
+  // Coordenadas centrais do path (letra T) dentro do viewBox
+  const fx = 277.91 / 572.09;
+  const fy = 52.185 / 234.37;
+  
+  // Calcula a porcentagem exata para centralizar o path na tela
+  const x = (vw / 2 - iw * fx) / (vw - iw) * 100;
+  const y = (vh / 2 - ih * fy) / (vh - ih) * 100;
+  
+  return `${x}% ${y}%`;
+}
+
+function animateMotionTitle() {
+  const block = document.getElementById('motion-title-block');
+  const mask = document.getElementById('motion-zoom-mask');
+  const whiteOverlay = document.getElementById('motion-white-overlay');
+  const bgVideo = document.getElementById('motion-bg-video');
+  const overlay = block?.querySelector('.motion-title-video-overlay');
+  const label = block?.querySelector('.motion-section-label');
+
+  if (!block || !mask || !bgVideo) return;
+
+  gsap.fromTo(
+    mask,
+    { y: 60, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: block,
+        start: 'top 80%',
+        toggleActions: 'play none none reverse',
+      },
+    }
+  );
+
+  const titleTimeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: block,
+      start: 'top top',
+      end: '+=150%',
+      pin: true,
+      scrub: true,
+      anticipatePin: 1,
+    },
+  });
+
+  titleTimeline
+    .to(mask, {
+      maskSize: MOTION_ANIMATION_CONFIG.titleMaskSize,
+      webkitMaskSize: MOTION_ANIMATION_CONFIG.titleMaskSize,
+      maskPosition: getTargetMaskPosition,
+      webkitMaskPosition: getTargetMaskPosition,
+      duration: MOTION_ANIMATION_CONFIG.titleRevealDuration,
+      ease: 'power2.in',
+    }, 0)
+    .to(whiteOverlay, {
+      opacity: 0,
+      duration: 0.4,
+      ease: 'power1.out',
+    }, 0.2)
+    .to(label, { opacity: 0, y: -20, duration: 0.5 }, 0)
+    .fromTo(
+      bgVideo,
+      { opacity: 0, scale: 1.06 },
+      { opacity: 0.8, scale: 1, duration: 0.5, ease: 'power2.out' },
+      0.1
+    )
+    .to(overlay, { opacity: 0.15, duration: 0.5 }, 0.1)
+    .to(bgVideo, { opacity: 0, scale: 1.04, duration: 0.3, ease: 'power2.in' }, 0.7)
+    .to(overlay, { opacity: 0.72, duration: 0.3 }, 0.7);
+
+  setupVideoPlaybackTrigger(bgVideo, block, 'top top', '+=150%');
+}
+
+function animateMotionCards() {
+  const cards = document.querySelectorAll('.motion-card');
+
+  cards.forEach((card) => {
+    const video = card.querySelector('.motion-card__video');
+    const descRight = card.querySelector('.motion-card__desc--right');
+    const lines = card.querySelectorAll('.motion-card__line');
+
+    gsap.fromTo(
+      card,
+      { opacity: 0, y: 70 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: MOTION_ANIMATION_CONFIG.cardFadeDuration,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 82%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    if (lines.length) {
+      const fromX = descRight ? 50 : -50;
+
+      gsap.fromTo(
+        lines,
+        { opacity: 0, x: fromX },
+        {
+          opacity: 1,
+          x: 0,
+          duration: MOTION_ANIMATION_CONFIG.cardLineDuration,
+          ease: 'power3.out',
+          stagger: MOTION_ANIMATION_CONFIG.cardLineStagger,
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 75%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    }
+
+    setupVideoPlaybackTrigger(video, card, 'top 85%', 'bottom 15%');
+  });
+}
+
+function animateCardsParallaxEntry() {
+  const cardsSection = document.getElementById('motion-cards');
+  if (!cardsSection) return;
+
+  gsap.fromTo(
+    cardsSection,
+    { yPercent: 10 },
+    {
+      yPercent: 0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: cardsSection,
+        start: 'top bottom',
+        end: 'top 20%',
+        scrub: 1.2,
+      },
+    }
+  );
+}
+
+export function initMotion() {
+  requestAnimationFrame(() => {
+    animateMotionTitle();
+    animateMotionCards();
+    animateCardsParallaxEntry();
+  });
+}

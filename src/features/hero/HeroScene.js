@@ -45,7 +45,7 @@ export function initHero3D() {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(width, height);
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.PCFShadowMap;
 
   // Lights Setup
   const ambientLight = new THREE.AmbientLight(settings.ambientColor, 2);
@@ -155,7 +155,8 @@ export function initHero3D() {
   load3DModel(new URL('../../assets/Logo3d.glb', import.meta.url).href);
 
   let animationFrameId;
-  const clock = new THREE.Clock();
+  let previousTime = performance.now();
+  let elapsedTime = 0;
   let isVisible = true;
 
   let baseOffsetX = 0;
@@ -165,8 +166,11 @@ export function initHero3D() {
     
     if (!isVisible) return; 
 
-    const delta = clock.getDelta();
-    const time = clock.getElapsedTime();
+    const now = performance.now();
+    const delta = (now - previousTime) / 1000;
+    previousTime = now;
+    elapsedTime += delta;
+    const time = elapsedTime;
 
     let baseOffsetY = 0;
 

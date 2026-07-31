@@ -1,262 +1,341 @@
-/* ===== MOTION SECTION ===== */
-.motion-section {
-  padding: var(--section-padding);
-  background: var(--gray-100);
-  color: var(--bg-dark);
-  position: relative;
-}
+/* ===== MOTION SECTION — EXPERIÊNCIA CINEMATOGRÁFICA ===== */
 
-.motion-section .container {
-  display: flex;
-  align-items: center;
-  gap: 60px;
-}
-
-.motion-video-card {
-  flex: 1;
-  max-width: 480px;
-  border-radius: 16px;
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* WRAPPER GLOBAL                                                               */
+/* ─────────────────────────────────────────────────────────────────────────── */
+#motion-experience {
+  background: var(--bg-dark);
+  color: var(--white);
   overflow: hidden;
+  margin-top: -1px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* 1. MOTION TITLE BLOCK                                                        */
+/* ─────────────────────────────────────────────────────────────────────────── */
+#motion-title-block {
   position: relative;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-  cursor: pointer;
-  group: true;
-}
-
-.motion-video-card img {
-  width: 100%;
-  height: 340px;
-  object-fit: cover;
-  transition: var(--transition);
-}
-
-.motion-video-card:hover img {
-  transform: scale(1.05);
-}
-
-.motion-video-overlay {
-  position: absolute;
-  inset: 0;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.3);
-  transition: var(--transition);
+  overflow: hidden;
+  background: var(--bg-dark);
+  z-index: 1;
+  /* fica "embaixo" durante a sobreposição */
 }
 
-.motion-video-card:hover .motion-video-overlay {
-  background: rgba(0, 0, 0, 0.5);
+.motion-title-video-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  /* Fica acima do fundo padrão */
+
+  -webkit-mask-image: url("../../assets/motion-design-mask.svg");
+  mask-image: url("../../assets/motion-design-mask.svg");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: 50% 50%;
+  mask-position: 50% 50%;
+  -webkit-mask-size: clamp(19.04rem, 52.36vw, 47.6rem);
+  mask-size: clamp(19.04rem, 52.36vw, 47.6rem);
 }
 
-.play-btn {
-  width: 64px;
-  height: 64px;
-  background: rgba(123, 47, 255, 0.9);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 16px;
-  transition: var(--transition);
-  box-shadow: 0 4px 20px rgba(123, 47, 255, 0.5);
+.motion-white-overlay {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  z-index: 2;
 }
 
-.motion-video-card:hover .play-btn {
-  transform: scale(1.1);
-  box-shadow: 0 6px 30px rgba(123, 47, 255, 0.7);
+.motion-title-video-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  /* Começa oculto para evitar linhas nas bordas */
 }
 
-.play-btn svg {
-  width: 24px;
-  height: 24px;
-  fill: white;
-  margin-left: 3px;
+/* Overlay escuro sobre o vídeo */
+.motion-title-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 11, 21, 0.72);
+  z-index: 1;
 }
 
-.motion-video-label {
-  color: white;
-  font-size: 0.875rem;
+.motion-section-label {
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 32px;
+  opacity: 1;
 }
 
-.carousel-arrows {
-  display: flex;
-  gap: 8px;
-  margin-top: 16px;
-}
-
-.carousel-arrow {
-  width: 40px;
-  height: 40px;
-  background: transparent;
-  border: 1.5px solid var(--gray-300);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--gray-500);
-  font-size: 1.2rem;
-  transition: var(--transition);
-}
-
-.carousel-arrow:hover {
-  border-color: var(--purple);
-  color: var(--purple);
-  background: rgba(123, 47, 255, 0.05);
-}
-
-.motion-content {
-  flex: 1;
-}
-
-.motion-content h2 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  line-height: 1.1;
-  margin-bottom: 20px;
-  color: var(--bg-dark);
-}
-
-.motion-content h2 .highlight {
+.motion-section-label {
+  position: absolute;
+  top: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
   color: var(--yellow);
 }
 
-.motion-content p {
-  color: var(--gray-600);
-  font-size: 0.95rem;
-  line-height: 1.7;
-  margin-bottom: 28px;
-  max-width: 420px;
+/* (removido .motion-zoom-mask independente, agora aplicado ao container) */
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* 3. CARDS DE PROJETOS                                                         */
+/* ─────────────────────────────────────────────────────────────────────────── */
+#motion-cards {
+  padding: 80px 0 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  background: transparent;
+  /* era var(--bg-dark) — remove o "tapa-vídeo" sólido */
+  position: relative;
+  z-index: 5;
+  /* fica por cima do vídeo pinado */
+  margin-top: -70vh;
+  /* AJUSTE ESTE VALOR: quanto mais negativo, mais cedo os cards "invadem" a tela do vídeo */
 }
 
-.motion-features {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px 24px;
-  margin-bottom: 32px;
-}
-
-.motion-feature {
+/* ── Base do card ────────────────────────────────────────────────────────── */
+.motion-card {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.85rem;
-  color: var(--gray-600);
-  font-weight: 500;
+  gap: 48px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+  width: 100%;
+  will-change: transform, opacity;
 }
 
-.motion-feature .dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--yellow);
+/* ── Variante 1: Horizontal Médio (16:9 menor) ───────────────────────────── */
+.motion-card--horizontal-md {
+  flex-direction: row;
+}
+
+.motion-card--horizontal-md .motion-card__video-wrap {
+  width: 55%;
   flex-shrink: 0;
+  aspect-ratio: 16 / 9;
 }
 
-/* ===== TV / 4K ===== */
+/* ── Variante 2: Vertical (Reels / 9:16) ────────────────────────────────────── */
+.motion-card--vertical {
+  flex-direction: row;
+  justify-content: center;
+  /* Gap menor: texto e vídeo vertical ficam próximos */
+  gap: 32px;
+  align-items: center;
+}
+
+.motion-card--vertical .motion-card__video-wrap {
+  width: 300px;
+  flex-shrink: 0;
+  aspect-ratio: 9 / 16;
+  max-height: 62vh;
+}
+
+.motion-card--vertical .motion-card__desc {
+  max-width: 280px;
+}
+
+/* ── Variante 3: Horizontal Grande (YouTube 16:9) ───────────────────────── */
+.motion-card--horizontal-lg {
+  flex-direction: row;
+}
+
+.motion-card--horizontal-lg .motion-card__video-wrap {
+  width: 62%;
+  flex-shrink: 0;
+  aspect-ratio: 16 / 9;
+}
+
+/* ── Video wrap ─────────────────────────────────────────────────────────── */
+.motion-card__video-wrap {
+  position: relative;
+  overflow: hidden;
+  background: var(--gray-900);
+  flex-shrink: 0;
+  box-shadow:
+    0 0 0 0.4px rgb(250, 184, 15),
+    0 0 10px 0.1px hsla(43, 96%, 52%, 0.241);
+}
+
+.motion-card__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.motion-card__video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+      rgba(85, 74, 153, 0.12) 0%,
+      transparent 60%);
+  pointer-events: none;
+}
+
+/* ── Descrição ──────────────────────────────────────────────────────────── */
+.motion-card__desc {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.motion-card__tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+
+.motion-card__title {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.motion-card__title em {
+  color: var(--yellow);
+  font-style: normal;
+}
+
+.motion-card__body {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--gray-400);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.motion-card__button {
+  margin-top: 24px;
+  align-self: flex-start;
+}
+
+/* Cada linha de texto — animada via GSAP stagger */
+.motion-card__line {
+  display: block;
+  will-change: transform, opacity;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* RESPONSIVIDADE                                                               */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── TV / 4K ─────────────────────────────────────────────────────────────── */
 @media (min-width: 1920px) {
-  .motion-section .container {
-    gap: 100px;
+  .motion-title-text {
+    letter-spacing: -5px;
   }
 
-  .motion-video-card {
-    max-width: 640px;
-  }
-
-  .motion-video-card img {
-    height: 460px;
-  }
-
-  .play-btn {
-    width: 80px;
-    height: 80px;
-  }
-
-  .play-btn svg {
-    width: 32px;
-    height: 32px;
-  }
-
-  .motion-content h2 {
-    font-size: 3.2rem;
-  }
-
-  .motion-content p {
-    font-size: 1.1rem;
-    max-width: 520px;
-  }
-
-  .motion-features {
-    gap: 16px 32px;
-  }
-
-  .motion-feature {
-    font-size: 1rem;
+  #motion-cards {
+    gap: 120px;
   }
 }
 
-/* ===== Tablet (até 1024px) ===== */
+/* ── Tablet (até 1024px) ─────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .motion-section .container {
-    flex-direction: column;
-    gap: 40px;
+  .motion-card {
+    flex-direction: column !important;
+    gap: 32px;
+    padding: 0 32px;
   }
 
-  .motion-video-card {
-    max-width: 100%;
-    width: 100%;
+  .motion-card__video-wrap {
+    width: 100% !important;
+    max-height: none;
   }
 
-  .motion-content {
-    width: 100%;
+  .motion-card--vertical .motion-card__video-wrap {
+    width: 100% !important;
+    max-width: 340px;
+    margin: 0 auto;
+    aspect-ratio: 9 / 16;
+  }
+
+  .motion-card__desc--left,
+  .motion-card__desc--right {
+    order: -1;
+    text-align: center;
+    align-items: center;
+  }
+
+  .motion-video-fullscreen-wrap {
+    width: 95vw;
+    border-radius: 10px;
   }
 }
 
-/* ===== Mobile (até 768px) ===== */
+/* ── Mobile (até 768px) ──────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .motion-content h2 {
-    font-size: 2rem;
+  .motion-title-text {
+    letter-spacing: -2px;
   }
 
-  .motion-features {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px 16px;
+  #motion-cards {
+    padding: 60px 0 80px;
+    gap: 60px;
   }
 
-  .motion-video-card img {
-    height: 260px;
+  .motion-card {
+    padding: 0 20px;
+    gap: 24px;
   }
 
-  .play-btn {
-    width: 56px;
-    height: 56px;
+  .motion-card__title {
+    font-size: 1.75rem;
+  }
+
+  .motion-video-fullscreen-wrap {
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
   }
 }
 
-/* ===== Mobile Small (até 480px) ===== */
+/* ── Mobile pequeno (até 480px) ──────────────────────────────────────────── */
 @media (max-width: 480px) {
-  .motion-content h2 {
-    font-size: 1.7rem;
+  .motion-card {
+    padding: 0 16px;
   }
 
-  .motion-features {
-    grid-template-columns: 1fr;
+  .motion-card__title {
+    font-size: 1.5rem;
+    letter-spacing: -0.8px;
   }
 
-  .motion-video-card img {
-    height: 220px;
+  .motion-card__body {
+    font-size: 0.88rem;
   }
 
-  .play-btn {
-    width: 52px;
-    height: 52px;
+  #motion-cards {
+    padding: 48px 0 64px;
+    gap: 48px;
   }
 
-  .play-btn svg {
-    width: 20px;
-    height: 20px;
+  .motion-card--vertical .motion-card__video-wrap {
+    max-width: 260px;
   }
 }
