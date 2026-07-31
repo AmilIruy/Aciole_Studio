@@ -151,6 +151,9 @@ function animateMotionTitle() {
 
 function animateMotionCards() {
   const cards = document.querySelectorAll('.motion-card');
+  const isMobile = window.innerWidth <= 768;
+  const cardStart = isMobile ? 'top 92%' : 'top 82%';
+  const lineStart = isMobile ? 'top 90%' : 'top 75%';
 
   cards.forEach((card) => {
     const video = card.querySelector('.motion-card__video');
@@ -163,11 +166,11 @@ function animateMotionCards() {
       {
         opacity: 1,
         y: 0,
-        duration: MOTION_ANIMATION_CONFIG.cardFadeDuration,
+        duration: isMobile ? 0.8 : MOTION_ANIMATION_CONFIG.cardFadeDuration,
         ease: 'power3.out',
         scrollTrigger: {
           trigger: card,
-          start: 'top 82%',
+          start: cardStart,
           toggleActions: 'play none none reverse',
         },
       }
@@ -182,12 +185,12 @@ function animateMotionCards() {
         {
           opacity: 1,
           x: 0,
-          duration: MOTION_ANIMATION_CONFIG.cardLineDuration,
+          duration: isMobile ? 0.55 : MOTION_ANIMATION_CONFIG.cardLineDuration,
           ease: 'power3.out',
-          stagger: MOTION_ANIMATION_CONFIG.cardLineStagger,
+          stagger: isMobile ? 0.05 : MOTION_ANIMATION_CONFIG.cardLineStagger,
           scrollTrigger: {
             trigger: card,
-            start: 'top 75%',
+            start: lineStart,
             toggleActions: 'play none none reverse',
           },
         }

@@ -99,12 +99,9 @@
   flex-direction: column;
   gap: 80px;
   background: transparent;
-  /* era var(--bg-dark) — remove o "tapa-vídeo" sólido */
   position: relative;
   z-index: 5;
-  /* fica por cima do vídeo pinado */
   margin-top: -70vh;
-  /* AJUSTE ESTE VALOR: quanto mais negativo, mais cedo os cards "invadem" a tela do vídeo */
 }
 
 /* ── Base do card ────────────────────────────────────────────────────────── */
@@ -258,6 +255,11 @@
 
 /* ── Tablet (até 1024px) ─────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
+  #motion-cards {
+    margin-top: 0;
+    padding-top: 48px;
+  }
+
   .motion-card {
     flex-direction: column !important;
     gap: 32px;
@@ -296,8 +298,9 @@
   }
 
   #motion-cards {
-    padding: 60px 0 80px;
-    gap: 60px;
+    margin-top: 0;
+    padding: 40px 0 80px;
+    gap: 48px;
   }
 
   .motion-card {

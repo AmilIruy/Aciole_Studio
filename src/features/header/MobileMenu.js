@@ -7,7 +7,7 @@ export function MobileMenu() {
     <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
       <nav class="mobile-menu-nav" id="mobile-menu-nav">
         <a href="#hero" class="mobile-menu-link" data-menu-link>Início</a>
-        <a href="#projects-section" class="mobile-menu-link" data-menu-link>Projetos</a>
+        <a href="#motion-cards" class="mobile-menu-link" data-menu-link>Motion</a>
         <a href="#process-section" class="mobile-menu-link" data-menu-link>Serviços</a>
         <a href="#about-section" class="mobile-menu-link" data-menu-link>Sobre</a>
         <a href="#footer-cta" class="mobile-menu-link" data-menu-link>Contato</a>

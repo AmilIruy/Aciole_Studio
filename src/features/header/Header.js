@@ -15,7 +15,7 @@ export function Header() {
 
         <nav class="header-nav" id="header-nav">
           <a href="#hero" class="active">Início</a>
-          <a href="#projects-section">Projetos</a>
+          <a href="#motion-cards">Motion</a>
           <a href="#process-section">Serviços</a>
           <a href="#about-section">Sobre</a>
           <a href="#footer-cta">Contato</a>

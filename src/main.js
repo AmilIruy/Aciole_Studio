@@ -2,7 +2,7 @@ import './index.css';
 
 import { Header } from './features/header/Header.js';
 import { initMobileMenu } from './features/header/MobileMenu.js';
-import { Hero } from './features/hero/Hero.js';
+import { Hero, initHeroGlitch } from './features/hero/Hero.js';
 import { initHero3D } from './features/hero/HeroScene.js';
 import { MotionSection, initMotion } from './features/motion/MotionSection.js';
 import { LandingPagesSection } from './features/landingPages/LandingPagesSection.js';
@@ -35,6 +35,7 @@ initLenis();
 initProjects();
 initMobileMenu();
 initHero3D();
+initHeroGlitch();
 
 // Animações cinematográficas da seção Motion
 initMotion();
