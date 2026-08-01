@@ -165,8 +165,8 @@
   background: var(--gray-900);
   flex-shrink: 0;
   box-shadow:
-    0 0 0 0.4px rgb(250, 184, 15),
-    0 0 10px 0.1px hsla(43, 96%, 52%, 0.241);
+    0 0 0 0.4px rgb(255, 51, 102),
+    0 0 10px 0.1px hsla(345, 100%, 60%, 0.174);
 }
 
 .motion-card__video {

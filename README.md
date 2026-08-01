@@ -109,7 +109,7 @@ npm run preview
 
 ## Notas de implementação
 
-- O projeto não usa React apesar de surgir de um template Vite que menciona React.
+- O projeto usa Vite com JavaScript puro e não depende de frameworks.
 - A renderização é feita em strings HTML retornadas pelos módulos de seção.
 - O componente `SectionDivider` está presente em `src/shared/components/SectionDivider.js` mas não é utilizado atualmente no markup final.
 - O hero 3D usa Three.js e GLTFLoader. A cena é montada apenas se o canvas existir.
