@@ -1,6 +1,6 @@
 import './branding.css';
-import brandingMockup from '../../assets/branding_mockup.png';
-import brandingVideo from '../../assets/branding_video.png';
+import brandingMockup from '../../assets/branding_mockup.webp';
+import brandingVideo from '../../assets/branding_video.webp';
 
 export function BrandingSection() {
   return `

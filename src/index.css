@@ -1,4 +1,12 @@
 /* ===== CSS RESET & VARIABLES ===== */
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg-dark: #080b15;
   --bg-dark-alt: #121111;

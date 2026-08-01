@@ -1,8 +1,8 @@
 import './projects.css';
-import motionThumb from '../../assets/motion_thumb.png';
-import landingMockup from '../../assets/landing_mockup.png';
-import brandingMockup from '../../assets/branding_mockup.png';
-import projectPortfolio from '../../assets/project_portfolio.png';
+import motionThumb from '../../assets/motion_thumb.webp';
+import landingMockup from '../../assets/landing_mockup.webp';
+import brandingMockup from '../../assets/branding_mockup.webp';
+import projectPortfolio from '../../assets/project_portfolio.webp';
 
 export function ProjectsSection() {
   const projects = [

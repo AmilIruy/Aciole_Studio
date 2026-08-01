@@ -1,5 +1,5 @@
 import './landingPages.css';
-import landingMockup from '../../assets/landing_mockup.png';
+import landingMockup from '../../assets/landing_mockup.webp';
 
 export function LandingPagesSection() {
   return `
