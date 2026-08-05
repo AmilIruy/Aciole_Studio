@@ -69,11 +69,6 @@ export function ProjectsSection() {
             </div>
           `).join('')}
         </div>
-
-        <div class="projects-cta">
-          <a href="#" class="btn-outline-dark" id="projects-portfolio-cta">
-            Ver Portfólio Completo <span class="arrow">→</span>
-          </a>
         </div>
       </div>
     </section>

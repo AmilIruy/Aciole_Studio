@@ -23,9 +23,6 @@ export function AboutSection() {
           <p>
             Nós criamos agency de experiências, criamos experiências digitais capazes de destacar empresas em mercados cada vez mais competitivos.
           </p>
-          <a href="#" class="btn-outline-white" id="about-cta">
-            Conheça Nossa História <span class="arrow">→</span>
-          </a>
         </div>
 
         <div class="about-stats" id="about-stats">

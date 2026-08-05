@@ -58,9 +58,6 @@ export function MotionSection() {
               <span class="motion-card__line">Cada quadro carrega a essência</span>
               <span class="motion-card__line">da sua marca em movimento.</span>
             </p>
-            <a href="#projects-section" class="btn-primary motion-card__button">
-              Ver Mais Projetos <span class="arrow">→</span>
-            </a>
           </div>
         </div>
 
@@ -78,9 +75,6 @@ export function MotionSection() {
               <span class="motion-card__line">construídos para engajar</span>
               <span class="motion-card__line">desde o primeiro frame.</span>
             </p>
-            <a href="#projects-section" class="btn-primary motion-card__button">
-              Ver Mais Projetos <span class="arrow">→</span>
-            </a>
           </div>
           <div class="motion-card__video-wrap">
             <video

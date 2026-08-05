@@ -139,12 +139,6 @@
   color: var(--gray-500);
 }
 
-.projects-cta {
-  display: flex;
-  gap: 12px;
-  margin-top: 40px;
-}
-
 /* ===== TV / 4K ===== */
 @media (min-width: 1920px) {
   .projects-header {

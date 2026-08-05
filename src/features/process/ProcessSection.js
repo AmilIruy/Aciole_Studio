@@ -61,9 +61,6 @@ export function ProcessSection() {
               IDEIAS EM <span class="highlight">RESULTADOS.</span>
             </h2>
           </div>
-          <a href="#" class="btn-primary" id="process-cta" style="white-space: nowrap">
-            Ver Nosso Processo <span class="arrow">→</span>
-          </a>
         </div>
 
         <div class="process-steps" id="process-steps">
