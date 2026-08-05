@@ -1,10 +1,7 @@
 /* ===== CSS RESET & VARIABLES ===== */
 @font-face {
   font-family: 'Inter';
-  src: url('./assets/Inter-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+  src: url('src/assets/InterVariable.ttf') format('woff2');
 }
 
 :root {
@@ -25,7 +22,7 @@
   --gray-700: #424242;
   --gray-800: #1A1A1A;
   --gray-900: #121212;
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family: 'Inter', sans-serif;
   --container-width: 1280px;
   --section-padding: 100px 0;
   --border-radius: 12px;

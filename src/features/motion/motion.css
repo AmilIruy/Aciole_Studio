@@ -22,6 +22,7 @@
   justify-content: center;
   overflow: hidden;
   background: var(--bg-dark);
+  background-image: linear-gradient(to bottom, rgba(173, 34, 117, 0.037) 0%, transparent 80%);
   z-index: 1;
   /* fica "embaixo" durante a sobreposição */
 }

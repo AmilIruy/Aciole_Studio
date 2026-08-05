@@ -1,9 +1,9 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-// Configuration
-const settings = {
-  color: 'rgba(255, 255, 255, 1)', // blue-light
+// Hero scene configuration
+const heroSceneSettings = {
+  primaryColor: 'rgba(255, 255, 255, 1)', // blue-light
   secondaryColor: 'rgba(255, 255, 255, 1)', // purple-light
   wireframe: false,
   roughness: 0.3,
@@ -24,13 +24,13 @@ const settings = {
 };
 
 export function initHero3D() {
-  const container = document.getElementById('hero-canvas');
-  if (!container) return;
+  const canvasElement = document.getElementById('hero-canvas');
+  if (!canvasElement) return;
 
-  const parentContainer = document.getElementById('hero');
+  const heroSection = document.getElementById('hero');
   
-  const width = parentContainer.clientWidth;
-  const height = parentContainer.clientHeight || 500;
+  const width = heroSection.clientWidth;
+  const height = heroSection.clientHeight || 500;
 
   // Create Scene
   const scene = new THREE.Scene();
@@ -41,17 +41,17 @@ export function initHero3D() {
   camera.position.set(0, 0, 8);
 
   // Create Renderer
-  const renderer = new THREE.WebGLRenderer({ canvas: container, antialias: true, alpha: true });
+  const renderer = new THREE.WebGLRenderer({ canvas: canvasElement, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(width, height);
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
 
   // Lights Setup
-  const ambientLight = new THREE.AmbientLight(settings.ambientColor, 2);
+  const ambientLight = new THREE.AmbientLight(heroSceneSettings.ambientColor, 2);
   scene.add(ambientLight);
 
-  const mainLight = new THREE.DirectionalLight(0xffffff, settings.lightIntensity);
+  const mainLight = new THREE.DirectionalLight(0xffffff, heroSceneSettings.lightIntensity);
   mainLight.position.set(20, 12, 20);
   mainLight.castShadow = true;
   mainLight.shadow.mapSize.width = 1024;
@@ -59,43 +59,43 @@ export function initHero3D() {
   scene.add(mainLight);
 
   // Dynamic Colored Spotlight
-  const spotLight = new THREE.SpotLight(settings.color, 4, 15, Math.PI / 4, 0.5, 1);
+  const spotLight = new THREE.SpotLight(heroSceneSettings.primaryColor, 4, 15, Math.PI / 4, 0.5, 1);
   spotLight.position.set(0, 0, 4);
   scene.add(spotLight);
 
   // Create Groups
-  const mainGroup = new THREE.Group();
-  scene.add(mainGroup);
+  const sceneGroup = new THREE.Group();
+  scene.add(sceneGroup);
 
-  const logoGroup = new THREE.Group();
-  mainGroup.add(logoGroup);
+  const heroModelGroup = new THREE.Group();
+  sceneGroup.add(heroModelGroup);
 
-  // Background Particles
-  const particleCount = settings.particleCount;
+  // Background particles
+  const particleCount = heroSceneSettings.particleCount;
   const particleGeometry = new THREE.BufferGeometry();
-  const positions = new Float32Array(particleCount * 3);
-  const speeds = new Float32Array(particleCount);
+  const particlePositions = new Float32Array(particleCount * 3);
+  const particleSpeeds = new Float32Array(particleCount);
 
   for (let i = 0; i < particleCount; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 25;
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 15;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 15;
-    speeds[i] = 0.01 + Math.random() * 0.02;
+    particlePositions[i * 3] = (Math.random() - 0.5) * 25;
+    particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 15;
+    particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 15;
+    particleSpeeds[i] = 0.01 + Math.random() * 0.02;
   }
 
-  particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
   const particleMaterial = new THREE.PointsMaterial({
-    color: new THREE.Color(settings.particleColor),
+    color: new THREE.Color(heroSceneSettings.particleColor),
     size: 0.08,
     transparent: true,
-    opacity: 0.6,
-    blending: THREE.AdditiveBlending
+    opacity: 0.4,
+    blending: THREE.AdditiveBlending,
   });
-  
-  const particles = new THREE.Points(particleGeometry, particleMaterial);
-  scene.add(particles);
 
-  const updateModelMaterials = (object) => {
+  const particleField = new THREE.Points(particleGeometry, particleMaterial);
+  scene.add(particleField);
+
+  const updateHeroModelMaterials = (object) => {
     let meshIndex = 0;
     object.traverse((child) => {
       if (child instanceof THREE.Mesh) {
@@ -104,13 +104,13 @@ export function initHero3D() {
         meshIndex++;
 
         const isPrimary = meshIndex % 2 !== 0;
-        const activeColor = isPrimary ? settings.color : settings.secondaryColor;
+        const activeColor = isPrimary ? heroSceneSettings.primaryColor : heroSceneSettings.secondaryColor;
         
         child.material = new THREE.MeshPhysicalMaterial({
           color: new THREE.Color(activeColor),
-          roughness: settings.roughness,
-          metalness: settings.metalness,
-          wireframe: settings.wireframe,
+          roughness: heroSceneSettings.roughness,
+          metalness: heroSceneSettings.metalness,
+          wireframe: heroSceneSettings.wireframe,
           clearcoat: 0.2,
           clearcoatRoughness: 0.2,
         });
@@ -119,31 +119,31 @@ export function initHero3D() {
   };
 
 
-  const load3DModel = (url) => {
-    while (logoGroup.children.length > 0) {
-      logoGroup.remove(logoGroup.children[0]);
+  const loadHeroModel = (url) => {
+    while (heroModelGroup.children.length > 0) {
+      heroModelGroup.remove(heroModelGroup.children[0]);
     }
 
     const loader = new GLTFLoader();
     loader.load(
       url,
       (gltf) => {
-        const loadedModel = gltf.scene;
+        const heroModel = gltf.scene;
         
-        const box = new THREE.Box3().setFromObject(loadedModel);
-        const size = box.getSize(new THREE.Vector3());
-        const maxDim = Math.max(size.x, size.y, size.z);
-        const scaleFactor = (3.2 / maxDim) * settings.scale;
-        loadedModel.scale.setScalar(scaleFactor);
+        const modelBounds = new THREE.Box3().setFromObject(heroModel);
+        const modelSize = modelBounds.getSize(new THREE.Vector3());
+        const maxModelDimension = Math.max(modelSize.x, modelSize.y, modelSize.z);
+        const modelScaleFactor = (3.2 / maxModelDimension) * heroSceneSettings.scale;
+        heroModel.scale.setScalar(modelScaleFactor);
         
-        box.setFromObject(loadedModel);
-        const center = box.getCenter(new THREE.Vector3());
-        loadedModel.position.sub(center);
+        modelBounds.setFromObject(heroModel);
+        const center = modelBounds.getCenter(new THREE.Vector3());
+        heroModel.position.sub(center);
 
-        loadedModel.position.y += 0.8;
+        heroModel.position.y += 0.8;
 
-        updateModelMaterials(loadedModel);
-        logoGroup.add(loadedModel);
+        updateHeroModelMaterials(heroModel);
+        heroModelGroup.add(heroModel);
       },
       undefined,
       (err) => {
@@ -152,7 +152,7 @@ export function initHero3D() {
     );
   };
 
-  load3DModel(new URL('../../assets/Logo3d.glb', import.meta.url).href);
+  loadHeroModel(new URL('../../assets/Logo3d.glb', import.meta.url).href);
 
   let animationFrameId;
   let previousTime = performance.now();
@@ -178,10 +178,10 @@ export function initHero3D() {
     const heroImageEl = document.querySelector('.hero-image');
     if (heroImageEl) {
       const rect = heroImageEl.getBoundingClientRect();
-      const parentRect = parentContainer.getBoundingClientRect();
+      const heroSectionRect = heroSection.getBoundingClientRect();
       
-      const ndcX = ((rect.left + rect.width / 2) - (parentRect.left + parentRect.width / 2)) / (parentRect.width / 2);
-      const ndcY = -((rect.top + rect.height / 2) - (parentRect.top + parentRect.height / 2)) / (parentRect.height / 2);
+      const ndcX = ((rect.left + rect.width / 2) - (heroSectionRect.left + heroSectionRect.width / 2)) / (heroSectionRect.width / 2);
+      const ndcY = -((rect.top + rect.height / 2) - (heroSectionRect.top + heroSectionRect.height / 2)) / (heroSectionRect.height / 2);
       
       const vFOV = THREE.MathUtils.degToRad(camera.fov);
       const vHeight = 2 * Math.tan(vFOV / 2) * camera.position.z;
@@ -190,21 +190,21 @@ export function initHero3D() {
       baseOffsetX = ndcX * (vWidth / 2);
 
       if (window.innerWidth <= 1024) {
-        mainLight.intensity = settings.lightIntensity * 2.8;
+        mainLight.intensity = heroSceneSettings.lightIntensity * 2.8;
         spotLight.intensity = 2.8;
       } else {
         baseOffsetX -= 1.9;
-        mainLight.intensity = settings.lightIntensity;
+        mainLight.intensity = heroSceneSettings.lightIntensity;
       }
 
       baseOffsetY = ndcY * (vHeight / 2);
 
       const responsiveScale = rect.width / 480;
-      logoGroup.scale.setScalar(responsiveScale);
+      heroModelGroup.scale.setScalar(responsiveScale);
     } else {
       baseOffsetX = 0;
       baseOffsetY = 0;
-      logoGroup.scale.setScalar(1);
+      heroModelGroup.scale.setScalar(1);
     }
 
     spotLight.position.x = Math.sin(time * 0.8) * 3.5;
@@ -213,7 +213,7 @@ export function initHero3D() {
     const positionsAttr = particleGeometry.attributes.position;
     for (let i = 0; i < particleCount; i++) {
       let py = positionsAttr.getY(i);
-      py -= speeds[i] * 0.2;
+      py -= particleSpeeds[i] * 0.2;
       if (py < -5) py = 5;
       positionsAttr.setY(i, py);
 
@@ -223,29 +223,29 @@ export function initHero3D() {
     }
     particleGeometry.attributes.position.needsUpdate = true;
 
-    if (settings.autoRotate) {
-      logoGroup.rotation.y += settings.autoRotateSpeed * delta;
+    if (heroSceneSettings.autoRotate) {
+      heroModelGroup.rotation.y += heroSceneSettings.autoRotateSpeed * delta;
     } else {
-      const targetRadY = (settings.rotationY * Math.PI) / 180;
-      logoGroup.rotation.y += (targetRadY - logoGroup.rotation.y) * 0.15;
+      const targetRadY = (heroSceneSettings.rotationY * Math.PI) / 180;
+      heroModelGroup.rotation.y += (targetRadY - heroModelGroup.rotation.y) * 0.15;
     }
 
-    const targetRadX = (settings.rotationX * Math.PI) / 180
-    if (settings.interactiveTilt) {
-      const targetX = targetRadX + Math.sin(time * 0.6) * 0.18 * settings.tiltIntensity;
-      logoGroup.rotation.x += (targetX - logoGroup.rotation.x) * 0.15;
-      logoGroup.rotation.z = Math.cos(time * 0.8) * 0.12 * settings.tiltIntensity;
+    const targetRadX = (heroSceneSettings.rotationX * Math.PI) / 180;
+    if (heroSceneSettings.interactiveTilt) {
+      const targetX = targetRadX + Math.sin(time * 0.6) * 0.18 * heroSceneSettings.tiltIntensity;
+      heroModelGroup.rotation.x += (targetX - heroModelGroup.rotation.x) * 0.15;
+      heroModelGroup.rotation.z = Math.cos(time * 0.8) * 0.12 * heroSceneSettings.tiltIntensity;
       
-      logoGroup.position.y = baseOffsetY + Math.sin(time * 1.2) * 0.15;
-      logoGroup.position.x = baseOffsetX + Math.cos(time * 0.5) * 0.05;
+      heroModelGroup.position.y = baseOffsetY + Math.sin(time * 1.2) * 0.15;
+      heroModelGroup.position.x = baseOffsetX + Math.cos(time * 0.5) * 0.05;
     } else {
-      logoGroup.rotation.x += (targetRadX - logoGroup.rotation.x) * 0.15;
-      logoGroup.rotation.z = 0;
-      logoGroup.position.y = baseOffsetY;
-      logoGroup.position.x = baseOffsetX;
+      heroModelGroup.rotation.x += (targetRadX - heroModelGroup.rotation.x) * 0.15;
+      heroModelGroup.rotation.z = 0;
+      heroModelGroup.position.y = baseOffsetY;
+      heroModelGroup.position.x = baseOffsetX;
     }
 
-    particles.rotation.y = time * 0.02;
+    particleField.rotation.y = time * 0.02;
 
     renderer.render(scene, camera);
   };
@@ -253,8 +253,8 @@ export function initHero3D() {
   animate();
 
   const handleResize = () => {
-    const newWidth = parentContainer.clientWidth;
-    const newHeight = parentContainer.clientHeight || 500;
+    const newWidth = heroSection.clientWidth;
+    const newHeight = heroSection.clientHeight || 500;
 
     camera.aspect = newWidth / newHeight;
     camera.updateProjectionMatrix();
@@ -266,21 +266,21 @@ export function initHero3D() {
   const resizeObserver = new ResizeObserver(() => {
     handleResize();
   });
-  resizeObserver.observe(parentContainer);
+  resizeObserver.observe(heroSection);
   
   const io = new IntersectionObserver((entries) => {
     isVisible = entries[0].isIntersecting;
   });
-  io.observe(parentContainer);
+  io.observe(heroSection);
 
   const handleMouseMove = (e) => {
     if (!isVisible) return;
-    const rect = parentContainer.getBoundingClientRect();
+    const rect = heroSection.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
     const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
     
-    settings.rotationY = 0 + x * 3; 
-    settings.rotationX = 83 - y * 3;
+    heroSceneSettings.rotationY = 0 + x * 3;
+    heroSceneSettings.rotationX = 83 - y * 3;
   };
   
   window.addEventListener('mousemove', handleMouseMove);

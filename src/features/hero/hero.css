@@ -7,6 +7,7 @@
   padding-top: 140px;
   padding-bottom: 80px;
   overflow: visible;
+  background-image: linear-gradient(to top, rgba(173, 34, 117, 0.037) 0%, transparent 40%);
 }
 
 .hero .container {
