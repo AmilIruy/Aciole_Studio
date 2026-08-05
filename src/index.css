@@ -1,7 +1,7 @@
 /* ===== CSS RESET & VARIABLES ===== */
 @font-face {
   font-family: 'Inter';
-  src: url('src/assets/InterVariable.woff2') format('woff2-variations');
+  src: url('/src/assets/InterVariable.woff2') format('woff2-variations');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
