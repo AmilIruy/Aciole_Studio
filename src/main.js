@@ -6,7 +6,6 @@ import { Hero, initHeroGlitch } from './features/hero/Hero.js';
 import { initHero3D } from './features/hero/HeroScene.js';
 import { MotionSection, initMotion } from './features/motion/MotionSection.js';
 import { LandingPagesSection } from './features/landingPages/LandingPagesSection.js';
-import { BrandingSection } from './features/branding/BrandingSection.js';
 import { AboutSection } from './features/about/AboutSection.js';
 import { ProcessSection } from './features/process/ProcessSection.js';
 import { ProjectsSection, initProjects } from './features/projects/ProjectsSection.js';
@@ -20,10 +19,9 @@ document.getElementById('root').innerHTML = `
     ${Hero()}
     ${MotionSection()}
     ${LandingPagesSection()}
-    ${BrandingSection()}
+    ${ProjectsSection()}
     ${AboutSection()}
     ${ProcessSection()}
-    ${ProjectsSection()}
   </main>
   ${Footer()}
 `;

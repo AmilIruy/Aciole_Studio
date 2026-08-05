@@ -1,7 +1,6 @@
 import './projects.css';
 import motionThumb from '../../assets/motion_thumb.webp';
 import landingMockup from '../../assets/landing_mockup.webp';
-import brandingMockup from '../../assets/branding_mockup.webp';
 import projectPortfolio from '../../assets/project_portfolio.webp';
 
 export function ProjectsSection() {
@@ -25,11 +24,12 @@ export function ProjectsSection() {
       hasPlay: false,
     },
     {
-      image: brandingMockup,
-      title: 'Branding Vólcax',
-      category: 'Branding',
+      image: landingMockup,
+      title: 'Landing Page Nacera',
+      category: 'Landing Page',
       hasPlay: false,
     },
+    // Branding project removed
   ];
 
   return `

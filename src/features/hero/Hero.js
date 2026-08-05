@@ -23,7 +23,7 @@ export function Hero() {
             <span class="highlight-yellow" id="hero-word-2">RESULTADOS.</span>
           </h1>
           <p class="hero-subtitle">
-            Transformamos ideias em experiências digitais memoráveis através de Motion Design, Landing Pages e Branding estratégico.
+            Transformamos ideias em experiências digitais memoráveis através de Motion Design e Landing Pages estratégicas.
           </p>
           <a href="#projects-section" class="btn-primary" id="hero-cta">
             Ver Projetos <span class="arrow">→</span>

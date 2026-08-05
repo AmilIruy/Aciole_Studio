@@ -2,7 +2,7 @@
 
 ## Visão geral
 
-Este repositório contém um site estático de apresentação para o Aciole Studio, focado em motion design, landing pages e branding. O site é construído com Vite e JavaScript moderno, usando componentes baseados em strings HTML retornadas por funções.
+Este repositório contém um site estático de apresentação para o Aciole Studio, focado em motion design e landing pages. O site é construído com Vite e JavaScript moderno, usando componentes baseados em strings HTML retornadas por funções.
 
 O projeto combina:
 - Visual estático em HTML/CSS
@@ -91,8 +91,7 @@ npm run preview
   - Seção de landing pages com mockup e recursos.
   - Usa asset de mockup importado e botões de navegação.
 
-- `BrandingSection.js`
-  - Seção de branding com imagens e pontos de destaque.
+<!-- Branding section removed -->
 
 - `AboutSection.js`
   - Bloco sobre a agência com estatísticas e CTA.

@@ -13,7 +13,6 @@ const markers = [
   { name: 'sectionDivider', match: '/* ===== SECTION DIVIDER ===== */' },
   { name: 'motion', match: '/* ===== MOTION SECTION ===== */' },
   { name: 'landingPages', match: '/* ===== LANDING PAGES SECTION ===== */' },
-  { name: 'branding', match: '/* ===== BRANDING SECTION ===== */' },
   { name: 'about', match: '/* ===== ABOUT SECTION ===== */' },
   { name: 'process', match: '/* ===== PROCESS SECTION ===== */' },
   { name: 'projects', match: '/* ===== PROJECTS SECTION ===== */' },
@@ -65,7 +64,6 @@ const media1024 = `
 
   .motion-section .container { flex-direction: column; }
   .landing-section .container { flex-direction: column; }
-  .branding-section .container { flex-direction: column; }
   
   .about-section .container { flex-direction: column; }
   .about-stats { grid-template-columns: repeat(2, 1fr); width: 100%; }
@@ -91,10 +89,6 @@ const media768 = `
 
   .landing-content h2 { font-size: 2rem; }
 
-  .branding-content h2 { font-size: 2rem; }
-  .branding-features { grid-template-columns: 1fr; }
-  .branding-images { flex-direction: column; }
-  .branding-img-main, .branding-img-side { width: 100%; height: 240px; }
 
   .about-section .container { gap: 40px; }
   .about-stats { grid-template-columns: repeat(2, 1fr); }
@@ -136,15 +130,7 @@ sections.landingPages += `\n@media (max-width: 1024px) {
   .landing-content h2 { font-size: 2rem; }
 }\n`;
 
-sections.branding += `\n@media (max-width: 1024px) {
-  .branding-section .container { flex-direction: column; }
-}
-@media (max-width: 768px) {
-  .branding-content h2 { font-size: 2rem; }
-  .branding-features { grid-template-columns: 1fr; }
-  .branding-images { flex-direction: column; }
-  .branding-img-main, .branding-img-side { width: 100%; height: 240px; }
-}\n`;
+// branding section removed
 
 sections.about += `\n@media (max-width: 1024px) {
   .about-section .container { flex-direction: column; }
@@ -189,7 +175,6 @@ writeCss('src/features/hero/hero.css', sections.hero);
 writeCss('src/shared/components/sectionDivider.css', sections.sectionDivider);
 writeCss('src/features/motion/motion.css', sections.motion);
 writeCss('src/features/landingPages/landingPages.css', sections.landingPages);
-writeCss('src/features/branding/branding.css', sections.branding);
 writeCss('src/features/about/about.css', sections.about);
 writeCss('src/features/process/process.css', sections.process);
 writeCss('src/features/projects/projects.css', sections.projects);

@@ -2,6 +2,9 @@
 @font-face {
   font-family: 'Inter';
   src: url('src/assets/InterVariable.ttf') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
 }
 
 :root {
@@ -44,6 +47,7 @@ html {
 
 body {
   font-family: var(--font-family);
+  font-weight: 400;
   background-color: var(--bg-dark);
   color: var(--white);
   line-height: 1.6;
