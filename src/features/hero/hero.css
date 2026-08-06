@@ -167,22 +167,10 @@
   width: 100% !important;
   height: 100% !important;
   z-index: 0;
+  background: radial-gradient(ellipse, rgb(11, 16, 31) 0%, transparent 40%);
   pointer-events: none;
   outline: none;
   display: block;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 30%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgb(11, 16, 31) 0%, transparent 70%);
-  transform: translate(50%, -50%);
-  z-index: 0;
-  pointer-events: none;
 }
 
 /* ===== TV / 4K ===== */
