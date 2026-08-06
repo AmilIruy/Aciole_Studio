@@ -67,7 +67,7 @@ body.menu-open {
 .mobile-menu-link {
   font-size: 1.35rem;
   font-weight: 600;
-  color: var(--gray-300);
+  color: var(--gray-200);
   padding: 14px 0;
   letter-spacing: -0.3px;
   border-radius: 8px;
@@ -116,7 +116,7 @@ body.menu-open {
   gap: 8px;
   font-size: 0.8rem;
   font-weight: 500;
-  color: var(--gray-400);
+  color: var(--gray-200);
   padding: 10px 16px;
   border-radius: 50px;
   border: 1px solid rgba(255, 255, 255, 0.1);
