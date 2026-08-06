@@ -1,6 +1,6 @@
 import './header.css';
 import './mobileMenu.css';
-import logo from '../../assets/aciole11.png';
+import logo from '../../assets/aciole9.svg';
 import { MobileMenu } from './MobileMenu.js';
 
 export function Header() {
