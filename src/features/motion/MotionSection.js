@@ -2,7 +2,7 @@ import './motion.css';
 import { initMotion } from './motionAnimations.js';
 
 // Video asset importado para que o Vite resolva o caminho corretamente
-import motionVideo from '../../assets/oziart43_-Zenitsu-Ori.webm?url';
+import motionVideo from '../../assets/oziart43_-Zenitsu-Ori.mp4?url';
 
 export function MotionSection() {
   return `
