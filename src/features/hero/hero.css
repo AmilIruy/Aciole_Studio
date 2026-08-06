@@ -167,7 +167,7 @@
   width: 100% !important;
   height: 100% !important;
   z-index: 0;
-  background: radial-gradient(ellipse, rgb(11, 16, 31) 0%, transparent 40%);
+  background: radial-gradient(ellipse, rgba(11, 16, 31, 0.381) 0%, transparent 40%);
   pointer-events: none;
   outline: none;
   display: block;

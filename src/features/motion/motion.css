@@ -113,6 +113,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 40px;
+  background: radial-gradient(circle, rgba(173, 34, 117, 0.020) 0%, transparent 80%);
   width: 100%;
   will-change: transform, opacity;
 }
@@ -163,7 +164,6 @@
 .motion-card__video-wrap {
   position: relative;
   overflow: hidden;
-  background: var(--gray-900);
   flex-shrink: 0;
   box-shadow:
     0 0 0 0.4px rgb(255, 51, 102),
@@ -181,7 +181,7 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg,
-      rgba(85, 74, 153, 0.12) 0%,
+      rgba(255, 51, 102, 0.041) 0%,
       transparent 60%);
   pointer-events: none;
 }
@@ -222,7 +222,7 @@
 .motion-card__body {
   font-size: 0.95rem;
   line-height: 1.75;
-  color: var(--gray-400);
+  color: var(--gray-200);
   display: flex;
   flex-direction: column;
   gap: 0;
