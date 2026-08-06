@@ -70,7 +70,7 @@
 
 .footer p {
   font-size: 0.75rem;
-  color: var(--gray-500);
+  color: var(--gray-300);
 }
 
 .footer-links {
@@ -80,7 +80,7 @@
 
 .footer-links a {
   font-size: 0.75rem;
-  color: var(--gray-500);
+  color: var(--gray-300);
 }
 
 .footer-links a:hover {

@@ -39,13 +39,8 @@
 .header-nav a {
   font-size: 0.875rem;
   font-weight: 400;
-  color: var(--gray-300);
+  color: var(--gray-200);
   position: relative;
-}
-
-.header-nav a.active {
-  color: var(--white);
-  font-weight: 500;
 }
 
 .header-nav a::after {
@@ -59,8 +54,7 @@
   transition: var(--transition);
 }
 
-.header-nav a:hover::after,
-.header-nav a.active::after {
+.header-nav a:hover::after {
   width: 100%;
 }
 
@@ -81,7 +75,7 @@
 }
 
 .header-socials a {
-  color: var(--gray-300);
+  color: var(--gray-200);
   font-size: 1.1rem;
   display: flex;
   align-items: center;

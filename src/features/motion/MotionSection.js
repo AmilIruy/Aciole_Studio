@@ -48,11 +48,11 @@ export function MotionSection() {
           </div>
           <div class="motion-card__desc motion-card__desc--right">
             <span class="motion-card__tag">Logo Animado</span>
-            <h3 class="motion-card__title">
+            <h2 class="motion-card__title">
               <span class="motion-card__line">IDENTIDADE</span>
               <span class="motion-card__line">QUE <em>VIVE</em></span>
               <span class="motion-card__line">E RESPIRA.</span>
-            </h3>
+            </h2>
             <p class="motion-card__body">
               <span class="motion-card__line">Logos que transcendem o estático.</span>
               <span class="motion-card__line">Cada quadro carrega a essência</span>
@@ -65,11 +65,11 @@ export function MotionSection() {
         <div class="motion-card motion-card--vertical" id="motion-card-2">
           <div class="motion-card__desc motion-card__desc--left">
             <span class="motion-card__tag">Animação Comercial</span>
-            <h3 class="motion-card__title">
+            <h2 class="motion-card__title">
               <span class="motion-card__line">Conteúdo</span>
               <span class="motion-card__line">que para</span>
               <span class="motion-card__line">o <em>scroll.</em></span>
-            </h3>
+            </h2>
             <p class="motion-card__body">
               <span class="motion-card__line">Reels e vídeos verticais</span>
               <span class="motion-card__line">construídos para engajar</span>
@@ -104,11 +104,11 @@ export function MotionSection() {
           </div>
           <div class="motion-card__desc motion-card__desc--right">
             <span class="motion-card__tag">Tutorial Animado</span>
-            <h3 class="motion-card__title">
+            <h2 class="motion-card__title">
               <span class="motion-card__line">Conhecimento</span>
               <span class="motion-card__line">entregue com</span>
               <span class="motion-card__line"><em>clareza.</em></span>
-            </h3>
+            </h2>
             <p class="motion-card__body">
               <span class="motion-card__line">Tutoriais e walkthroughs com</span>
               <span class="motion-card__line">motion graphics que simplificam</span>

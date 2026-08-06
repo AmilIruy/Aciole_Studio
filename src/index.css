@@ -81,7 +81,7 @@ button {
   transition: var(--transition);
 }
 
-h3 {
+h2,h3 {
   text-transform: uppercase;
 }
 
@@ -99,7 +99,7 @@ h3 {
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--gray-400);
+  color: var(--gray-300);
   margin-bottom: 16px;
 }
 
