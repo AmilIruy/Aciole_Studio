@@ -47,34 +47,53 @@ export function MotionSection() {
             <div class="motion-card__video-overlay"></div>
           </div>
           <div class="motion-card__desc motion-card__desc--right">
-            <span class="motion-card__tag">Logo Animado</span>
+            <span class="motion-card__tag">Animação &amp; VFX</span>
             <h2 class="motion-card__title">
-              <span class="motion-card__line">IDENTIDADE</span>
-              <span class="motion-card__line">QUE <em>VIVE</em></span>
-              <span class="motion-card__line">E RESPIRA.</span>
+              <span class="motion-card__line">IDEIAS QUE</span>
+              <span class="motion-card__line">GANHAM</span>
+              <span class="motion-card__line"><em>MOVIMENTO.</em></span>
             </h2>
-            <p class="motion-card__body">
-              <span class="motion-card__line">Logos que transcendem o estático.</span>
-              <span class="motion-card__line">Cada quadro carrega a essência</span>
-              <span class="motion-card__line">da sua marca em movimento.</span>
-            </p>
+            <div class="motion-card__body">
+              <span class="motion-card__line">Animações, motion graphics e efeitos</span>
+              <span class="motion-card__line">visuais que transformam conceitos,</span>
+              <span class="motion-card__line">produtos e identidades em experiências</span>
+              <span class="motion-card__line">que chamam atenção.</span>
+              <div class="motion-card__line motion-card__includes">
+                <ul class="motion-includes-list">
+                  <li>Motion Graphics</li>
+                  <li>Logo Animation</li>
+                  <li>VFX</li>
+                  <li>Composição</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Card 2 — Animação Comercial — vertical (Reels), texto esq / vídeo dir -->
         <div class="motion-card motion-card--vertical" id="motion-card-2">
           <div class="motion-card__desc motion-card__desc--left">
-            <span class="motion-card__tag">Animação Comercial</span>
+            <span class="motion-card__tag">Conteúdo para Redes</span>
             <h2 class="motion-card__title">
-              <span class="motion-card__line">Conteúdo</span>
-              <span class="motion-card__line">que para</span>
-              <span class="motion-card__line">o <em>scroll.</em></span>
+              <span class="motion-card__line">CONTEÚDO</span>
+              <span class="motion-card__line">&nbsp;&nbsp;QUE PARA</span>
+              <span class="motion-card__line">&nbsp;&nbsp;O <em>SCROLL.</em></span>
             </h2>
-            <p class="motion-card__body">
-              <span class="motion-card__line">Reels e vídeos verticais</span>
-              <span class="motion-card__line">construídos para engajar</span>
-              <span class="motion-card__line">desde o primeiro frame.</span>
-            </p>
+            <div class="motion-card__body">
+              <span class="motion-card__line">Vídeos e animações pensados para</span>
+              <span class="motion-card__line">redes sociais, combinando edição,</span>
+              <span class="motion-card__line">ritmo, motion e efeitos visuais para</span>
+              <span class="motion-card__line">prender a atenção desde o primeiro frame.</span>
+              <div class="motion-card__line motion-card__includes">
+                <ul class="motion-includes-list">
+                  <li>Reels</li>
+                  <li>Vídeos Comerciais</li>
+                  <li>VFX</li>
+                  <li>Motion</li>
+                  <li>Edição</li>
+                </ul>
+              </div>
+            </div>
           </div>
           <div class="motion-card__video-wrap">
             <video
@@ -103,17 +122,26 @@ export function MotionSection() {
             <div class="motion-card__video-overlay"></div>
           </div>
           <div class="motion-card__desc motion-card__desc--right">
-            <span class="motion-card__tag">Tutorial Animado</span>
+            <span class="motion-card__tag">Conteúdo Educativo</span>
             <h2 class="motion-card__title">
               <span class="motion-card__line">Conhecimento</span>
               <span class="motion-card__line">entregue com</span>
               <span class="motion-card__line"><em>clareza.</em></span>
             </h2>
-            <p class="motion-card__body">
-              <span class="motion-card__line">Tutoriais e walkthroughs com</span>
-              <span class="motion-card__line">motion graphics que simplificam</span>
-              <span class="motion-card__line">o complexo e retêm a atenção.</span>
-            </p>
+            <div class="motion-card__body">
+              <span class="motion-card__line">Vídeos educativos, histórias e conteúdos</span>
+              <span class="motion-card__line">de curiosidades que transformam</span>
+              <span class="motion-card__line">informação em narrativas visuais</span>
+              <span class="motion-card__line">fáceis de entender e interessantes de assistir.</span>
+              <div class="motion-card__line motion-card__includes">
+                <ul class="motion-includes-list">
+                  <li>História</li>
+                  <li>Curiosidades</li>
+                  <li>Videoaulas</li>
+                  <li>Motion</li>
+                </ul>
+              </div>
+            </div>
             <a href="#projects-section" class="btn-primary motion-card__button">
               Ver Mais Projetos <span class="arrow">→</span>
             </a>

@@ -74,7 +74,7 @@
 .landing-mockup-card {
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(123, 47, 255, 0.2);
+  filter: drop-shadow(0 0px 3px rgb(64, 177, 229));
   max-width: 480px;
   width: 100%;
   position: relative;
@@ -82,41 +82,8 @@
 
 .landing-mockup-card img {
   width: 100%;
-  height: 340px;
+  height: 100%;
   object-fit: cover;
-}
-
-.mockup-nav-arrows {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  justify-content: space-between;
-  width: calc(100% + 80px);
-  left: -40px;
-  pointer-events: none;
-}
-
-.mockup-nav-arrow {
-  width: 44px;
-  height: 44px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--white);
-  font-size: 1.2rem;
-  cursor: pointer;
-  pointer-events: all;
-  transition: var(--transition);
-}
-
-.mockup-nav-arrow:hover {
-  background: var(--purple);
-  border-color: var(--purple);
 }
 
 /* ===== TV / 4K ===== */
@@ -178,12 +145,6 @@
     height: 260px;
   }
 
-  /* Nav arrows ficam próximos ao card em mobile */
-  .mockup-nav-arrows {
-    width: calc(100% + 40px);
-    left: -20px;
-  }
-
   .mockup-nav-arrow {
     width: 38px;
     height: 38px;
@@ -207,10 +168,5 @@
 
   .landing-mockup-card img {
     height: 220px;
-  }
-
-  /* Esconde setas em mobile muito pequeno — sem mouse hover */
-  .mockup-nav-arrows {
-    display: none;
   }
 }

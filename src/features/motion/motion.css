@@ -109,22 +109,23 @@
 .motion-card {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 48px;
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 40px;
-  background: radial-gradient(circle, rgba(173, 34, 117, 0.020) 0%, transparent 80%);
   width: 100%;
   will-change: transform, opacity;
 }
 
 /* ── Variante 1: Horizontal Médio (16:9 menor) ───────────────────────────── */
 .motion-card--horizontal-md {
+  
   flex-direction: row;
 }
 
 .motion-card--horizontal-md .motion-card__video-wrap {
-  width: 55%;
+  width: 48%;
   flex-shrink: 0;
   aspect-ratio: 16 / 9;
 }
@@ -133,8 +134,7 @@
 .motion-card--vertical {
   flex-direction: row;
   justify-content: center;
-  /* Gap menor: texto e vídeo vertical ficam próximos */
-  gap: 32px;
+  gap: 48px;
   align-items: center;
 }
 
@@ -146,7 +146,9 @@
 }
 
 .motion-card--vertical .motion-card__desc {
-  max-width: 280px;
+  max-width: 360px;
+  text-align: right;
+  align-items: flex-end;
 }
 
 /* ── Variante 3: Horizontal Grande (YouTube 16:9) ───────────────────────── */
@@ -155,7 +157,7 @@
 }
 
 .motion-card--horizontal-lg .motion-card__video-wrap {
-  width: 62%;
+  width: 55%;
   flex-shrink: 0;
   aspect-ratio: 16 / 9;
 }
@@ -188,7 +190,7 @@
 
 /* ── Descrição ──────────────────────────────────────────────────────────── */
 .motion-card__desc {
-  flex: 1;
+  flex: 0 1 520px;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -231,6 +233,43 @@
 .motion-card__button {
   margin-top: 24px;
   align-self: flex-start;
+}
+
+.motion-card__includes {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.motion-card__includes strong {
+  font-size: 0.85rem;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.motion-includes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.motion-card--vertical .motion-includes-list {
+  justify-content: flex-end;
+}
+
+.motion-includes-list li {
+  border: 1px solid hsla(345, 100%, 60%, 0.218);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  color: var(--yellow);
 }
 
 /* Cada linha de texto — animada via GSAP stagger */
@@ -279,11 +318,20 @@
     aspect-ratio: 9 / 16;
   }
 
+  .motion-card__desc,
   .motion-card__desc--left,
-  .motion-card__desc--right {
+  .motion-card__desc--right,
+  .motion-card--vertical .motion-card__desc {
     order: -1;
-    text-align: center;
-    align-items: center;
+    text-align: left;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 100%;
+    flex: 1 1 auto;
+  }
+
+  .motion-card--vertical .motion-includes-list {
+    justify-content: flex-start;
   }
 
   .motion-video-fullscreen-wrap {

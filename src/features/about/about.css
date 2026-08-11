@@ -37,7 +37,7 @@
 }
 
 .about-content h2 .highlight {
-  background: linear-gradient(100deg, var(--blue-light), var(--yellow));
+  background: linear-gradient(100deg, var(--purple-light), var(--yellow));
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }

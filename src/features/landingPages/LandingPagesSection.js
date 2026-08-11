@@ -60,10 +60,6 @@ export function LandingPagesSection() {
         <div class="landing-mockup">
           <div class="landing-mockup-card">
             <img src="${landingMockup}" alt="Landing Page Mockup - Impulsione seu negócio no digital" />
-            <div class="mockup-nav-arrows">
-              <button class="mockup-nav-arrow" aria-label="Anterior">‹</button>
-              <button class="mockup-nav-arrow" aria-label="Próximo">›</button>
-            </div>
           </div>
         </div>
       </div>
