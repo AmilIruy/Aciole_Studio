@@ -64,24 +64,32 @@ export function initLenis() {
   return lenisInstance;
 }
 
-function getTargetMaskPosition() {
+let cachedMaskPosition = null;
+let resizeTimer = null;
+
+function calculateMaskPosition() {
   const vw = window.innerWidth;
   const vh = window.innerHeight;
-  // Extrai o número configurado (ex: 2200vw -> 22)
   const maskMultiplier = parseFloat(MOTION_ANIMATION_CONFIG.titleMaskSize) / 100;
   const iw = maskMultiplier * vw; 
-  // Proporção do viewBox do SVG (572.09 / 234.37)
   const ih = iw / (572.09 / 234.37);
-  
-  // Coordenadas centrais do path (letra T) dentro do viewBox
   const fx = 277.91 / 572.09;
   const fy = 52.185 / 234.37;
-  
-  // Calcula a porcentagem exata para centralizar o path na tela
   const x = (vw / 2 - iw * fx) / (vw - iw) * 100;
   const y = (vh / 2 - ih * fy) / (vh - ih) * 100;
-  
-  return `${x}% ${y}%`;
+  cachedMaskPosition = `${x}% ${y}%`;
+}
+
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    calculateMaskPosition();
+  }, 150);
+});
+
+function getTargetMaskPosition() {
+  if (!cachedMaskPosition) calculateMaskPosition();
+  return cachedMaskPosition;
 }
 
 function animateMotionTitle() {
@@ -162,7 +170,16 @@ function animateMotionCards() {
     const descRight = card.querySelector('.motion-card__desc--right');
     const lines = card.querySelectorAll('.motion-card__line');
 
-    gsap.fromTo(
+    // Combina os ScrollTriggers em uma única Timeline para evitar overhead
+    const cardTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: card,
+        start: cardStart,
+        toggleActions: 'play none none reverse',
+      }
+    });
+
+    cardTl.fromTo(
       card,
       { opacity: 0, y: 70 },
       {
@@ -170,18 +187,15 @@ function animateMotionCards() {
         y: 0,
         duration: isMobile ? 0.8 : MOTION_ANIMATION_CONFIG.cardFadeDuration,
         ease: 'power3.out',
-        scrollTrigger: {
-          trigger: card,
-          start: cardStart,
-          toggleActions: 'play none none reverse',
-        },
-      }
+      },
+      0
     );
 
     if (lines.length) {
       const fromX = descRight ? 50 : -50;
-
-      gsap.fromTo(
+      const delayOffset = isMobile ? 0.1 : 0.15;
+      
+      cardTl.fromTo(
         lines,
         { opacity: 0, x: fromX },
         {
@@ -190,12 +204,8 @@ function animateMotionCards() {
           duration: isMobile ? 0.55 : MOTION_ANIMATION_CONFIG.cardLineDuration,
           ease: 'power3.out',
           stagger: isMobile ? 0.05 : MOTION_ANIMATION_CONFIG.cardLineStagger,
-          scrollTrigger: {
-            trigger: card,
-            start: lineStart,
-            toggleActions: 'play none none reverse',
-          },
-        }
+        },
+        delayOffset
       );
     }
 
@@ -266,10 +276,13 @@ function animateCardsParallaxEntry() {
   );
 }
 
+let isMotionInitialized = false;
+
 export function initMotion() {
-  requestAnimationFrame(() => {
-    animateMotionTitle();
-    animateMotionCards();
-    animateCardsParallaxEntry();
-  });
+  if (isMotionInitialized) return;
+  isMotionInitialized = true;
+  
+  animateMotionTitle();
+  animateMotionCards();
+  animateCardsParallaxEntry();
 }
