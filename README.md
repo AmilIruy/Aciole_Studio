@@ -164,3 +164,28 @@ Para manter o nível de excelência performática em futuras edições, siga rig
 7. **Fast Navigation**: Ao adicionar uma nova interação lazy loaded, certifique-se de que a estrutura HTML exista primeiro. Se o usuário pular direto do header para o rodapé em 0.1s, o site jamais deverá gerar erros de DOM null.
 8. **Consolidação de Animações**: Quando animar múltiplos elementos vizinhos acionados pelo mesmo evento de scroll (como cards e seus textos internos), consolide tudo em uma única `gsap.timeline` com um único `ScrollTrigger`. Múltiplos ScrollTriggers na mesma área provocam excesso de chamadas `getBoundingClientRect()`.
 9. **Cálculos de Layout via JS**: Evite cálculos dinâmicos atrelados ao loop de renderização (ex: funções dentro de `scrub`). Caso precise de dimensões baseadas na janela, calcule em variáveis locais uma única vez ou implemente um *cache* com *debounce* escutando o evento `resize`.
+10. **Three.js no mobile**: Nunca carregar `HeroScene.js`, `Three.js`, `GLTFLoader` ou o arquivo `.glb` no mobile. A verificação de breakpoint (`window.matchMedia`) **deve** estar no `main.js`, antes do `import()` dinâmico. Não use CSS para esconder o canvas — o download ainda ocorreria.
+11. **Inicialização de cenas 3D**: O loop `requestAnimationFrame` de uma cena Three.js **nunca** deve iniciar antes do modelo 3D e da câmera estarem prontos. Sempre mova `animate()` para o interior do callback `onLoad` do GLTFLoader. O canvas só deve ficar visível (`.ready`) após o primeiro frame real renderizado.
+12. **getBoundingClientRect em loops**: Nunca chame `getBoundingClientRect()`, `offsetWidth`, `offsetHeight` ou similares dentro do loop de animação. Calcule uma vez na inicialização e em `ResizeObserver`, guardando em variáveis de cache.
+
+## Hero Performance Architecture
+
+### Desktop
+- **Three.js**: Carregado sob demanda via dynamic `import()`, somente quando `window.matchMedia('(min-width: 769px)').matches === true`.
+- **HeroScene.js**: Chunk separado (~600 KB), nunca incluído no bundle inicial.
+- **Logo3d.glb**: Carregado apenas pelo `HeroScene.js`, após o módulo ser baixado.
+- **Fallback visual**: O SVG `aciole9.svg` é exibido imediatamente enquanto o 3D carrega. O canvas permanece `opacity: 0` até o callback `onLoad` do GLTFLoader concluir.
+- **Revelação suave**: Após o primeiro `renderer.render()` dentro do `onLoad`, o canvas recebe a classe `.ready` (fade-in de 0.7s) e o SVG recebe `.hidden` (fade-out simultâneo). Zero flash.
+- **Cache de layout**: `getBoundingClientRect()` é chamado uma vez no `onLoad` e novamente apenas no `ResizeObserver`. O loop `animate()` usa variáveis em cache — sem reflow por frame.
+
+### Mobile (≤ 768px)
+- Utiliza `aciole9.svg` como logo permanente.
+- **Three.js não é carregado**.
+- **HeroScene.js não é baixado**.
+- **Logo3d.glb não é baixado**.
+- **WebGLRenderer não é criado**.
+- **requestAnimationFrame do 3D não é iniciado**.
+- O `<canvas>` fica com `display: none` via CSS como redundância de segurança.
+
+> [!CAUTION]
+> Futuras alterações na Hero **não devem** colocar Three.js, HeroScene.js ou qualquer import do diretório `three/` no caminho crítico de carregamento. O import dinâmico deve sempre estar protegido pela verificação `window.matchMedia`.

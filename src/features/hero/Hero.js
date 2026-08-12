@@ -13,7 +13,7 @@ const CYCLE_INTERVAL = 4500;
 export function Hero() {
   return `
     <section class="hero" id="hero">
-      <canvas id="hero-canvas" class="hero-bg-canvas"></canvas>
+      <canvas id="hero-canvas" class="hero-bg-canvas" aria-hidden="true"></canvas>
       <div class="container">
         <div class="hero-content">
           <h1 class="hero-title">
@@ -30,7 +30,16 @@ export function Hero() {
           </a>
         </div>
         <div class="hero-image">
-          <!-- Espaço reservado para manter o layout flexbox -->
+          <!-- SVG: logo permanente no mobile / fallback enquanto o 3D não está pronto no desktop -->
+          <img
+            id="hero-logo-svg"
+            class="hero-logo-svg"
+            src="/src/assets/aciole9.svg"
+            alt="Aciole Studio"
+            aria-hidden="true"
+            width="480"
+            height="480"
+          >
         </div>
       </div>
     </section>

@@ -29,8 +29,12 @@ document.getElementById('root').innerHTML = `
 initMobileMenu();
 initHeroGlitch();
 
-// Three.js do Hero carrega em background sem bloquear o DOM
-import('./features/hero/HeroScene.js').then(({ initHero3D }) => initHero3D());
+// Three.js do Hero — só carrega em desktop (769px+ consistente com o CSS)
+// No mobile, o SVG aciole9.svg é exibido diretamente (zero Three.js/GLB)
+const isDesktop = window.matchMedia('(min-width: 769px)').matches;
+if (isDesktop) {
+  import('./features/hero/HeroScene.js').then(({ initHero3D }) => initHero3D());
+}
 // Lenis: Inicializado assincronamente logo após o render crítico para garantir UX suave
 import('./features/motion/motionAnimations.js').then(({ initLenis }) => initLenis());
 
