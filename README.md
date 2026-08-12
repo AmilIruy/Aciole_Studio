@@ -139,3 +139,26 @@ npm run preview
 - Consulte a seção **Estrutura do projeto** para encontrar rapidamente onde cada bloco do site é definido.
 - Use **Como o site funciona** para entender a renderização e inicialização de scripts.
 - Verifique **Notas de implementação** antes de mexer no carregamento de assets ou no fluxo de renderização do hero 3D.
+
+## Performance Architecture
+
+O site foi otimizado para atingir as melhores métricas de carregamento (LCP, FCP e TBT) garantindo a experiência de usuário através de uma estratégia agressiva de **Code Splitting** e **Lazy Loading**:
+
+- **Caminho Crítico (Initial Render):** Apenas o HTML base, CSS essencial e pequenos scripts interativos são carregados inicialmente. As funções que geram HTML (`Hero()`, `MotionSection()`, etc.) estão no bundle principal para garantir que a página "exista" imediatamente, impedindo a quebra de layout durante *Fast Navigation* (pulos rápidos via links âncora).
+- **Dynamic Imports:** Módulos que dependem de bibliotecas pesadas (Three.js, GSAP, ScrollTrigger, Lenis) foram desacoplados. Eles são requisitados através de `import('...')` retornando Promises.
+- **Three.js & Hero:** O modelo 3D é carregado de forma assíncrona. O usuário vê o conteúdo da Hero instantaneamente, e o 3D surge logo em seguida, sem bloquear a thread principal.
+- **Lenis (Smooth Scroll):** É inicializado via import dinâmico imediatamente após o render crítico. Isso evita atrasar o LCP da página, sem que a experiência global de scroll do usuário seja perdida.
+- **Lazy Loading de Seções (Intersection Observer):** Um `IntersectionObserver` global (`jsLazyLoadObserver` com root margin estendida para 600px) monitora o scroll. Somente quando o usuário se aproxima de uma seção pesada (como Motion ou Projetos), o JavaScript e as animações dessas seções são baixados, parseados e executados.
+- **Vídeos "Click-to-Load":** Os vídeos pesados das landing pages não carregam imediatamente. A tag `<video>` recebe a URL num atributo `data-video` e conta com uma thumbnail otimizada e um botão de Play, evitando sobrecarga de dados não solicitados. Ao clicar no Play, o JavaScript atribui o `src` ao vídeo.
+
+## Performance Guidelines
+
+Para manter o nível de excelência performática em futuras edições, siga rigorosamente as regras abaixo:
+
+1. **Evite novos imports estáticos na `main.js`**: Não adicione funcionalidades pesadas via `import { ... }` na `main.js`. Use sempre `import('...').then(...)` para funcionalidades abaixo da dobra da página.
+2. **Separe HTML de Lógica**: Componentes visuais (`.js` que retorna a string do template) devem ser importados estaticamente. Toda lógica de eventos e bibliotecas extras (`initMotion()`, `initProjects()`) deve viver em um arquivo separado e importado sob demanda.
+3. **Imagens Otimizadas**: Use sempre os formatos WebP ou AVIF, definindo dimensões explicitamente (`width` e `height`) no CSS ou HTML para evitar Cumulative Layout Shift (CLS).
+4. **Vídeos Sob Demanda**: Nunca coloque arquivos pesados `.mp4` carregando diretamente pelo atributo `src` se o usuário não pediu para reproduzir. Siga o padrão *Click-to-Load* com thumbnails.
+5. **Auditoria Pós-alterações pesadas**: Ao adicionar uma nova biblioteca (ex: animação, slider), analise o impacto visualizando os chunks após executar `npm run build`. O pacote principal (`index.js`) deve se manter o mais próximo de ~30kb gzipped possível.
+6. **Múltiplas Instâncias**: Evite inicializar GSAP, ScrollTrigger ou Lenis várias vezes. Gerencie-os de modo singular.
+7. **Fast Navigation**: Ao adicionar uma nova interação lazy loaded, certifique-se de que a estrutura HTML exista primeiro. Se o usuário pular direto do header para o rodapé em 0.1s, o site jamais deverá gerar erros de DOM null.
