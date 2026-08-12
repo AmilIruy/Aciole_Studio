@@ -1,4 +1,5 @@
 import './hero.css';
+import logo from '../../assets/aciole9.svg';
 
 const WORD_PAIRS = [
   { word1: 'DIGITAIS', word2: 'RESULTADOS' },
@@ -34,7 +35,7 @@ export function Hero() {
           <img
             id="hero-logo-svg"
             class="hero-logo-svg"
-            src="/src/assets/aciole9.svg"
+            src="${logo}"
             alt="Aciole Studio"
             aria-hidden="true"
             width="480"

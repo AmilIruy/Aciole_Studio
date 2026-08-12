@@ -1,7 +1,8 @@
 import './motion.css';
 
-// Video asset importado para que o Vite resolva o caminho corretamente
+// Assets importados para que o Vite resolva os caminhos corretamente
 import motionVideo from '../../assets/aviao.mp4?url';
+import motionThumb from '../../assets/motion_thumb.webp';
 
 export function MotionSection() {
   return `
@@ -35,7 +36,7 @@ export function MotionSection() {
         <!-- Card 1 — Logo Animado — horizontal médio, vídeo esq / texto dir -->
         <div class="motion-card motion-card--horizontal-md" id="motion-card-1">
           <div class="motion-card__video-wrap">
-            <img class="motion-card__thumbnail" src="/assets/motion_thumb.webp" alt="Thumbnail do Projeto" loading="lazy" />
+            <img class="motion-card__thumbnail" src="${motionThumb}" alt="Thumbnail do Projeto" loading="lazy" />
             <button class="motion-play-btn" aria-label="Reproduzir vídeo">
               <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
             </button>
@@ -99,7 +100,7 @@ export function MotionSection() {
             </div>
           </div>
           <div class="motion-card__video-wrap">
-            <img class="motion-card__thumbnail" src="/assets/motion_thumb.webp" alt="Thumbnail do Projeto" loading="lazy" />
+            <img class="motion-card__thumbnail" src="${motionThumb}" alt="Thumbnail do Projeto" loading="lazy" />
             <button class="motion-play-btn" aria-label="Reproduzir vídeo">
               <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
             </button>
@@ -118,7 +119,7 @@ export function MotionSection() {
         <!-- Card 3 — Tutorial Animado — horizontal grande (YouTube), vídeo esq / texto dir -->
         <div class="motion-card motion-card--horizontal-lg" id="motion-card-3">
           <div class="motion-card__video-wrap">
-            <img class="motion-card__thumbnail" src="/assets/motion_thumb.webp" alt="Thumbnail do Projeto" loading="lazy" />
+            <img class="motion-card__thumbnail" src="${motionThumb}" alt="Thumbnail do Projeto" loading="lazy" />
             <button class="motion-play-btn" aria-label="Reproduzir vídeo">
               <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
             </button>
