@@ -36,13 +36,17 @@ export function MotionSection() {
         <!-- Card 1 — Logo Animado — horizontal médio, vídeo esq / texto dir -->
         <div class="motion-card motion-card--horizontal-md" id="motion-card-1">
           <div class="motion-card__video-wrap">
+            <img class="motion-card__thumbnail" src="/assets/video-thumbnail.webp" alt="Thumbnail do Projeto" loading="lazy" />
+            <button class="motion-play-btn" aria-label="Reproduzir vídeo">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+            </button>
             <video
               class="motion-card__video"
-              src="${motionVideo}"
+              data-video="${motionVideo}"
               muted
               playsinline
               loop
-              preload="metadata"
+              preload="none"
             ></video>
             <div class="motion-card__video-overlay"></div>
           </div>
@@ -76,8 +80,8 @@ export function MotionSection() {
             <span class="motion-card__tag">Conteúdo para Redes</span>
             <h2 class="motion-card__title">
               <span class="motion-card__line">CONTEÚDO</span>
-              <span class="motion-card__line">&nbsp;&nbsp;QUE PARA</span>
-              <span class="motion-card__line">&nbsp;&nbsp;O <em>SCROLL.</em></span>
+              <span class="motion-card__line">QUE PARA</span>
+              <span class="motion-card__line">O <em>SCROLL.</em></span>
             </h2>
             <div class="motion-card__body">
               <span class="motion-card__line">Vídeos e animações pensados para</span>
@@ -96,13 +100,17 @@ export function MotionSection() {
             </div>
           </div>
           <div class="motion-card__video-wrap">
+            <img class="motion-card__thumbnail" src="/assets/video-thumbnail.webp" alt="Thumbnail do Projeto" loading="lazy" />
+            <button class="motion-play-btn" aria-label="Reproduzir vídeo">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+            </button>
             <video
               class="motion-card__video"
-              src="${motionVideo}"
+              data-video="${motionVideo}"
               muted
               playsinline
               loop
-              preload="metadata"
+              preload="none"
             ></video>
             <div class="motion-card__video-overlay"></div>
           </div>
@@ -111,13 +119,17 @@ export function MotionSection() {
         <!-- Card 3 — Tutorial Animado — horizontal grande (YouTube), vídeo esq / texto dir -->
         <div class="motion-card motion-card--horizontal-lg" id="motion-card-3">
           <div class="motion-card__video-wrap">
+            <img class="motion-card__thumbnail" src="/assets/video-thumbnail.webp" alt="Thumbnail do Projeto" loading="lazy" />
+            <button class="motion-play-btn" aria-label="Reproduzir vídeo">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+            </button>
             <video
               class="motion-card__video"
-              src="${motionVideo}"
+              data-video="${motionVideo}"
               muted
               playsinline
               loop
-              preload="metadata"
+              preload="none"
             ></video>
             <div class="motion-card__video-overlay"></div>
           </div>

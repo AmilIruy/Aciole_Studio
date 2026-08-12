@@ -177,6 +177,66 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  cursor: pointer;
+}
+
+.motion-card__video.playing {
+  opacity: 1;
+}
+
+.motion-card__thumbnail {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  transition: opacity 0.4s ease;
+}
+
+.motion-card__thumbnail.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.motion-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  background: var(--yellow);
+  color: var(--bg-dark);
+  border: none;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.motion-play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.motion-play-btn svg {
+  width: 24px;
+  height: 24px;
+  margin-left: 4px;
+  fill: currentColor;
+}
+
+.motion-play-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.8);
 }
 
 .motion-card__video-overlay {
@@ -186,6 +246,7 @@
       rgba(255, 51, 102, 0.041) 0%,
       transparent 60%);
   pointer-events: none;
+  z-index: 3;
 }
 
 /* ── Descrição ──────────────────────────────────────────────────────────── */

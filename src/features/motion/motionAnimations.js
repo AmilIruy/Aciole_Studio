@@ -157,6 +157,8 @@ function animateMotionCards() {
 
   cards.forEach((card) => {
     const video = card.querySelector('.motion-card__video');
+    const playBtn = card.querySelector('.motion-play-btn');
+    const thumbnail = card.querySelector('.motion-card__thumbnail');
     const descRight = card.querySelector('.motion-card__desc--right');
     const lines = card.querySelectorAll('.motion-card__line');
 
@@ -197,7 +199,50 @@ function animateMotionCards() {
       );
     }
 
-    setupVideoPlaybackTrigger(video, card, 'top 85%', 'bottom 15%');
+    if (playBtn && video) {
+      playBtn.addEventListener('click', () => {
+        document.querySelectorAll('.motion-card__video').forEach(v => {
+          if (v !== video && (!v.paused || v.hasAttribute('src'))) {
+            v.pause();
+            v.removeAttribute('src'); 
+            v.load();
+            v.classList.remove('playing');
+            
+            const parent = v.closest('.motion-card__video-wrap');
+            if (parent) {
+              const otherBtn = parent.querySelector('.motion-play-btn');
+              const otherThumb = parent.querySelector('.motion-card__thumbnail');
+              if (otherBtn) otherBtn.classList.remove('hidden');
+              if (otherThumb) otherThumb.classList.remove('hidden');
+            }
+          }
+        });
+
+        const dataVideo = video.getAttribute('data-video');
+        if (!video.getAttribute('src') && dataVideo) {
+          video.setAttribute('src', dataVideo);
+          video.load();
+        }
+
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            playBtn.classList.add('hidden');
+            if (thumbnail) thumbnail.classList.add('hidden');
+            video.classList.add('playing');
+          }).catch(err => {
+            console.error("Erro ao reproduzir o vídeo:", err);
+          });
+        }
+      });
+      
+      video.addEventListener('click', () => {
+        if (!video.paused) {
+          video.pause();
+          playBtn.classList.remove('hidden');
+        }
+      });
+    }
   });
 }
 
