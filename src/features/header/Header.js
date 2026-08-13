@@ -10,7 +10,7 @@ export function Header() {
     <header class="header" id="header">
       <div class="container">
         <a href="#" class="header-logo" id="header-logo">
-          <img src="/aciole9.svg" alt="Aciole Studio" fetchpriority="high" />
+          <img src="/aciole9.svg" alt="Aciole Studio" fetchpriority="high" width="296" height="275" />
         </a>
 
         <nav class="header-nav" id="header-nav">
