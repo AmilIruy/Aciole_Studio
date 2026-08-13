@@ -156,13 +156,28 @@ export function initHero3D() {
     }
   };
 
-  // ── Visibility (IntersectionObserver — pausa RAF quando fora da tela) ─────
+  // ── Visibility (IntersectionObserver — pausa/retoma RAF quando fora/entrar na tela)
   let isVisible = true;
-  let animationFrameId;
+  let animationFrameId = null;
 
   const io = new IntersectionObserver((entries) => {
-    isVisible = entries[0].isIntersecting;
-  });
+    const entry = entries[0];
+    const currentlyVisible = entry.isIntersecting;
+
+    if (currentlyVisible && !animationFrameId) {
+      isVisible = true;
+      previousTime = performance.now();
+      // inicia o loop de animação quando voltar a ficar visível
+      animate();
+    } else if (!currentlyVisible && animationFrameId) {
+      isVisible = false;
+      // cancela o RAF para desligar efetivamente as animações
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    } else {
+      isVisible = currentlyVisible;
+    }
+  }, { threshold: 0.01 });
   io.observe(heroSection);
 
   // ── Animation loop ────────────────────────────────────────────────────────
@@ -172,10 +187,6 @@ export function initHero3D() {
   let elapsedTime = 0;
 
   const animate = () => {
-    animationFrameId = requestAnimationFrame(animate);
-
-    if (!isVisible) return;
-
     const now = performance.now();
     const delta = (now - previousTime) / 1000;
     previousTime = now;
@@ -228,6 +239,13 @@ export function initHero3D() {
     particleField.rotation.y = time * 0.02;
 
     renderer.render(scene, camera);
+
+    // Agendar próximo frame somente se a seção estiver visível
+    if (isVisible) {
+      animationFrameId = requestAnimationFrame(animate);
+    } else {
+      animationFrameId = null;
+    }
   };
 
   // ── GLB Loader ────────────────────────────────────────────────────────────
@@ -265,8 +283,11 @@ export function initHero3D() {
       canvasElement.classList.add('ready');
       if (svgLogo) svgLogo.classList.add('hidden');
 
-      // Iniciar o loop de animação somente agora
-      animate();
+      // Iniciar o loop de animação somente agora se a seção estiver visível
+      if (isVisible && !animationFrameId) {
+        previousTime = performance.now();
+        animate();
+      }
     },
     undefined,
     (err) => {

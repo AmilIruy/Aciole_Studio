@@ -57,6 +57,8 @@ export function initHeroGlitch() {
   let isAnimating = false;
   let cycleIntervalId = null;
   let timeoutIds = [];
+  let io = null;
+  let isVisible = true;
 
   const clearScheduledTasks = () => {
     timeoutIds.forEach((timeoutId) => window.clearTimeout(timeoutId));
@@ -96,6 +98,38 @@ export function initHeroGlitch() {
     );
   };
 
-  cycleIntervalId = window.setInterval(animateSwap, CYCLE_INTERVAL);
-  window.addEventListener('beforeunload', clearScheduledTasks, { once: true });
+  const startCycle = () => {
+    if (cycleIntervalId === null) {
+      // executa imediatamente uma vez para garantir feedback ao usuário
+      animateSwap();
+      cycleIntervalId = window.setInterval(animateSwap, CYCLE_INTERVAL);
+    }
+  };
+
+  // Inicializa observador para pausar/retomar quando a seção hero sair/entrar na viewport
+  const heroSection = document.getElementById('hero');
+  if (heroSection) {
+    io = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      const currentlyVisible = entry.isIntersecting;
+
+      if (currentlyVisible && !cycleIntervalId) {
+        isVisible = true;
+        startCycle();
+      } else if (!currentlyVisible) {
+        isVisible = false;
+        clearScheduledTasks();
+      }
+    }, { threshold: 0.01 });
+
+    io.observe(heroSection);
+  } else {
+    // fallback: inicia normalmente se não encontrar a seção
+    startCycle();
+  }
+
+  window.addEventListener('beforeunload', () => {
+    clearScheduledTasks();
+    if (io) io.disconnect();
+  }, { once: true });
 }

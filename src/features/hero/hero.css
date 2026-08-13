@@ -7,7 +7,9 @@
   padding-top: 140px;
   padding-bottom: 80px;
   overflow: visible;
-  background-image: linear-gradient(to top, rgba(173, 34, 117, 0.037) 0%, transparent 40%);
+  background-image: 
+    radial-gradient(ellipse at center, rgba(11, 16, 31, 0.381) 0%, transparent 40%),
+    linear-gradient(to top, rgba(173, 34, 117, 0.037) 0%, transparent 40%);
 }
 
 .hero .container {
@@ -167,7 +169,6 @@
   width: 100% !important;
   height: 100% !important;
   z-index: 0;
-  background: radial-gradient(ellipse, rgba(11, 16, 31, 0.381) 0%, transparent 40%);
   pointer-events: none;
   outline: none;
   display: block;
