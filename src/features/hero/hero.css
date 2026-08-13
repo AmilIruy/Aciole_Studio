@@ -197,7 +197,7 @@
 }
 
 /* ===== Desktop — SVG oculto, 3D aparece sozinho ===== */
-@media (min-width: 769px) {
+@media (min-width: 768px) {
   .hero-logo-svg {
     display: none;
   }

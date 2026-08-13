@@ -1,6 +1,6 @@
 import './header.css';
 import './mobileMenu.css';
-import logo from '../../assets/aciole9.svg';
+// SVG moved to `public/aciole9.svg` — use public root path instead of importing
 import { MobileMenu } from './MobileMenu.js';
 
 export function Header() {
@@ -10,7 +10,7 @@ export function Header() {
     <header class="header" id="header">
       <div class="container">
         <a href="#" class="header-logo" id="header-logo">
-          <img src="${logo}" alt="Aciole Studio" />
+          <img src="/aciole9.svg" alt="Aciole Studio" fetchpriority="high" />
         </a>
 
         <nav class="header-nav" id="header-nav">

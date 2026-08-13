@@ -174,8 +174,6 @@ Para manter o nível de excelência performática em futuras edições, siga rig
 - **Three.js**: Carregado sob demanda via dynamic `import()`, somente quando `window.matchMedia('(min-width: 769px)').matches === true`.
 - **HeroScene.js**: Chunk separado (~600 KB), nunca incluído no bundle inicial.
 - **Logo3d.glb**: Carregado apenas pelo `HeroScene.js`, após o módulo ser baixado.
-- **Fallback visual**: O SVG `aciole9.svg` é exibido imediatamente enquanto o 3D carrega. O canvas permanece `opacity: 0` até o callback `onLoad` do GLTFLoader concluir.
-- **Revelação suave**: Após o primeiro `renderer.render()` dentro do `onLoad`, o canvas recebe a classe `.ready` (fade-in de 0.7s) e o SVG recebe `.hidden` (fade-out simultâneo). Zero flash.
 - **Cache de layout**: `getBoundingClientRect()` é chamado uma vez no `onLoad` e novamente apenas no `ResizeObserver`. O loop `animate()` usa variáveis em cache — sem reflow por frame.
 
 ### Mobile (≤ 768px)
