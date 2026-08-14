@@ -1,5 +1,4 @@
 import './header.css';
-import './mobileMenu.css';
 // SVG moved to `public/aciole9.svg` — use public root path instead of importing
 import { MobileMenu } from './MobileMenu.js';
 

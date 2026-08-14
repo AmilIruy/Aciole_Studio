@@ -52,14 +52,6 @@ const jsLazyLoadObserver = new IntersectionObserver(
             .catch(err => console.error("Erro ao carregar Motion JS", err));
           jsLazyLoadObserver.unobserve(el);
         }
-
-        // Carrega a lógica de Projetos sob demanda
-        if (el.id === 'projects-section') {
-          import('./features/projects/projectsLogic.js')
-            .then(({ initProjects }) => initProjects())
-            .catch(err => console.error("Erro ao carregar Projects JS", err));
-          jsLazyLoadObserver.unobserve(el);
-        }
       }
     });
   },

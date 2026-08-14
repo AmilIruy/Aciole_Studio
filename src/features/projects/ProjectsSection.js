@@ -32,6 +32,8 @@ export function ProjectsSection() {
     // Branding project removed
   ];
 
+  const marqueeProjects = [...projects, ...projects];
+
   return `
     <section class="projects-section animate-in" id="projects-section">
       <div class="container">
@@ -43,31 +45,29 @@ export function ProjectsSection() {
               QUE <span class="highlight">FALAM<br />POR SI.</span>
             </h2>
           </div>
-          <div class="projects-nav" id="projects-nav">
-            <button id="carousel-prev" aria-label="Anterior">‹</button>
-            <button id="carousel-next" aria-label="Próximo">›</button>
-          </div>
         </div>
 
         <div class="projects-carousel" id="projects-carousel">
-          ${projects.map(project => `
-            <div class="project-card">
-              <div class="project-card-image">
-                <img src="${project.image}" alt="${project.title}" />
-                ${project.hasPlay ? `
-                  <div class="project-card-play">
-                    <svg viewBox="0 0 24 24">
-                      <polygon points="5 3 19 12 5 21 5 3" />
-                    </svg>
-                  </div>
-                ` : ''}
+         <div class="track">
+            ${marqueeProjects.map(project => `
+              <div class="project-card">
+                <div class="project-card-image">
+                  <img src="${project.image}" alt="${project.title}" />
+                  ${project.hasPlay ? `
+                    <div class="project-card-play">
+                      <svg viewBox="0 0 24 24">
+                        <polygon points="5 3 19 12 5 21 5 3" />
+                      </svg>
+                    </div>
+                  ` : ''}
+                </div>
+                <div class="project-card-info">
+                  <h3>${project.title}</h3>
+                  <span>${project.category}</span>
+                </div>
               </div>
-              <div class="project-card-info">
-                <h3>${project.title}</h3>
-                <span>${project.category}</span>
-              </div>
-            </div>
-          `).join('')}
+            `).join('')}
+          </div>
         </div>
         </div>
       </div>
