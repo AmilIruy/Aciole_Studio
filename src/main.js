@@ -57,7 +57,7 @@ const jsLazyLoadObserver = new IntersectionObserver(
   },
   { 
     // rootMargin de 600px garante que o JS começará a baixar antes de ser visível
-    rootMargin: '600px 0px 600px 0px',
+    rootMargin: '50px 0px 50px 0px',
     threshold: 0 
   }
 );
