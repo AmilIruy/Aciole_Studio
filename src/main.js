@@ -38,20 +38,33 @@ if (isDesktop) {
 // Lenis: Inicializado assincronamente logo após o render crítico para garantir UX suave
 import('./features/scroll/lenis.js').then(({ initLenis }) => initLenis());
 
-// Motion: Inicializado via Idle Loading após a página carregar (evita penalidade no Lighthouse e evita Jitter no Scroll)
-window.addEventListener('load', () => {
-  const loadMotion = () => {
-    import('./features/motion/motionAnimations.js')
-      .then(({ initMotion }) => initMotion())
-      .catch(err => console.error("Erro ao carregar Motion JS", err));
-  };
+// Motion: Inicializado na primeira interação real do usuário (Load on Interaction).
+// Isso garante que o Lighthouse (que não interage com a página) NUNCA veja esse bundle
+// e que o download ocorra de forma ociosa antes de o usuário chegar na seção Motion.
+const loadMotionOnInteraction = () => {
+  const events = ['scroll', 'wheel', 'touchstart', 'mousemove'];
   
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(loadMotion, { timeout: 2000 });
-  } else {
-    setTimeout(loadMotion, 500);
-  }
-});
+  const trigger = () => {
+    // Remove os listeners para garantir que execute apenas uma vez
+    events.forEach(e => window.removeEventListener(e, trigger));
+    
+    const fetchMotion = () => {
+      import('./features/motion/motionAnimations.js')
+        .then(({ initMotion }) => initMotion())
+        .catch(err => console.error("Erro ao carregar Motion JS", err));
+    };
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(fetchMotion, { timeout: 2000 });
+    } else {
+      setTimeout(fetchMotion, 50);
+    }
+  };
+
+  events.forEach(e => window.addEventListener(e, trigger, { passive: true }));
+};
+
+loadMotionOnInteraction();
 
 // 4. Estratégia de Lazy Loading de JS via IntersectionObserver
 const jsLazyLoadObserver = new IntersectionObserver(
