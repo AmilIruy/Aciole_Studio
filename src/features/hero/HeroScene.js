@@ -12,7 +12,7 @@ const heroSceneSettings = {
   autoRotateSpeed: 0.7,
   interactiveTilt: true,
   tiltIntensity: 0.5,
-  particleCount: 150,
+  particleCount: 90,
   particleColor: 'rgba(85, 74, 153, 1)',
   lightIntensity: 8,
   ambientColor: 'rgba(85, 74, 153, 1)',
