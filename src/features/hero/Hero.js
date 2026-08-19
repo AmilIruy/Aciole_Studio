@@ -31,7 +31,7 @@ export function Hero() {
           </a>
         </div>
         <div class="hero-image">
-          <!-- SVG exibido somente no mobile -->
+          <!-- SVG: logo permanente no mobile / fallback enquanto o 3D não está pronto no desktop -->
           <img
             id="hero-logo-svg"
             class="hero-logo-svg"
