@@ -38,6 +38,21 @@ if (isDesktop) {
 // Lenis: Inicializado assincronamente logo após o render crítico para garantir UX suave
 import('./features/scroll/lenis.js').then(({ initLenis }) => initLenis());
 
+// Motion: Inicializado via Idle Loading após a página carregar (evita penalidade no Lighthouse e evita Jitter no Scroll)
+window.addEventListener('load', () => {
+  const loadMotion = () => {
+    import('./features/motion/motionAnimations.js')
+      .then(({ initMotion }) => initMotion())
+      .catch(err => console.error("Erro ao carregar Motion JS", err));
+  };
+  
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(loadMotion, { timeout: 2000 });
+  } else {
+    setTimeout(loadMotion, 500);
+  }
+});
+
 // 4. Estratégia de Lazy Loading de JS via IntersectionObserver
 const jsLazyLoadObserver = new IntersectionObserver(
   (entries) => {
@@ -45,13 +60,7 @@ const jsLazyLoadObserver = new IntersectionObserver(
       if (entry.isIntersecting) {
         const el = entry.target;
 
-        // Carrega GSAP/ScrollTrigger sob demanda para Motion Section
-        if (el.id === 'motion-experience') {
-          import('./features/motion/motionAnimations.js')
-            .then(({ initMotion }) => initMotion())
-            .catch(err => console.error("Erro ao carregar Motion JS", err));
-          jsLazyLoadObserver.unobserve(el);
-        }
+        // Espaço reservado para futuras implementações lazy load via observer (ex: projetos)
       }
     });
   },
@@ -63,8 +72,7 @@ const jsLazyLoadObserver = new IntersectionObserver(
 );
 
 // Observa seções pesadas
-const motionExperience = document.getElementById('motion-experience');
-if (motionExperience) jsLazyLoadObserver.observe(motionExperience);
+
 
 const projectsSection = document.getElementById('projects-section');
 if (projectsSection) jsLazyLoadObserver.observe(projectsSection);
