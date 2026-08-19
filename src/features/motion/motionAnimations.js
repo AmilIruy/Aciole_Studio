@@ -8,7 +8,7 @@
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lenis from 'lenis';
+import { initLenis, stopNativeRaf } from '../scroll/lenis.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,7 +20,7 @@ const MOTION_ANIMATION_CONFIG = {
   cardLineStagger: 0.08,
 };
 
-let lenisInstance = null;
+
 
 function safePlay(video) {
   if (!video || video.paused === false) return;
@@ -46,23 +46,7 @@ function setupVideoPlaybackTrigger(video, triggerElement, start, end) {
   });
 }
 
-export function initLenis() {
-  if (lenisInstance) return lenisInstance;
 
-  lenisInstance = new Lenis({
-    lerp: 0.1,
-    smoothWheel: true,
-    syncTouch: false,
-  });
-
-  gsap.ticker.add((time) => {
-    lenisInstance.raf(time * 1000);
-  });
-  gsap.ticker.lagSmoothing(0);
-  lenisInstance.on('scroll', ScrollTrigger.update);
-
-  return lenisInstance;
-}
 
 let cachedMaskPosition = null;
 let resizeTimer = null;
@@ -281,6 +265,21 @@ let isMotionInitialized = false;
 export function initMotion() {
   if (isMotionInitialized) return;
   isMotionInitialized = true;
+
+  // Sincroniza o Lenis com o GSAP/ScrollTrigger quando o módulo carregar
+  const lenis = initLenis();
+  if (lenis) {
+    stopNativeRaf(); // Para o loop nativo do requestAnimationFrame
+
+    // Passa o controle do RAF para o ticker do GSAP para evitar jitter
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+
+    // Vincula o evento de scroll do Lenis ao ScrollTrigger
+    lenis.on('scroll', ScrollTrigger.update);
+  }
   
   animateMotionTitle();
   animateMotionCards();

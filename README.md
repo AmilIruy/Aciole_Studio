@@ -1,189 +1,195 @@
-# Aciole Studio Landing Page
+# Aciole Studio — Documentação do Projeto
 
-## Visão geral
+## 1. Sobre o projeto
 
-Este repositório contém um site estático de apresentação para o Aciole Studio, focado em motion design e landing pages. O site é construído com Vite e JavaScript moderno, usando componentes baseados em strings HTML retornadas por funções.
+O Aciole Studio é um portfólio digital voltado para Motion Design, Web Design e experiências digitais criativas.
 
-O projeto combina:
-- Visual estático em HTML/CSS
-- Carregamento de componentes por template strings
-- Interações simples com DOM
-- Animação 3D integrada no hero com Three.js
-- Comportamentos responsivos e animações de entrada via Intersection Observer
+O site tem como objetivo apresentar os trabalhos do estúdio de forma visual, moderna e interativa, mantendo boa performance, acessibilidade e facilidade de manutenção.
 
-## Tecnologias
+## 2. Tecnologias
 
 - Vite
-- Vanilla JavaScript (ES modules)
+- JavaScript
+- HTML
+- CSS
+- GSAP
+- ScrollTrigger
 - Three.js
-- GSAP + ScrollTrigger — animações de scroll cinematográficas na seção Motion
-- Lenis — scroll suave com integração nativa ao GSAP ticker
-- CSS customizado com variáveis e consultas de mídia
-- Asset bundling via Vite
+- Lenis
+- WebP / formatos de mídia otimizados
 
-## Instalação
+## 3. Estrutura do projeto
 
-```bash
-npm install
-```
+A organização principal segue a separação por funcionalidades:
 
-## Desenvolvimento
+    src/
+    ├── assets/
+    ├── components/
+    ├── features/
+    │   ├── hero/
+    │   ├── motion/
+    │   └── projects/
+    ├── styles/
+    └── main.js
 
-```bash
-npm run dev
-```
+A estrutura existente deve ser preservada sempre que possível. Novos arquivos ou reorganizações devem ter uma justificativa técnica clara.
 
-## Build
+## 4. Arquitetura
 
-```bash
-npm run build
-```
+O site utiliza carregamento progressivo para evitar que recursos pesados prejudiquem o carregamento inicial.
 
-## Preview de produção
+### Renderização inicial
 
-```bash
-npm run preview
-```
+O `main.js` deve priorizar a construção imediata da estrutura visual da página.
 
-## Estrutura do projeto
+Recursos pesados e funcionalidades que não são necessárias para o primeiro conteúdo visual devem ser carregados posteriormente.
 
-- `index.html` — arquivo HTML principal com `#root` e carregamento do `src/main.js`.
-- `package.json` — scripts NPM e dependências.
-- `vite.config.js` — configuração do Vite.
-- `src/index.css` — reset global, variáveis de tema, utilitários e responsividade.
-- `src/main.js` — entrypoint que monta todas as seções no DOM e inicializa comportamentos.
-- `src/features/` — seções do site, cada uma exporta HTML e, quando necessário, funções de inicialização.
-- `src/shared/components/SectionDivider.js` — componente de divisor de seção.
-- `src/assets/` — imagens, SVGs e o arquivo `Logo3d.glb` usado no hero.
+### Hero
 
-## Como o site funciona
+A Hero possui duas experiências:
 
-### `src/main.js`
+**Desktop**
+- Conteúdo visual da Hero
+- Cena 3D utilizando Three.js
 
-- Importa `index.css` e as seções do site.
-- Define o conteúdo principal em `document.getElementById('root').innerHTML`.
-- Chama funções de inicialização:
-  - `initProjects()` — ativa o carrossel horizontal de projetos.
-  - `initMobileMenu()` — controla o menu hamburger em mobile.
-  - `initHero3D()` — monta a cena Three.js no canvas do hero.
-- Cria um `IntersectionObserver` para aplicar animações de fade/entrada às seções com `.animate-in`.
+**Mobile**
+- Conteúdo visual da Hero
+- SVG `aciole9.svg`
 
-### Seções principais
+O Three.js / `HeroScene` não deve ser carregado em dispositivos mobile.
 
-- `Header.js` / `MobileMenu.js`
-  - Cabeçalho fixo com navegação.
-  - Menu mobile com overlay e fechamento via click ou Escape.
-  - Ícones sociais e CTA.
+No desktop, o 3D deve aparecer somente depois que estiver devidamente carregado e pronto para renderização, evitando que o usuário veja a cena em uma posição ou estado de inicialização incorreto.
 
-- `Hero.js` / `HeroScene.js`
-  - Hero com título, descrição e CTA.
-  - Canvas 3D com Three.js executado em `initHero3D()`.
-  - Carrega `Logo3d.glb` e exibe partículas, luzes e animação contínua.
+A animação da Hero também deve evitar processamento desnecessário quando a seção não estiver visível.
 
-- `MotionSection.js` / `motionAnimations.js`
-  - Experiência cinematográfica completa de scroll para a seção Motion Design.
-  - Estrutura em três blocos: título gigante com parallax, vídeo fullscreen pinado e três cards de projetos.
-  - `initMotion()` — orquestra todas as animações GSAP/ScrollTrigger.
-  - `initLenis()` — inicializa Lenis e integra com o GSAP ticker (substitui o smoothScroll.js manual).
-  - Cada card possui vídeo com play/pause automático por viewport e animação stagger por linha de texto.
+## 5. Motion Design
 
-- `LandingPagesSection.js`
-  - Seção de landing pages com mockup e recursos.
-  - Usa asset de mockup importado e botões de navegação.
+A seção Motion Design utiliza GSAP e ScrollTrigger.
 
-<!-- Branding section removed -->
+Essas dependências e suas lógicas devem permanecer separadas do JavaScript inicial sempre que possível.
 
-- `AboutSection.js`
-  - Bloco sobre a agência com estatísticas e CTA.
+A seção utiliza:
+- animações controladas pelo scroll;
+- máscaras e transições;
+- entrada de cards;
+- parallax;
+- reprodução controlada de vídeos.
 
-- `ProcessSection.js`
-  - Processo de trabalho em quatro passos com ícones inline.
+As animações devem ser interrompidas ou suspensas quando a seção não estiver visível, evitando processamento desnecessário.
 
-- `ProjectsSection.js`
-  - Galeria de projetos em carrossel horizontal.
-  - `initProjects()` adiciona navegação scroll suave.
+## 6. Projetos
 
-- `Footer.js`
-  - CTA final e rodapé com links.
+A seção de projetos apresenta trabalhos em formato de carrossel.
 
-## Notas de implementação
+Os vídeos dos projetos utilizam carregamento sob demanda.
 
-- O projeto usa Vite com JavaScript puro e não depende de frameworks.
-- A renderização é feita em strings HTML retornadas pelos módulos de seção.
-- O componente `SectionDivider` está presente em `src/shared/components/SectionDivider.js` mas não é utilizado atualmente no markup final.
-- O hero 3D usa Three.js e GLTFLoader. A cena é montada apenas se o canvas existir.
-- Os assets são importados diretamente nos módulos JS para que o Vite trate o bundling.
+A estratégia atual inclui:
+- `data-video`;
+- carregamento do vídeo somente quando necessário;
+- botão de reprodução;
+- pausa de vídeos anteriores;
+- remoção do `src` de vídeos que não estão sendo utilizados.
 
-## Dependências
+O objetivo é evitar o download desnecessário de vídeos durante o carregamento inicial.
 
-- `three` — renderização WebGL 3D.
-- `gsap` — animações de alta performance e ScrollTrigger para a seção Motion.
-- `lenis` — scroll suave, integrado ao GSAP ticker para compatibilidade com ScrollTrigger.
-- `vite` — bundler de desenvolvimento e build.
-- `oxlint` — linting de código.
+## 7. Performance
 
-## Pontos importantes para IAs e futuras edições
+Performance é uma preocupação importante do projeto, mas não deve comprometer desnecessariamente a experiência visual.
 
-- A base do site é estática e não há backend nem rotas dinâmicas.
-- A lógica de interação está concentrada em `src/main.js`, `HeroScene.js`, `MobileMenu.js` e `ProjectsSection.js`.
-- Para expandir o site, adicione novas seções em `src/features/` e importe no `main.js`.
-- Evite alterar `index.html` além de meta tags, pois o conteúdo principal é montado via JavaScript.
-- A responsividade é gerenciada em `src/index.css` com variáveis CSS e media queries.
-- **Seção Motion**: toda a lógica de animação está em `src/features/motion/motionAnimations.js`. Não misture com o IntersectionObserver global do `main.js` — a seção Motion usa exclusivamente GSAP ScrollTrigger.
-- **Lenis**: substitui o `smoothScroll.js` manual. O arquivo `smoothScroll.js` pode ser removido futuramente. Inicializar sempre antes de qualquer ScrollTrigger.
-- **Vídeos Motion**: os vídeos dos cards e blocos usam o arquivo temporário `(oziart43) Zenitsu Ori.mp4`. Substitua os `src` nos elementos `<video>` do `MotionSection.js` pelos vídeos reais quando disponíveis.
-- **Performance**: os vídeos dos cards só reproduzem quando o card está na viewport (ScrollTrigger onEnter/onLeave). Nunca mais de um vídeo de card roda simultaneamente durante scroll normal.
+Prioridades:
+1. Carregamento inicial rápido.
+2. Baixo JavaScript inicial.
+3. Carregamento sob demanda de recursos pesados.
+4. Redução de trabalho desnecessário na CPU/GPU.
+5. Imagens e vídeos otimizados.
+6. Evitar bloqueios da thread principal.
+7. Evitar mudanças de layout desnecessárias.
 
-## Como usar este README
+### JavaScript
 
-- Consulte a seção **Estrutura do projeto** para encontrar rapidamente onde cada bloco do site é definido.
-- Use **Como o site funciona** para entender a renderização e inicialização de scripts.
-- Verifique **Notas de implementação** antes de mexer no carregamento de assets ou no fluxo de renderização do hero 3D.
+Bibliotecas pesadas devem ser carregadas somente quando forem necessárias.
 
-## Performance Architecture
+Sempre que apropriado, utilizar imports dinâmicos para:
+- Three.js;
+- GSAP;
+- ScrollTrigger;
+- lógicas específicas de seções.
 
-O site foi otimizado para atingir as melhores métricas de carregamento (LCP, FCP e TBT) garantindo a experiência de usuário através de uma estratégia agressiva de **Code Splitting** e **Lazy Loading**:
+Evitar colocar dependências pesadas no bundle inicial sem necessidade.
 
-- **Caminho Crítico (Initial Render):** Apenas o HTML base, CSS essencial e pequenos scripts interativos são carregados inicialmente. As funções que geram HTML (`Hero()`, `MotionSection()`, etc.) estão no bundle principal para garantir que a página "exista" imediatamente, impedindo a quebra de layout durante *Fast Navigation* (pulos rápidos via links âncora).
-- **Dynamic Imports:** Módulos que dependem de bibliotecas pesadas (Three.js, GSAP, ScrollTrigger, Lenis) foram desacoplados. Eles são requisitados através de `import('...')` retornando Promises.
-- **Three.js & Hero:** O modelo 3D é carregado de forma assíncrona. O usuário vê o conteúdo da Hero instantaneamente, e o 3D surge logo em seguida, sem bloquear a thread principal.
-- **Lenis (Smooth Scroll):** É inicializado via import dinâmico imediatamente após o render crítico. Isso evita atrasar o LCP da página, sem que a experiência global de scroll do usuário seja perdida.
-- **Lazy Loading de Seções (Intersection Observer):** Um `IntersectionObserver` global (`jsLazyLoadObserver` com root margin estendida para 600px) monitora o scroll. Somente quando o usuário se aproxima de uma seção pesada (como Motion ou Projetos), o JavaScript e as animações dessas seções são baixados, parseados e executados.
-- **Vídeos "Click-to-Load":** Os vídeos pesados das landing pages não carregam imediatamente. A tag `<video>` recebe a URL num atributo `data-video` e conta com uma thumbnail otimizada e um botão de Play, evitando sobrecarga de dados não solicitados. Ao clicar no Play, o JavaScript atribui o `src` ao vídeo.
+### Animações
 
-## Performance Guidelines
+Sempre que possível, priorizar `transform` e `opacity`.
 
-Para manter o nível de excelência performática em futuras edições, siga rigorosamente as regras abaixo:
+Evitar animações que provoquem layout/reflow desnecessário.
 
-1. **Evite novos imports estáticos na `main.js`**: Não adicione funcionalidades pesadas via `import { ... }` na `main.js`. Use sempre `import('...').then(...)` para funcionalidades abaixo da dobra da página.
-2. **Separe HTML de Lógica**: Componentes visuais (`.js` que retorna a string do template) devem ser importados estaticamente. Toda lógica de eventos e bibliotecas extras (`initMotion()`, `initProjects()`) deve viver em um arquivo separado e importado sob demanda.
-3. **Imagens Otimizadas**: Use sempre os formatos WebP ou AVIF, definindo dimensões explicitamente (`width` e `height`) no CSS ou HTML para evitar Cumulative Layout Shift (CLS).
-4. **Vídeos Sob Demanda**: Nunca coloque arquivos pesados `.mp4` carregando diretamente pelo atributo `src` se o usuário não pediu para reproduzir. Siga o padrão *Click-to-Load* com thumbnails.
-5. **Auditoria Pós-alterações pesadas**: Ao adicionar uma nova biblioteca (ex: animação, slider), analise o impacto visualizando os chunks após executar `npm run build`. O pacote principal (`index.js`) deve se manter o mais próximo de ~30kb gzipped possível.
-6. **Múltiplas Instâncias**: Evite inicializar GSAP, ScrollTrigger ou Lenis várias vezes. Gerencie-os de modo singular. Toda função de inicialização (`initMotion`, etc) deve possuir um _Singleton flag_ (`let isInitialized = false`) para evitar recriação de timelines.
-7. **Fast Navigation**: Ao adicionar uma nova interação lazy loaded, certifique-se de que a estrutura HTML exista primeiro. Se o usuário pular direto do header para o rodapé em 0.1s, o site jamais deverá gerar erros de DOM null.
-8. **Consolidação de Animações**: Quando animar múltiplos elementos vizinhos acionados pelo mesmo evento de scroll (como cards e seus textos internos), consolide tudo em uma única `gsap.timeline` com um único `ScrollTrigger`. Múltiplos ScrollTriggers na mesma área provocam excesso de chamadas `getBoundingClientRect()`.
-9. **Cálculos de Layout via JS**: Evite cálculos dinâmicos atrelados ao loop de renderização (ex: funções dentro de `scrub`). Caso precise de dimensões baseadas na janela, calcule em variáveis locais uma única vez ou implemente um *cache* com *debounce* escutando o evento `resize`.
-10. **Three.js no mobile**: Nunca carregar `HeroScene.js`, `Three.js`, `GLTFLoader` ou o arquivo `.glb` no mobile. A verificação de breakpoint (`window.matchMedia`) **deve** estar no `main.js`, antes do `import()` dinâmico. Não use CSS para esconder o canvas — o download ainda ocorreria.
-11. **Inicialização de cenas 3D**: O loop `requestAnimationFrame` de uma cena Three.js **nunca** deve iniciar antes do modelo 3D e da câmera estarem prontos. Sempre mova `animate()` para o interior do callback `onLoad` do GLTFLoader. O canvas só deve ficar visível (`.ready`) após o primeiro frame real renderizado.
-12. **getBoundingClientRect em loops**: Nunca chame `getBoundingClientRect()`, `offsetWidth`, `offsetHeight` ou similares dentro do loop de animação. Calcule uma vez na inicialização e em `ResizeObserver`, guardando em variáveis de cache.
+Animações de seções que não estão visíveis devem ser pausadas ou suspensas quando isso não alterar a experiência esperada.
 
-## Hero Performance Architecture
+### Imagens
 
-### Desktop
-- **Three.js**: Carregado sob demanda via dynamic `import()`, somente quando `window.matchMedia('(min-width: 769px)').matches === true`.
-- **HeroScene.js**: Chunk separado (~600 KB), nunca incluído no bundle inicial.
-- **Logo3d.glb**: Carregado apenas pelo `HeroScene.js`, após o módulo ser baixado.
-- **Cache de layout**: `getBoundingClientRect()` é chamado uma vez no `onLoad` e novamente apenas no `ResizeObserver`. O loop `animate()` usa variáveis em cache — sem reflow por frame.
+Utilizar formatos modernos e otimizados, como WebP ou AVIF, quando apropriado.
 
-### Mobile (≤ 768px)
-- Utiliza `aciole9.svg` como logo permanente.
-- **Three.js não é carregado**.
-- **HeroScene.js não é baixado**.
-- **Logo3d.glb não é baixado**.
-- **WebGLRenderer não é criado**.
-- **requestAnimationFrame do 3D não é iniciado**.
-- O `<canvas>` fica com `display: none` via CSS como redundância de segurança.
+Imagens devem possuir dimensões explícitas quando necessário para evitar mudanças de layout.
 
-> [!CAUTION]
-> Futuras alterações na Hero **não devem** colocar Three.js, HeroScene.js ou qualquer import do diretório `three/` no caminho crítico de carregamento. O import dinâmico deve sempre estar protegido pela verificação `window.matchMedia`.
+### Vídeos
+
+Vídeos não devem ser carregados automaticamente sem necessidade.
+
+Sempre que possível, utilizar carregamento sob demanda e iniciar o download somente quando houver uma necessidade real de reprodução.
+
+## 8. Mobile
+
+Mobile deve ser tratado como um cenário de performance próprio.
+
+**Three.js / HeroScene não deve ser carregado em mobile.**
+
+No mobile, a Hero utiliza o SVG `aciole9.svg`.
+
+Animações e recursos pesados também podem ser simplificados em dispositivos menores quando isso melhorar significativamente a performance sem prejudicar o design.
+
+## 9. Desenvolvimento e manutenção
+
+Antes de modificar uma funcionalidade:
+1. Verifique como ela está implementada atualmente.
+2. Reutilize componentes, funções e helpers existentes.
+3. Evite mudanças arquiteturais desnecessárias.
+4. Mantenha cada funcionalidade isolada em seu respectivo módulo.
+5. Adicione novas dependências somente quando houver necessidade real.
+
+Ao corrigir um problema, prefira a menor alteração necessária para resolver a causa sem introduzir regressões.
+
+## 10. Regras importantes
+
+- Three.js não deve carregar em mobile.
+- A Hero 3D deve aparecer somente quando estiver pronta para renderização.
+- Recursos pesados devem ser carregados sob demanda quando possível.
+- GSAP e ScrollTrigger não devem aumentar desnecessariamente o JavaScript inicial.
+- Vídeos de projetos devem utilizar carregamento controlado.
+- Animações fora da área visível devem evitar processamento contínuo desnecessário.
+- O design e as animações existentes não devem ser removidos apenas por motivos de performance sem avaliar o impacto visual.
+- Não substituir a arquitetura atual sem justificativa técnica.
+- Mudanças de performance não devem causar regressões visuais ou funcionais.
+
+## 11. Comandos
+
+Instalar dependências:
+`npm install`
+
+Executar desenvolvimento:
+`npm run dev`
+
+Gerar build:
+`npm run build`
+
+Visualizar build:
+`npm run preview`
+
+## 12. Princípio geral
+
+O Aciole Studio deve equilibrar:
+
+**Design + Experiência + Performance**
+
+Performance deve servir à experiência do usuário, e não substituir a identidade visual do projeto.
+
+Ao realizar alterações, procure sempre a solução que preserve a experiência visual enquanto reduz complexidade, processamento e carregamento desnecessários.

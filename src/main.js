@@ -36,7 +36,7 @@ if (isDesktop) {
   import('./features/hero/HeroScene.js').then(({ initHero3D }) => initHero3D());
 }
 // Lenis: Inicializado assincronamente logo após o render crítico para garantir UX suave
-import('./features/motion/motionAnimations.js').then(({ initLenis }) => initLenis());
+import('./features/scroll/lenis.js').then(({ initLenis }) => initLenis());
 
 // 4. Estratégia de Lazy Loading de JS via IntersectionObserver
 const jsLazyLoadObserver = new IntersectionObserver(

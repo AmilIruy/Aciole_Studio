@@ -1,7 +1,8 @@
 /* ===== PROJECTS SECTION ===== */
 .projects-section {
   padding: var(--section-padding);
-  background: var(--bg-dark);
+  background-image: 
+    radial-gradient(ellipse at center, rgba(47, 16, 248, 0.020) 0%, transparent 50%);
   color: var(--white);
   overflow: hidden;
 }
