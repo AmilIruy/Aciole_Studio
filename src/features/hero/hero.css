@@ -181,22 +181,16 @@
   opacity: 1;
 }
 
-/* SVG fallback: permanente no mobile, desaparece no desktop quando 3D fica pronto */
+/* SVG usado somente no mobile */
 .hero-logo-svg {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  opacity: 1;
-  transition: opacity 0.7s ease;
   pointer-events: none;
   user-select: none;
 }
 
-.hero-logo-svg.hidden {
-  opacity: 0;
-}
-
-/* ===== Desktop — SVG oculto, 3D aparece sozinho ===== */
+/* ===== Desktop — 3D aparece sozinho ===== */
 @media (min-width: 768px) {
   .hero-logo-svg {
     display: none;

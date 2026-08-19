@@ -28,7 +28,6 @@ export function initHero3D() {
   if (!canvasElement) return;
 
   const heroSection = document.getElementById('hero');
-  const svgLogo = document.getElementById('hero-logo-svg');
 
   const width = heroSection.clientWidth;
   const height = heroSection.clientHeight || 500;
@@ -279,9 +278,8 @@ export function initHero3D() {
       // Renderizar um frame "silencioso" para garantir que a GPU está pronta
       renderer.render(scene, camera);
 
-      // Revelar o canvas e ocultar o SVG fallback somente depois de tudo pronto
+      // Revelar o canvas somente depois de tudo pronto
       canvasElement.classList.add('ready');
-      if (svgLogo) svgLogo.classList.add('hidden');
 
       // Iniciar o loop de animação somente agora se a seção estiver visível
       if (isVisible && !animationFrameId) {
@@ -292,7 +290,6 @@ export function initHero3D() {
     undefined,
     (err) => {
       console.error('Erro ao carregar o modelo 3D:', err);
-      // Em caso de erro, o SVG permanece visível (fallback garantido)
     }
   );
 

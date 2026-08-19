@@ -58,7 +58,7 @@ A Hero possui duas experiências:
 
 O Three.js / `HeroScene` não deve ser carregado em dispositivos mobile.
 
-No desktop, o 3D deve aparecer somente depois que estiver devidamente carregado e pronto para renderização, evitando que o usuário veja a cena em uma posição ou estado de inicialização incorreto.
+No desktop, o 3D deve aparecer somente depois que estiver devidamente carregado e pronto para renderização, evitando que o usuário veja a cena em uma posição ou estado de inicialização incorreto. Não há fallback visual do SVG no desktop.
 
 A animação da Hero também deve evitar processamento desnecessário quando a seção não estiver visível.
 
