@@ -6,6 +6,9 @@ import './splitTransition.css';
 gsap.registerPlugin(ScrollTrigger);
 
 let isSplitInitialized = false;
+const TRANSITION_SCROLL_DISTANCE = '+=200%';
+const INITIAL_HOLD_DURATION = 0.1;
+const ABOUT_READING_HOLD_DURATION = 0.1;
 
 export function initSplitTransition() {
   if (isSplitInitialized) return;
@@ -89,7 +92,7 @@ function createSplitTimeline(wrapper, sliderA, sliderB, axis) {
     scrollTrigger: {
       trigger: wrapper,
       start: 'top top',
-      end: '+=125%',
+      end: TRANSITION_SCROLL_DISTANCE,
       pin: true,
       pinSpacing: true,
       scrub: true,
@@ -98,16 +101,18 @@ function createSplitTimeline(wrapper, sliderA, sliderB, axis) {
     },
   });
 
-  timeline.to({}, { duration: 0.1 });
+  timeline.to({}, { duration: INITIAL_HOLD_DURATION });
 
   if (axis === 'x') {
     timeline
       .fromTo(sliderA, { xPercent: 0 }, { xPercent: -50, ease: 'none', duration: 1.2 })
-      .fromTo(sliderB, { xPercent: -50 }, { xPercent: 0, ease: 'none', duration: 1.2 }, '<');
+      .fromTo(sliderB, { xPercent: -50 }, { xPercent: 0, ease: 'none', duration: 1.2 }, '<')
+      .to({}, { duration: ABOUT_READING_HOLD_DURATION });
   } else {
     timeline
       .fromTo(sliderA, { yPercent: 0 }, { yPercent: -50, ease: 'none', duration: 1.2 })
-      .fromTo(sliderB, { yPercent: -50 }, { yPercent: 0, ease: 'none', duration: 1.2 }, '<');
+      .fromTo(sliderB, { yPercent: -50 }, { yPercent: 0, ease: 'none', duration: 1.2 }, '<')
+      .to({}, { duration: ABOUT_READING_HOLD_DURATION });
   }
 
   return timeline;
