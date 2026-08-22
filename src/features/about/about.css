@@ -1,10 +1,12 @@
 /* ===== ABOUT SECTION ===== */
 .about-section {
   padding: var(--section-padding);
-  background: var(--purple);
+  background: var(--blue-light);
   color: var(--white);
   position: relative;
   overflow: hidden;
+    background-image: 
+    linear-gradient(to bottom, rgb(85, 74, 153) 0%, transparent 100%);
 }
 
 .about-section::before {
@@ -19,14 +21,28 @@
 }
 
 .about-section .container {
-  display: flex;
-  align-items: flex-start;
-  gap: 80px;
+  display: grid;
+  align-items: center;
+  height: 100%;
+  gap: 40px;
+}
+
+@media (min-width: 769px) {
+  .about-section .container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-section .container {
+    grid-template-rows: 1fr 1fr;
+  }
 }
 
 .about-content {
-  flex: 1;
-  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .about-content h2 {
@@ -37,7 +53,7 @@
 }
 
 .about-content h2 .highlight {
-  background: linear-gradient(100deg, var(--purple-light), var(--yellow));
+  background: linear-gradient(100deg, var(--purple-light), var(--blue-light));
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -54,17 +70,16 @@
 }
 
 .about-stats {
-  flex: 1;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
 }
 
 .about-stat {
   text-align: center;
   padding: 24px 16px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
+  background: var(--bg-dark);
+  border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: var(--transition);
 }
@@ -135,7 +150,6 @@
 /* ===== Tablet (até 1024px) ===== */
 @media (max-width: 1024px) {
   .about-section .container {
-    flex-direction: column;
     gap: 48px;
   }
 
@@ -144,7 +158,6 @@
   }
 
   .about-stats {
-    grid-template-columns: repeat(2, 1fr);
     width: 100%;
     gap: 16px;
   }
@@ -161,7 +174,6 @@
   }
 
   .about-stats {
-    grid-template-columns: repeat(2, 1fr);
     gap: 14px;
   }
 
@@ -185,7 +197,6 @@
   }
 
   .about-stats {
-    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
 

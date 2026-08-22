@@ -19,8 +19,8 @@ document.getElementById('root').innerHTML = `
     ${MotionSection()}
     ${LandingPagesSection()}
     ${ProjectsSection()}
-    ${AboutSection()}
     ${ProcessSection()}
+    ${AboutSection()}
   </main>
   ${Footer()}
 `;
@@ -73,12 +73,20 @@ const jsLazyLoadObserver = new IntersectionObserver(
       if (entry.isIntersecting) {
         const el = entry.target;
 
-        // Espaço reservado para futuras implementações lazy load via observer (ex: projetos)
+        // Carrega splitTransition quando Projects entra na viewport
+        // (Process vem logo em seguida, garantindo que o ScrollTrigger
+        //  já está pronto antes do usuário chegar na animação)
+        if (el.id === 'projects-section') {
+          jsLazyLoadObserver.unobserve(el);
+          import('./features/splitTransition/splitTransition.js')
+            .then(({ initSplitTransition }) => initSplitTransition())
+            .catch(err => console.error('[splitTransition] Falha ao carregar', err));
+        }
       }
     });
   },
   { 
-    // rootMargin de 600px garante que o JS começará a baixar antes de ser visível
+    // rootMargin de 24px garante que o JS começará a baixar antes de ser visível
     rootMargin: '24px 0px 24px 0px',
     threshold: 0 
   }

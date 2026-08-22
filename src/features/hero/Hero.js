@@ -69,6 +69,10 @@ export function initHeroGlitch() {
       window.clearInterval(cycleIntervalId);
       cycleIntervalId = null;
     }
+
+    isAnimating = false;
+    word1Element.classList.remove('glitch-left');
+    word2Element.classList.remove('glitch-right');
   };
 
   const updateWords = (index) => {

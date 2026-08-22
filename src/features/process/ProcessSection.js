@@ -51,7 +51,7 @@ export function ProcessSection() {
   ];
 
   return `
-    <section class="process-section animate-in" id="process-section">
+    <section class="process-section" id="process-section">
       <div class="container">
         <div class="process-header">
           <div>

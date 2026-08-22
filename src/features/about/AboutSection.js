@@ -9,7 +9,7 @@ export function AboutSection() {
   ];
 
   return `
-    <section class="about-section animate-in" id="about-section">
+    <section class="about-section" id="about-section">
       <div class="container">
         <div class="about-content">
           <span class="section-label" style="color: rgba(255,255,255,0.6)">Sobre a Aciole Studio</span>

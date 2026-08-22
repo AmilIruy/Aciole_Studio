@@ -1,7 +1,9 @@
 import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 
 let lenisInstance = null;
 let rafId = null;
+let gsapBridgeInitialized = false;
 
 // Loop de animação independente executado antes do GSAP ser carregado
 function raf(time) {
@@ -32,4 +34,20 @@ export function stopNativeRaf() {
     cancelAnimationFrame(rafId);
     rafId = null;
   }
+}
+
+export function connectLenisToGsap(gsap, ScrollTrigger) {
+  const lenis = initLenis();
+  if (gsapBridgeInitialized) return lenis;
+
+  gsapBridgeInitialized = true;
+  stopNativeRaf();
+
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+  gsap.ticker.lagSmoothing(0);
+  lenis.on('scroll', ScrollTrigger.update);
+
+  return lenis;
 }

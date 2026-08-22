@@ -8,7 +8,7 @@
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { initLenis, stopNativeRaf } from '../scroll/lenis.js';
+import { connectLenisToGsap } from '../scroll/lenis.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -266,20 +266,7 @@ export function initMotion() {
   if (isMotionInitialized) return;
   isMotionInitialized = true;
 
-  // Sincroniza o Lenis com o GSAP/ScrollTrigger quando o módulo carregar
-  const lenis = initLenis();
-  if (lenis) {
-    stopNativeRaf(); // Para o loop nativo do requestAnimationFrame
-
-    // Passa o controle do RAF para o ticker do GSAP para evitar jitter
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-    gsap.ticker.lagSmoothing(0);
-
-    // Vincula o evento de scroll do Lenis ao ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
-  }
+  connectLenisToGsap(gsap, ScrollTrigger);
   
   animateMotionTitle();
   animateMotionCards();
