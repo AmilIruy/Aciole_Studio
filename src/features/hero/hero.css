@@ -47,9 +47,9 @@
 .glitch-right {
   will-change: transform, opacity, text-shadow;
   text-shadow:
-    -2px 0 #40b0e5,
+    -2px 0 #33CCFF,
     2px 0 #FF3366,
-    0 -2px #554a99;
+    0 -2px #7F56E5;
 }
 
 .glitch-left {
@@ -71,26 +71,26 @@
     opacity: 0.5;
     transform: translateX(-4px) skewX(-2deg);
     text-shadow:
-      -3px 0 #00d9ff,
+      -3px 0 #33CCFF,
       3px 0 #FF3366,
-      0 0 10px rgba(123, 63, 242, 0.5);
+      0 0 10px rgb(127, 86, 229);
   }
 
   50% {
     opacity: 0.2;
     transform: translateX(-6px) skewX(-3deg);
     text-shadow:
-      -5px 0 #00d9ff,
+      -5px 0 #33CCFF,
       5px 0 #FF3366,
-      -2px 2px #7b3ff2,
-      0 0 20px rgba(123, 63, 242, 0.7);
+      -2px 2px #7F56E5,
+      0 0 20px rgb(127, 86, 229);
   }
 
   75% {
     opacity: 0.5;
     transform: translateX(-2px) skewX(-1deg);
     text-shadow:
-      -2px 0 #00d9ff,
+      -2px 0 #33CCFF,
       2px 0 #FF3366;
   }
 
@@ -112,26 +112,26 @@
     opacity: 0.5;
     transform: translateX(4px) skewX(2deg);
     text-shadow:
-      3px 0 #00d9ff,
+      3px 0 #33CCFF,
       -3px 0 #FF3366,
-      0 0 10px rgba(123, 63, 242, 0.5);
+      0 0 10px rgb(127, 86, 229);
   }
 
   50% {
     opacity: 0.2;
     transform: translateX(6px) skewX(3deg);
     text-shadow:
-      5px 0 #00d9ff,
+      5px 0 #33CCFF,
       -5px 0 #FF3366,
-      2px -2px #7b3ff2,
-      0 0 20px rgba(123, 63, 242, 0.7);
+      2px -2px #7F56E5,
+      0 0 20px rgb(127, 86, 229);
   }
 
   75% {
     opacity: 0.5;
     transform: translateX(2px) skewX(1deg);
     text-shadow:
-      2px 0 #00d9ff,
+      2px 0 #33CCFF,
       -2px 0 #FF3366;
   }
 

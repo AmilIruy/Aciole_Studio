@@ -103,6 +103,8 @@
   position: relative;
   z-index: 5;
   margin-top: -70vh;
+    background-image: 
+    linear-gradient(to top, rgba(0, 191, 255, 0.024) 0%, transparent 20%);
 }
 
 /* ── Base do card ────────────────────────────────────────────────────────── */
@@ -328,7 +330,7 @@
 .motion-includes-list li {
   border: 1px solid hsla(345, 100%, 60%, 0.218);
   padding: 6px 14px;
-  border-radius: 100px;
+  border-radius: 6px;
   font-size: 0.8rem;
   color: var(--yellow);
 }

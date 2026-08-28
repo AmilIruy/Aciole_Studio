@@ -103,7 +103,16 @@ const visualObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
-      visualObserver.unobserve(entry.target);
+      if (!entry.target.classList.contains('animate-repeat')) {
+        visualObserver.unobserve(entry.target);
+      }
+    } else {
+      if (entry.target.classList.contains('animate-repeat')) {
+        // Só remove se o elemento sair pela parte inferior da tela (scroll up)
+        if (entry.boundingClientRect.y > 0) {
+          entry.target.classList.remove('visible');
+        }
+      }
     }
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
