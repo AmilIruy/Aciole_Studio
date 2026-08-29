@@ -312,26 +312,4 @@ export function initHero3D() {
 
   const resizeObserver = new ResizeObserver(handleResize);
   resizeObserver.observe(heroSection);
-
-  
-  const handleMouseMove = (e) => {
-    if (!isVisible) return;
-    const rect = heroSection.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-    heroSceneSettings.rotationY = 0 + x * 3;
-    heroSceneSettings.rotationX = 83 - y * 3;
-  };
-
-  window.addEventListener('mousemove', handleMouseMove);
-
-  
-  window.addEventListener('beforeunload', () => {
-    cancelAnimationFrame(animationFrameId);
-    resizeObserver.disconnect();
-    io.disconnect();
-    window.removeEventListener('mousemove', handleMouseMove);
-    scene.clear();
-    renderer.dispose();
-  });
 }
