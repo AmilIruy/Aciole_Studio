@@ -18,7 +18,7 @@ const heroSceneSettings = {
   ambientColor: 'rgba(85, 74, 153, 1)',
   showGrid: false,
   materialType: 'physical',
-  scale: 2.5,
+  scale: 2.2,
   rotationY: 0,
   rotationX: 83,
 };
@@ -53,7 +53,7 @@ export function initHero3D() {
   scene.add(ambientLight);
 
   const mainLight = new THREE.DirectionalLight(0xffffff, heroSceneSettings.lightIntensity);
-  mainLight.position.set(20, 1, 20);
+  mainLight.position.set(20, 12, 20);
   mainLight.castShadow = true;
   mainLight.shadow.mapSize.width = 1024;
   mainLight.shadow.mapSize.height = 1024;

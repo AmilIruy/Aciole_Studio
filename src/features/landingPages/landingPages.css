@@ -1,9 +1,6 @@
 /* ===== LANDING PAGES SECTION ===== */
 .landing-section {
   padding: 120px 0;
-  background-image: 
-    linear-gradient(to bottom, rgba(0, 191, 255, 0.024) 0%, transparent 70%),
-    linear-gradient(to top, rgba(127, 86, 229, 0.024) 0%, transparent 40%);
   position: relative;
   overflow: hidden;
 }
@@ -92,11 +89,12 @@
   align-items: center;
   gap: 12px;
   padding: 14px 20px;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.06);
+  /* Alterado para compensar a falta do blur */
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 6px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px); Removido por conflito de GPU */
+  /* -webkit-backdrop-filter: blur(10px); Removido por conflito de GPU */
   font-size: 0.88rem;
   color: var(--gray-100);
   font-weight: 500;
@@ -145,32 +143,11 @@
   max-width: 540px;
 }
 
-/* Emissão de luz azul forte atrás da imagem */
-.landing-mockup-glow {
-  position: absolute;
-  inset: -20px;
-  background: radial-gradient(circle, rgba(64, 177, 229, 0.451) 0%, transparent 70%);
-  filter: blur(50px);
-  opacity: 0.15;
-  border-radius: 50%;
-  z-index: 0;
-  transition: opacity 0.5s ease;
-}
-
-.landing-mockup-wrapper:hover .landing-mockup-glow {
-  opacity: 0.35;
-}
 
 .landing-mockup-card {
   position: relative;
   z-index: 1;
   overflow: hidden;
-  transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.landing-mockup-wrapper:hover .landing-mockup-card {
-  transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
 }
 
 .landing-mockup-card img {
@@ -186,16 +163,20 @@
   .landing-section {
     padding: 160px 0;
   }
+
   .landing-section .container {
     gap: 120px;
   }
+
   .landing-title {
     font-size: 4.2rem;
   }
+
   .landing-description {
     font-size: 1.15rem;
     max-width: 580px;
   }
+
   .landing-mockup-wrapper {
     max-width: 720px;
   }
@@ -205,14 +186,18 @@
   .landing-section {
     padding: 100px 0;
   }
+
   .landing-section .container {
     flex-direction: column;
     gap: 60px;
   }
-  .landing-content, .landing-mockup {
+
+  .landing-content,
+  .landing-mockup {
     width: 100%;
     flex: none;
   }
+
   .landing-mockup-card {
     transform: none;
   }
@@ -222,6 +207,7 @@
   .landing-section {
     padding: 80px 0;
   }
+
   .landing-features {
     grid-template-columns: 1fr;
   }
@@ -231,69 +217,4 @@
   .landing-title {
     font-size: 2rem;
   }
-}
-
-/* ===== ANIMAÇÕES DE SURGIMENTO ===== */
-.landing-line {
-  display: inline-block;
-  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-}
-
-.landing-section.visible .landing-line:nth-child(1) {
-  animation: typingClip 0.4s steps(14) forwards;
-  animation-delay: 0.1s;
-}
-
-.landing-section.visible .landing-line:nth-child(2) {
-  animation: typingClip 0.4s steps(15) forwards;
-  animation-delay: 0.5s;
-}
-
-@keyframes typingClip {
-  to { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
-}
-
-.landing-description {
-  opacity: 0;
-  transform: translateY(15px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.landing-section.visible .landing-description {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.9s;
-}
-
-.landing-feature-card {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.landing-section.visible .landing-feature-card {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.landing-section.visible .landing-feature-card:nth-child(1),
-.landing-section.visible .landing-feature-card:nth-child(2) {
-  transition-delay: 1.0s;
-}
-
-.landing-section.visible .landing-feature-card:nth-child(3),
-.landing-section.visible .landing-feature-card:nth-child(4) {
-  transition-delay: 1.2s;
-}
-
-.landing-cta {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.landing-section.visible .landing-cta {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 1.4s;
 }

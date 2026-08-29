@@ -41,6 +41,12 @@
   mask-position: 50% 50%;
   -webkit-mask-size: clamp(19.04rem, 52.36vw, 47.6rem);
   mask-size: clamp(19.04rem, 52.36vw, 47.6rem);
+  
+  /* Força aceleração de hardware isolada para evitar flickering da máscara no Brave/Chrome */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 .motion-white-overlay {
@@ -103,8 +109,6 @@
   position: relative;
   z-index: 5;
   margin-top: -70vh;
-    background-image: 
-    linear-gradient(to top, rgba(0, 191, 255, 0.024) 0%, transparent 20%);
 }
 
 /* ── Base do card ────────────────────────────────────────────────────────── */

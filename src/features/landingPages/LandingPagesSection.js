@@ -3,7 +3,7 @@ import landingMockup from '../../assets/landing_mockup.webp';
 
 export function LandingPagesSection() {
   return `
-    <section class="landing-section animate-in animate-repeat" id="landing-section">
+    <section class="landing-section" id="landing-section">
       <!-- Glow background overlay -->
       <div class="landing-bg-glow"></div>
       
