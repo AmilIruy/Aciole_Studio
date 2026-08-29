@@ -26,13 +26,24 @@ initMobileMenu();
 initHeroGlitch();
 
 const isDesktop = window.matchMedia('(min-width: 769px)').matches;
-if (isDesktop) {
-  import('./features/hero/HeroScene.js').then(({ initHero3D }) => initHero3D());
+
+// Adia Lenis + HeroScene para tempo ocioso — evita long tasks no startup
+const loadScrollAndScene = () => {
+  import('./features/scroll/lenis.js').then(({ initLenis }) => {
+    const lenis = initLenis();
+    initScrollIndicator(lenis);
+  });
+
+  if (isDesktop) {
+    import('./features/hero/HeroScene.js').then(({ initHero3D }) => initHero3D());
+  }
+};
+
+if ('requestIdleCallback' in window) {
+  requestIdleCallback(loadScrollAndScene, { timeout: 1500 });
+} else {
+  setTimeout(loadScrollAndScene, 200);
 }
-import('./features/scroll/lenis.js').then(({ initLenis }) => {
-  const lenis = initLenis();
-  initScrollIndicator(lenis);
-});
 
 const loadMotionOnInteraction = () => {
   const events = ['scroll', 'wheel', 'touchstart', 'mousemove'];
