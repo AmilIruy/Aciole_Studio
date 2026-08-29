@@ -1,9 +1,6 @@
 /* ===== LANDING PAGES SECTION ===== */
 .landing-section {
   padding: 120px 0;
-  background-image: 
-    linear-gradient(to bottom, rgba(0, 191, 255, 0.024) 0%, transparent 70%),
-    linear-gradient(to top, rgba(127, 86, 229, 0.024) 0%, transparent 40%);
   position: relative;
 }
 
