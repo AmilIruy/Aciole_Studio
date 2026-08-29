@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const MOTION_ANIMATION_CONFIG = {
   titleMaskSize: '2200vw',
+  titleMaskSizeStart: '52.36vw',
   titleRevealDuration: 0.6,
   cardFadeDuration: 1,
   cardLineDuration: 0.7,
@@ -108,14 +109,17 @@ function animateMotionTitle() {
   });
 
   titleTimeline
-    .to(mask, {
-      maskSize: MOTION_ANIMATION_CONFIG.titleMaskSize,
-      webkitMaskSize: MOTION_ANIMATION_CONFIG.titleMaskSize,
-      maskPosition: getTargetMaskPosition,
-      webkitMaskPosition: getTargetMaskPosition,
-      duration: MOTION_ANIMATION_CONFIG.titleRevealDuration,
-      ease: 'power2.in',
-    }, 0)
+    .fromTo(mask,
+      {
+        maskSize: MOTION_ANIMATION_CONFIG.titleMaskSizeStart,
+        maskPosition: '50% 50%',
+      },
+      {
+        maskSize: MOTION_ANIMATION_CONFIG.titleMaskSize,
+        maskPosition: getTargetMaskPosition,
+        duration: MOTION_ANIMATION_CONFIG.titleRevealDuration,
+        ease: 'power2.in',
+      }, 0)
     .to(whiteOverlay, {
       opacity: 0,
       duration: 0.4,

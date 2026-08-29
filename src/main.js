@@ -1,6 +1,4 @@
 import './index.css';
-
-
 import { Header } from './features/header/Header.js';
 import { initMobileMenu } from './features/header/MobileMenu.js';
 import { Hero, initHeroGlitch } from './features/hero/Hero.js';
@@ -10,7 +8,6 @@ import { ProjectsSection } from './features/projects/ProjectsSection.js';
 import { AboutSection } from './features/about/AboutSection.js';
 import { ProcessSection } from './features/process/ProcessSection.js';
 import { Footer } from './features/footer/Footer.js';
-
 
 document.getElementById('root').innerHTML = `
   ${Header()}
@@ -25,27 +22,19 @@ document.getElementById('root').innerHTML = `
   ${Footer()}
 `;
 
-
 initMobileMenu();
 initHeroGlitch();
-
-
 
 const isDesktop = window.matchMedia('(min-width: 769px)').matches;
 if (isDesktop) {
   import('./features/hero/HeroScene.js').then(({ initHero3D }) => initHero3D());
 }
-
 import('./features/scroll/lenis.js').then(({ initLenis }) => initLenis());
-
-
-
 
 const loadMotionOnInteraction = () => {
   const events = ['scroll', 'wheel', 'touchstart', 'mousemove'];
   
   const trigger = () => {
-    
     events.forEach(e => window.removeEventListener(e, trigger));
     
     const fetchMotion = () => {
@@ -66,16 +55,12 @@ const loadMotionOnInteraction = () => {
 
 loadMotionOnInteraction();
 
-
 const jsLazyLoadObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const el = entry.target;
 
-        
-        
-        
         if (el.id === 'projects-section') {
           jsLazyLoadObserver.unobserve(el);
           import('./features/splitTransition/splitTransition.js')
@@ -86,24 +71,27 @@ const jsLazyLoadObserver = new IntersectionObserver(
     });
   },
   { 
-    
     rootMargin: '24px 0px 24px 0px',
     threshold: 0 
   }
 );
 
-
-
-
 const projectsSection = document.getElementById('projects-section');
 if (projectsSection) jsLazyLoadObserver.observe(projectsSection);
-
 
 const visualObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
-      visualObserver.unobserve(entry.target);
+      if (!entry.target.classList.contains('animate-repeat')) {
+        visualObserver.unobserve(entry.target);
+      }
+    } else {
+      if (entry.target.classList.contains('animate-repeat')) {
+        if (entry.boundingClientRect.y > 0) {
+          entry.target.classList.remove('visible');
+        }
+      }
     }
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });

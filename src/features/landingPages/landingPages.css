@@ -1,46 +1,84 @@
-
 .landing-section {
   padding: 120px 0;
   position: relative;
+  overflow: hidden;
+}
+
+.landing-bg-glow {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, rgba(64, 177, 229, 0.024) 0%, transparent 60%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .landing-section .container {
   display: flex;
   align-items: center;
-  gap: 60px;
+  gap: 80px;
+  position: relative;
+  z-index: 1;
 }
 
 .landing-content {
-  flex: 1;
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
 }
 
-.landing-content h2 {
-  font-size: 2.8rem;
-  font-weight: 800;
-  line-height: 1.1;
-  margin-bottom: 20px;
-}
-
-.landing-content h2 .highlight {
+.landing-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
   color: var(--blue-light);
+  margin-bottom: 24px;
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 100px;
+  align-self: flex-start;
 }
 
-.landing-content p {
+.landing-title {
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.landing-line {
+  display: block;
+}
+
+.landing-title .highlight {
+  color: var(--blue-light);
+  font-style: normal;
+}
+
+.landing-description {
   color: var(--gray-200);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   line-height: 1.7;
-  margin-bottom: 28px;
-  max-width: 440px;
+  margin-bottom: 40px;
+  max-width: 480px;
 }
 
 .landing-features {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px 24px;
-  margin-bottom: 32px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
 }
 
-.landing-feature {
+.landing-feature-card {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -53,24 +91,38 @@
   font-size: 0.88rem;
   color: var(--gray-100);
   font-weight: 500;
+  transition: all 0.3s ease;
 }
 
-.landing-feature .icon {
-  width: 20px;
-  height: 20px;
+.landing-feature-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(64, 177, 229, 0.3);
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(64, 177, 229, 0.1);
+  border-radius: 6px;
+  color: var(--blue-light);
+  flex-shrink: 0;
 }
 
-.landing-feature .icon svg {
+.feature-icon svg {
   width: 16px;
   height: 16px;
-  stroke: var(--blue-light);
+}
+
+.landing-cta {
+  align-self: flex-start;
 }
 
 .landing-mockup {
-  flex: 1;
+  flex: 1 1 50%;
   display: flex;
   justify-content: center;
   position: relative;
@@ -81,7 +133,6 @@
   width: 100%;
   max-width: 540px;
 }
-
 
 .landing-mockup-glow {
   position: absolute;
@@ -99,11 +150,6 @@
 }
 
 .landing-mockup-card {
-  border-radius: 16px;
-  overflow: hidden;
-  filter: drop-shadow(0 0px 3px rgb(64, 177, 229));
-  max-width: 480px;
-  width: 100%;
   position: relative;
   z-index: 1;
   overflow: hidden;
@@ -117,17 +163,18 @@
 
 .landing-mockup-card img {
   width: 100%;
-  height: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.748));
+  display: block;
   object-fit: cover;
 }
-
 
 @media (min-width: 1920px) {
   .landing-section {
     padding: 160px 0;
   }
   .landing-section .container {
-    gap: 100px;
+    gap: 120px;
   }
   .landing-title {
     font-size: 4.2rem;
@@ -139,12 +186,7 @@
   .landing-mockup-wrapper {
     max-width: 720px;
   }
-
-  .landing-mockup-card img {
-    height: 460px;
-  }
 }
-
 
 @media (max-width: 1024px) {
   .landing-section {
@@ -152,34 +194,31 @@
   }
   .landing-section .container {
     flex-direction: column;
-    gap: 40px;
+    gap: 60px;
   }
   .landing-content, .landing-mockup {
     width: 100%;
+    flex: none;
   }
-
   .landing-mockup-card {
-    max-width: 100%;
+    transform: none;
   }
 }
 
-
 @media (max-width: 768px) {
-  .landing-content h2 {
-    font-size: 2rem;
+  .landing-section {
+    padding: 80px 0;
   }
   .landing-features {
     grid-template-columns: 1fr;
   }
 }
 
-
 @media (max-width: 480px) {
-  .landing-content h2 {
-    font-size: 1.7rem;
+  .landing-title {
+    font-size: 2rem;
   }
 }
-
 
 .landing-line {
   display: inline-block;
