@@ -1,8 +1,8 @@
-/* ===== MOTION SECTION — EXPERIÊNCIA CINEMATOGRÁFICA ===== */
 
-/* ─────────────────────────────────────────────────────────────────────────── */
-/* WRAPPER GLOBAL                                                               */
-/* ─────────────────────────────────────────────────────────────────────────── */
+
+
+
+
 #motion-experience {
   background: var(--bg-dark);
   color: var(--white);
@@ -10,9 +10,9 @@
   margin-top: -1px;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────── */
-/* 1. MOTION TITLE BLOCK                                                        */
-/* ─────────────────────────────────────────────────────────────────────────── */
+
+
+
 #motion-title-block {
   position: relative;
   min-height: 100vh;
@@ -24,14 +24,14 @@
   background: var(--bg-dark);
   background-image: linear-gradient(to bottom, rgba(173, 34, 117, 0.037) 0%, transparent 80%);
   z-index: 1;
-  /* fica "embaixo" durante a sobreposição */
+  
 }
 
 .motion-title-video-bg {
   position: absolute;
   inset: 0;
   z-index: 2;
-  /* Fica acima do fundo padrão */
+  
 
   -webkit-mask-image: url("../../assets/motion-design-mask.svg");
   mask-image: url("../../assets/motion-design-mask.svg");
@@ -42,7 +42,7 @@
   -webkit-mask-size: clamp(19.04rem, 52.36vw, 47.6rem);
   mask-size: clamp(19.04rem, 52.36vw, 47.6rem);
   
-  /* Força aceleração de hardware isolada para evitar flickering da máscara no Brave/Chrome */
+  
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   backface-visibility: hidden;
@@ -61,10 +61,10 @@
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  /* Começa oculto para evitar linhas nas bordas */
+  
 }
 
-/* Overlay escuro sobre o vídeo */
+
 .motion-title-video-overlay {
   position: absolute;
   inset: 0;
@@ -95,11 +95,11 @@
   color: var(--yellow);
 }
 
-/* (removido .motion-zoom-mask independente, agora aplicado ao container) */
 
-/* ─────────────────────────────────────────────────────────────────────────── */
-/* 3. CARDS DE PROJETOS                                                         */
-/* ─────────────────────────────────────────────────────────────────────────── */
+
+
+
+
 #motion-cards {
   padding: 80px 0 120px;
   display: flex;
@@ -111,7 +111,7 @@
   margin-top: -70vh;
 }
 
-/* ── Base do card ────────────────────────────────────────────────────────── */
+
 .motion-card {
   display: flex;
   align-items: center;
@@ -124,7 +124,7 @@
   will-change: transform, opacity;
 }
 
-/* ── Variante 1: Horizontal Médio (16:9 menor) ───────────────────────────── */
+
 .motion-card--horizontal-md {
   
   flex-direction: row;
@@ -136,7 +136,7 @@
   aspect-ratio: 16 / 9;
 }
 
-/* ── Variante 2: Vertical (Reels / 9:16) ────────────────────────────────────── */
+
 .motion-card--vertical {
   flex-direction: row;
   justify-content: center;
@@ -157,7 +157,7 @@
   align-items: flex-end;
 }
 
-/* ── Variante 3: Horizontal Grande (YouTube 16:9) ───────────────────────── */
+
 .motion-card--horizontal-lg {
   flex-direction: row;
 }
@@ -168,7 +168,7 @@
   aspect-ratio: 16 / 9;
 }
 
-/* ── Video wrap ─────────────────────────────────────────────────────────── */
+
 .motion-card__video-wrap {
   position: relative;
   overflow: hidden;
@@ -255,7 +255,7 @@
   z-index: 3;
 }
 
-/* ── Descrição ──────────────────────────────────────────────────────────── */
+
 .motion-card__desc {
   flex: 0 1 520px;
   min-width: 0;
@@ -339,17 +339,17 @@
   color: var(--yellow);
 }
 
-/* Cada linha de texto — animada via GSAP stagger */
+
 .motion-card__line {
   display: block;
   will-change: transform, opacity;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────── */
-/* RESPONSIVIDADE                                                               */
-/* ─────────────────────────────────────────────────────────────────────────── */
 
-/* ── TV / 4K ─────────────────────────────────────────────────────────────── */
+
+
+
+
 @media (min-width: 1920px) {
   .motion-title-text {
     letter-spacing: -5px;
@@ -360,7 +360,7 @@
   }
 }
 
-/* ── Tablet (até 1024px) ─────────────────────────────────────────────────── */
+
 @media (max-width: 1024px) {
   #motion-cards {
     margin-top: 0;
@@ -407,7 +407,7 @@
   }
 }
 
-/* ── Mobile (até 768px) ──────────────────────────────────────────────────── */
+
 @media (max-width: 768px) {
   .motion-title-text {
     letter-spacing: -2px;
@@ -434,7 +434,7 @@
   }
 }
 
-/* ── Mobile pequeno (até 480px) ──────────────────────────────────────────── */
+
 @media (max-width: 480px) {
   .motion-card {
     padding: 0 16px;

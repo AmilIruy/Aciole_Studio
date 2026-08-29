@@ -29,7 +29,7 @@ export function ProjectsSection() {
       category: 'Landing Page',
       hasPlay: false,
     },
-    // Branding project removed
+    
   ];
 
   const marqueeProjects = [...projects, ...projects];

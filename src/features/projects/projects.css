@@ -1,4 +1,4 @@
-/* ===== PROJECTS SECTION ===== */
+
 .projects-section {
   padding: var(--section-padding);
   background-image: 
@@ -151,7 +151,7 @@
   color: var(--gray-200);
 }
 
-/* ===== TV / 4K ===== */
+
 @media (min-width: 1920px) {
   .projects-header {
     margin-bottom: 64px;
@@ -188,14 +188,14 @@
 
 }
 
-/* ===== Tablet (até 1024px) ===== */
+
 @media (max-width: 1024px) {
   .project-card {
     min-width: 280px;
   }
 }
 
-/* ===== Mobile (até 768px) ===== */
+
 @media (max-width: 768px) {
   .projects-header {
     flex-direction: column;
@@ -225,7 +225,7 @@
   }
 }
 
-/* ===== Mobile Small (até 480px) ===== */
+
 @media (max-width: 480px) {
   .projects-header h2 {
     font-size: 1.65rem;

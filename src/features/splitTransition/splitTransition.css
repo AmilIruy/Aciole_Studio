@@ -1,6 +1,4 @@
-/* ===================================================================
-   TRANSIÇÃO SPLIT-REVEAL: Processos → Sobre (DUAL SLIDER)
-   =================================================================== */
+
 
 #split-transition-wrapper {
   position: relative;
@@ -10,7 +8,7 @@
   overflow: hidden;
 }
 
-/* Esconde as seções originais visualmente, mas mantém para Leitores de Tela (A11y) */
+
 .split-a11y-container {
   position: absolute;
   width: 1px;
@@ -61,7 +59,7 @@
   padding-bottom: 48px;
 }
 
-/* ─── Desktop (Horizontal Split, Vertical Slide) ────────────────────────── */
+
 @media (min-width: 769px) {
   #split-process-canvas {
     flex-direction: row;
@@ -90,7 +88,7 @@
   }
 }
 
-/* ─── Mobile (Vertical Split, Horizontal Slide) ─────────────────────────── */
+
 @media (max-width: 768px) {
   #split-process-canvas {
     flex-direction: column;
@@ -186,7 +184,7 @@
   }
 }
 
-/* ─── Ajustes de padding responsivo ─────────────────────────────────────── */
+
 @media (min-width: 1920px) {
   .split-content > section {
     padding-top: 80px;

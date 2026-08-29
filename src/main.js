@@ -1,6 +1,6 @@
 import './index.css';
 
-// 1. Imports críticos e templates HTML
+
 import { Header } from './features/header/Header.js';
 import { initMobileMenu } from './features/header/MobileMenu.js';
 import { Hero, initHeroGlitch } from './features/hero/Hero.js';
@@ -11,7 +11,7 @@ import { AboutSection } from './features/about/AboutSection.js';
 import { ProcessSection } from './features/process/ProcessSection.js';
 import { Footer } from './features/footer/Footer.js';
 
-// 2. Renderização imediata do HTML estático (FCP/LCP otimizados)
+
 document.getElementById('root').innerHTML = `
   ${Header()}
   <main>
@@ -25,27 +25,27 @@ document.getElementById('root').innerHTML = `
   ${Footer()}
 `;
 
-// 3. Inicialização de scripts prioritários já embutidos no bundle
+
 initMobileMenu();
 initHeroGlitch();
 
-// Three.js do Hero — só carrega em desktop (769px+ consistente com o CSS)
-// No mobile, o SVG aciole9.svg é exibido diretamente (zero Three.js/GLB)
+
+
 const isDesktop = window.matchMedia('(min-width: 769px)').matches;
 if (isDesktop) {
   import('./features/hero/HeroScene.js').then(({ initHero3D }) => initHero3D());
 }
-// Lenis: Inicializado assincronamente logo após o render crítico para garantir UX suave
+
 import('./features/scroll/lenis.js').then(({ initLenis }) => initLenis());
 
-// Motion: Inicializado na primeira interação real do usuário (Load on Interaction).
-// Isso garante que o Lighthouse (que não interage com a página) NUNCA veja esse bundle
-// e que o download ocorra de forma ociosa antes de o usuário chegar na seção Motion.
+
+
+
 const loadMotionOnInteraction = () => {
   const events = ['scroll', 'wheel', 'touchstart', 'mousemove'];
   
   const trigger = () => {
-    // Remove os listeners para garantir que execute apenas uma vez
+    
     events.forEach(e => window.removeEventListener(e, trigger));
     
     const fetchMotion = () => {
@@ -66,16 +66,16 @@ const loadMotionOnInteraction = () => {
 
 loadMotionOnInteraction();
 
-// 4. Estratégia de Lazy Loading de JS via IntersectionObserver
+
 const jsLazyLoadObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const el = entry.target;
 
-        // Carrega splitTransition quando Projects entra na viewport
-        // (Process vem logo em seguida, garantindo que o ScrollTrigger
-        //  já está pronto antes do usuário chegar na animação)
+        
+        
+        
         if (el.id === 'projects-section') {
           jsLazyLoadObserver.unobserve(el);
           import('./features/splitTransition/splitTransition.js')
@@ -86,19 +86,19 @@ const jsLazyLoadObserver = new IntersectionObserver(
     });
   },
   { 
-    // rootMargin de 24px garante que o JS começará a baixar antes de ser visível
+    
     rootMargin: '24px 0px 24px 0px',
     threshold: 0 
   }
 );
 
-// Observa seções pesadas
+
 
 
 const projectsSection = document.getElementById('projects-section');
 if (projectsSection) jsLazyLoadObserver.observe(projectsSection);
 
-// 5. Intersection Observer para animações puramente visuais (fade-in)
+
 const visualObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {

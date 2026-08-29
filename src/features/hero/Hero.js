@@ -1,5 +1,5 @@
 import './hero.css';
-// SVG moved to `public/aciole9.svg` — reference via public root path
+
 
 const WORD_PAIRS = [
   { word1: 'DIGITAIS', word2: 'RESULTADOS' },
@@ -31,7 +31,6 @@ export function Hero() {
           </a>
         </div>
         <div class="hero-image">
-          <!-- SVG: logo permanente no mobile / fallback enquanto o 3D não está pronto no desktop -->
           <img
             id="hero-logo-svg"
             class="hero-logo-svg"
@@ -105,13 +104,13 @@ export function initHeroGlitch() {
 
   const startCycle = () => {
     if (cycleIntervalId === null) {
-      // executa imediatamente uma vez para garantir feedback ao usuário
+      
       animateSwap();
       cycleIntervalId = window.setInterval(animateSwap, CYCLE_INTERVAL);
     }
   };
 
-  // Inicializa observador para pausar/retomar quando a seção hero sair/entrar na viewport
+  
   const heroSection = document.getElementById('hero');
   if (heroSection) {
     io = new IntersectionObserver((entries) => {
@@ -129,7 +128,7 @@ export function initHeroGlitch() {
 
     io.observe(heroSection);
   } else {
-    // fallback: inicia normalmente se não encontrar a seção
+    
     startCycle();
   }
 

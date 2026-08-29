@@ -1,10 +1,4 @@
-/**
- * motionAnimations.js
- *
- * Responsável por toda a lógica de animação da seção Motion Design.
- * Mantém a estrutura organizada, com helpers reutilizáveis e configurações
- * centralizadas para facilitar manutenção e leitura.
- */
+
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -154,7 +148,7 @@ function animateMotionCards() {
     const descRight = card.querySelector('.motion-card__desc--right');
     const lines = card.querySelectorAll('.motion-card__line');
 
-    // Combina os ScrollTriggers em uma única Timeline para evitar overhead
+    
     const cardTl = gsap.timeline({
       scrollTrigger: {
         trigger: card,

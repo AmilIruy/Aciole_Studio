@@ -1,5 +1,5 @@
 import './header.css';
-// SVG moved to `public/aciole9.svg` — use public root path instead of importing
+
 import { MobileMenu } from './MobileMenu.js';
 
 export function Header() {
@@ -39,7 +39,6 @@ export function Header() {
           <a href="#footer-cta" class="header-cta" id="header-cta-btn">Contato</a>
         </div>
 
-        <!-- Hamburger — visível apenas em mobile -->
         <button
           class="hamburger"
           id="hamburger-btn"

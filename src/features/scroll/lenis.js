@@ -5,7 +5,7 @@ let lenisInstance = null;
 let rafId = null;
 let gsapBridgeInitialized = false;
 
-// Loop de animação independente executado antes do GSAP ser carregado
+
 function raf(time) {
   if (lenisInstance) {
     lenisInstance.raf(time);
@@ -22,13 +22,13 @@ export function initLenis() {
     syncTouch: false,
   });
 
-  // Inicia o loop de scroll suave imediatamente
+  
   rafId = requestAnimationFrame(raf);
 
   return lenisInstance;
 }
 
-// Permite parar o loop nativo para passar o controle ao gsap.ticker
+
 export function stopNativeRaf() {
   if (rafId) {
     cancelAnimationFrame(rafId);

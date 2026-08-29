@@ -1,4 +1,4 @@
-/* ===== LANDING PAGES SECTION ===== */
+
 .landing-section {
   padding: 120px 0;
   position: relative;
@@ -82,7 +82,7 @@
   max-width: 540px;
 }
 
-/* Emissão de luz azul forte atrás da imagem */
+
 .landing-mockup-glow {
   position: absolute;
   inset: -20px;
@@ -121,7 +121,7 @@
   object-fit: cover;
 }
 
-/* ===== TV / 4K ===== */
+
 @media (min-width: 1920px) {
   .landing-section {
     padding: 160px 0;
@@ -145,7 +145,7 @@
   }
 }
 
-/* ===== Tablet (até 1024px) ===== */
+
 @media (max-width: 1024px) {
   .landing-section {
     padding: 100px 0;
@@ -163,7 +163,7 @@
   }
 }
 
-/* ===== Mobile (até 768px) ===== */
+
 @media (max-width: 768px) {
   .landing-content h2 {
     font-size: 2rem;
@@ -173,14 +173,14 @@
   }
 }
 
-/* ===== Mobile Small (até 480px) ===== */
+
 @media (max-width: 480px) {
   .landing-content h2 {
     font-size: 1.7rem;
   }
 }
 
-/* ===== ANIMAÇÕES DE SURGIMENTO ===== */
+
 .landing-line {
   display: inline-block;
   clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);

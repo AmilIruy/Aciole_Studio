@@ -1,9 +1,9 @@
-/* ===== PROCESS SECTION ===== */
+
 .process-section {
   padding: var(--section-padding);
   background: var(--yellow);
   background-image: 
-    linear-gradient(to right, rgb(85, 74, 153) 0%, transparent 100%);
+    linear-gradient(to bottom, rgb(127, 86, 229) 0%, transparent 100%);
 }
 
 .process-section .container {
@@ -104,7 +104,7 @@
   line-height: 1.6;
 }
 
-/* ===== TV / 4K ===== */
+
 @media (min-width: 1920px) {
   .process-header {
     margin-bottom: 80px;
@@ -151,14 +151,14 @@
   }
 }
 
-/* ===== Tablet (até 1024px) ===== */
+
 @media (max-width: 1024px) {
   .process-steps {
     gap: 20px;
   }
 }
 
-/* ===== Mobile (até 768px) ===== */
+
 @media (max-width: 768px) {
   .process-header h2 {
     font-size: 1.9rem;
@@ -183,7 +183,7 @@
   }
 }
 
-/* ===== Mobile Small (até 480px) ===== */
+
 @media (max-width: 480px) {
   .process-header h2 {
     font-size: 1.65rem;

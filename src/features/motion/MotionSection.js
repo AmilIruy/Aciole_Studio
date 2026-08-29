@@ -1,6 +1,6 @@
 import './motion.css';
 
-// Assets importados para que o Vite resolva os caminhos corretamente
+
 import motionVideo from '../../assets/aviao.mp4?url';
 import motionThumb from '../../assets/motion_thumb.webp';
 
@@ -8,12 +8,9 @@ export function MotionSection() {
   return `
     <div id="motion-experience">
 
-      <!-- ─── 1. BLOCO TÍTULO ─────────────────────────────────────────────── -->
       <section id="motion-title-block" aria-label="Motion Design">
-        <!-- Texto gigante -->
         <p class="motion-section-label">01 — MOTION DESIGN</p>
 
-        <!-- Container do Vídeo e da Máscara (branco por cima que vai sumindo) -->
         <div class="motion-title-video-bg" id="motion-zoom-mask" aria-hidden="true">
           <div class="motion-white-overlay" id="motion-white-overlay"></div>
           <video
@@ -30,10 +27,8 @@ export function MotionSection() {
         <div class="motion-zoom-flash" id="motion-zoom-flash"></div>
       </section>
 
-      <!-- ─── 2. CARDS DE PROJETOS ──────────────────────────────────────────── -->
       <section id="motion-cards" aria-label="Projetos de Motion Design">
 
-        <!-- Card 1 — Logo Animado — horizontal médio, vídeo esq / texto dir -->
         <div class="motion-card motion-card--horizontal-md" id="motion-card-1">
           <div class="motion-card__video-wrap">
             <img class="motion-card__thumbnail" src="${motionThumb}" alt="Thumbnail do Projeto" loading="lazy" />
@@ -74,7 +69,6 @@ export function MotionSection() {
           </div>
         </div>
 
-        <!-- Card 2 — Animação Comercial — vertical (Reels), texto esq / vídeo dir -->
         <div class="motion-card motion-card--vertical" id="motion-card-2">
           <div class="motion-card__desc motion-card__desc--left">
             <span class="motion-card__tag">Conteúdo para Redes</span>
@@ -116,7 +110,6 @@ export function MotionSection() {
           </div>
         </div>
 
-        <!-- Card 3 — Tutorial Animado — horizontal grande (YouTube), vídeo esq / texto dir -->
         <div class="motion-card motion-card--horizontal-lg" id="motion-card-3">
           <div class="motion-card__video-wrap">
             <img class="motion-card__thumbnail" src="${motionThumb}" alt="Thumbnail do Projeto" loading="lazy" />
@@ -161,9 +154,7 @@ export function MotionSection() {
         </div>
 
       </section>
-      <!-- / motion-cards -->
 
     </div>
-    <!-- / motion-experience -->
   `;
 }

@@ -1,4 +1,4 @@
-/* ===== FOOTER CTA ===== */
+
 .footer-cta {
   padding: 60px 0;
   background: var(--purple);
@@ -55,7 +55,7 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* ===== FOOTER ===== */
+
 .footer {
   padding: 24px 0;
   background: var(--bg-dark);
@@ -87,7 +87,7 @@
   color: var(--white);
 }
 
-/* ===== TV / 4K ===== */
+
 @media (min-width: 1920px) {
   .footer-cta {
     padding: 90px 0;
@@ -118,7 +118,7 @@
   }
 }
 
-/* ===== Tablet (até 1024px) ===== */
+
 @media (max-width: 1024px) {
   .footer-cta .container {
     flex-direction: column;
@@ -135,7 +135,7 @@
   }
 }
 
-/* ===== Mobile (até 768px) ===== */
+
 @media (max-width: 768px) {
   .footer-cta {
     padding: 48px 0;
@@ -160,7 +160,7 @@
   }
 }
 
-/* ===== Mobile Small (até 480px) ===== */
+
 @media (max-width: 480px) {
   .footer-cta {
     padding: 40px 0;

@@ -54,13 +54,13 @@ export function initMobileMenu() {
     hamburger.setAttribute('aria-expanded', 'true');
     menu.classList.add('is-open');
     menu.setAttribute('aria-hidden', 'false');
-    // Remove tabindex -1 from focusable children so they can receive focus
+    
     setFocusable(menu, true);
-    // Try to use the inert API if available to fully remove from accessibility tree
+    
     if ('inert' in HTMLElement.prototype) menu.inert = false;
     backdrop.classList.add('is-visible');
     document.body.classList.add('menu-open');
-    // Move focus into the menu (first focusable element)
+    
     const first = menu.querySelector(focusableSelector);
     if (first) first.focus();
   }
@@ -70,12 +70,12 @@ export function initMobileMenu() {
     hamburger.setAttribute('aria-expanded', 'false');
     menu.classList.remove('is-open');
     menu.setAttribute('aria-hidden', 'true');
-    // Make all focusable children not tabbable when hidden
+    
     setFocusable(menu, false);
     if ('inert' in HTMLElement.prototype) menu.inert = true;
     backdrop.classList.remove('is-visible');
     document.body.classList.remove('menu-open');
-    // Return focus to the hamburger button
+    
     hamburger.focus();
   }
 
@@ -93,19 +93,19 @@ export function initMobileMenu() {
     link.addEventListener('click', closeMenu);
   });
 
-  // Fecha ao pressionar Escape
+  
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && menu.classList.contains('is-open')) {
       closeMenu();
     }
   });
 
-  // Utility: enable/disable focusability of menu children
+  
   function setFocusable(container, enable) {
     const nodes = container.querySelectorAll(focusableSelector);
     nodes.forEach((el) => {
       if (enable) {
-        // Remove programmatic tabindex that hides from tab order
+        
         if (el.hasAttribute('data-saved-tabindex')) {
           el.setAttribute('tabindex', el.getAttribute('data-saved-tabindex'));
           el.removeAttribute('data-saved-tabindex');
@@ -113,7 +113,7 @@ export function initMobileMenu() {
           el.removeAttribute('tabindex');
         }
       } else {
-        // Save existing tabindex (if any) then set to -1
+        
         if (el.hasAttribute('tabindex')) {
           el.setAttribute('data-saved-tabindex', el.getAttribute('tabindex'));
         }
@@ -122,7 +122,7 @@ export function initMobileMenu() {
     });
   }
 
-  // Ensure menu children are not focusable on init when menu is hidden
+  
   if (menu && menu.getAttribute('aria-hidden') === 'true') {
     setFocusable(menu, false);
     if ('inert' in HTMLElement.prototype) menu.inert = true;

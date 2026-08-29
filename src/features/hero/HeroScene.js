@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-// Hero scene configuration
+
 const heroSceneSettings = {
   primaryColor: 'rgba(255, 255, 255, 1)',
   secondaryColor: 'rgba(255, 255, 255, 1)',
@@ -33,22 +33,22 @@ export function initHero3D() {
   const width = heroSection.clientWidth;
   const height = heroSection.clientHeight || 500;
 
-  // ── Scene ────────────────────────────────────────────────────────────────
+  
   const scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2('rgba(85, 74, 153, 1)', 0.1);
 
-  // ── Camera ───────────────────────────────────────────────────────────────
+  
   const camera = new THREE.PerspectiveCamera(90, width / height, 0.1, 500);
   camera.position.set(0, 0, 8);
 
-  // ── Renderer ─────────────────────────────────────────────────────────────
+  
   const renderer = new THREE.WebGLRenderer({ canvas: canvasElement, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(width, height);
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
 
-  // ── Lights ───────────────────────────────────────────────────────────────
+  
   const ambientLight = new THREE.AmbientLight(heroSceneSettings.ambientColor, 2);
   scene.add(ambientLight);
 
@@ -63,14 +63,14 @@ export function initHero3D() {
   spotLight.position.set(0, 0, 4);
   scene.add(spotLight);
 
-  // ── Groups ───────────────────────────────────────────────────────────────
+  
   const sceneGroup = new THREE.Group();
   scene.add(sceneGroup);
 
   const heroModelGroup = new THREE.Group();
   sceneGroup.add(heroModelGroup);
 
-  // ── Particles ────────────────────────────────────────────────────────────
+  
   const particleCount = heroSceneSettings.particleCount;
   const particleGeometry = new THREE.BufferGeometry();
   const particlePositions = new Float32Array(particleCount * 3);
@@ -95,7 +95,7 @@ export function initHero3D() {
   const particleField = new THREE.Points(particleGeometry, particleMaterial);
   scene.add(particleField);
 
-  // ── Material helper ───────────────────────────────────────────────────────
+  
   const updateHeroModelMaterials = (object) => {
     let meshIndex = 0;
     object.traverse((child) => {
@@ -117,8 +117,8 @@ export function initHero3D() {
     });
   };
 
-  // ── Layout cache — calculado uma vez, atualizado somente em resize ────────
-  // Evita getBoundingClientRect() e getBoundingClientRect() a cada frame.
+  
+  
   let layoutCache = {
     baseOffsetX: 0,
     baseOffsetY: 0,
@@ -156,7 +156,7 @@ export function initHero3D() {
     }
   };
 
-  // ── Visibility (IntersectionObserver — pausa/retoma RAF quando fora/entrar na tela)
+  
   let isVisible = true;
   let animationFrameId = null;
 
@@ -167,11 +167,11 @@ export function initHero3D() {
     if (currentlyVisible && !animationFrameId) {
       isVisible = true;
       previousTime = performance.now();
-      // inicia o loop de animação quando voltar a ficar visível
+      
       animate();
     } else if (!currentlyVisible && animationFrameId) {
       isVisible = false;
-      // cancela o RAF para desligar efetivamente as animações
+      
       cancelAnimationFrame(animationFrameId);
       animationFrameId = null;
     } else {
@@ -180,9 +180,9 @@ export function initHero3D() {
   }, { threshold: 0.01 });
   io.observe(heroSection);
 
-  // ── Animation loop ────────────────────────────────────────────────────────
-  // O loop SÓ é iniciado após o GLB ser carregado e a cena estar pronta.
-  // Isso elimina o "flash" de posição errada nos primeiros frames.
+  
+  
+  
   let previousTime = performance.now();
   let elapsedTime = 0;
 
@@ -193,14 +193,14 @@ export function initHero3D() {
     elapsedTime += delta;
     const time = elapsedTime;
 
-    // Usar cache de layout — sem getBoundingClientRect por frame
+    
     heroModelGroup.scale.setScalar(layoutCache.responsiveScale);
 
-    // Spotlight dinâmico (calculado por frame — é apenas trig, sem layout)
+    
     spotLight.position.x = Math.sin(time * 0.8) * 3.5;
     spotLight.position.y = Math.cos(time * 1.1) * 2.5;
 
-    // Atualizar partículas
+    
     const positionsAttr = particleGeometry.attributes.position;
     for (let i = 0; i < particleCount; i++) {
       let py = positionsAttr.getY(i);
@@ -214,7 +214,7 @@ export function initHero3D() {
     }
     particleGeometry.attributes.position.needsUpdate = true;
 
-    // Rotação do modelo
+    
     if (heroSceneSettings.autoRotate) {
       heroModelGroup.rotation.y += heroSceneSettings.autoRotateSpeed * delta;
     } else {
@@ -240,7 +240,7 @@ export function initHero3D() {
 
     renderer.render(scene, camera);
 
-    // Agendar próximo frame somente se a seção estiver visível
+    
     if (isVisible) {
       animationFrameId = requestAnimationFrame(animate);
     } else {
@@ -248,23 +248,23 @@ export function initHero3D() {
     }
   };
 
-  // ── GLB Loader ────────────────────────────────────────────────────────────
-  // O animate() só começa após o modelo estar carregado, posicionado e pronto.
-  // Isso elimina o "flash" de posição errada nos primeiros frames.
+  
+  
+  
   const loader = new GLTFLoader();
   loader.load(
     new URL('../../assets/Logo3d.glb', import.meta.url).href,
     (gltf) => {
       const heroModel = gltf.scene;
 
-      // Centralizar e escalar o modelo
+      
       const modelBounds = new THREE.Box3().setFromObject(heroModel);
       const modelSize = modelBounds.getSize(new THREE.Vector3());
       const maxModelDimension = Math.max(modelSize.x, modelSize.y, modelSize.z);
       const modelScaleFactor = (3.2 / maxModelDimension) * heroSceneSettings.scale;
       heroModel.scale.setScalar(modelScaleFactor);
 
-      // Recentrar após o scale
+      
       modelBounds.setFromObject(heroModel);
       const center = modelBounds.getCenter(new THREE.Vector3());
       heroModel.position.sub(center);
@@ -273,17 +273,17 @@ export function initHero3D() {
       updateHeroModelMaterials(heroModel);
       heroModelGroup.add(heroModel);
 
-      // Cache de layout calculado com o modelo já em cena e o renderer configurado
+      
       refreshLayoutCache();
 
-      // Renderizar um frame "silencioso" para garantir que a GPU está pronta
+      
       renderer.render(scene, camera);
 
-      // Revelar o canvas e ocultar o SVG fallback somente depois de tudo pronto
+      
       canvasElement.classList.add('ready');
       if (svgLogo) svgLogo.classList.add('hidden');
 
-      // Iniciar o loop de animação somente agora se a seção estiver visível
+      
       if (isVisible && !animationFrameId) {
         previousTime = performance.now();
         animate();
@@ -292,11 +292,11 @@ export function initHero3D() {
     undefined,
     (err) => {
       console.error('Erro ao carregar o modelo 3D:', err);
-      // Em caso de erro, o SVG permanece visível (fallback garantido)
+      
     }
   );
 
-  // ── Resize ───────────────────────────────────────────────────────────────
+  
   const handleResize = () => {
     const newWidth = heroSection.clientWidth;
     const newHeight = heroSection.clientHeight || 500;
@@ -306,14 +306,14 @@ export function initHero3D() {
     renderer.setSize(newWidth, newHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Recalcular offsets de layout após resize
+    
     refreshLayoutCache();
   };
 
   const resizeObserver = new ResizeObserver(handleResize);
   resizeObserver.observe(heroSection);
 
-  // ── Mouse interaction ─────────────────────────────────────────────────────
+  
   const handleMouseMove = (e) => {
     if (!isVisible) return;
     const rect = heroSection.getBoundingClientRect();
@@ -325,7 +325,7 @@ export function initHero3D() {
 
   window.addEventListener('mousemove', handleMouseMove);
 
-  // ── Cleanup ───────────────────────────────────────────────────────────────
+  
   window.addEventListener('beforeunload', () => {
     cancelAnimationFrame(animationFrameId);
     resizeObserver.disconnect();
