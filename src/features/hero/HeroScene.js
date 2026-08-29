@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import { Scene, FogExp2, PerspectiveCamera, WebGLRenderer, PCFShadowMap, AmbientLight, DirectionalLight, SpotLight, Group, BufferGeometry, BufferAttribute, PointsMaterial, Color, AdditiveBlending, Points, Mesh, MeshPhysicalMaterial, MathUtils, Box3, Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 
@@ -34,45 +34,45 @@ export function initHero3D() {
   const height = heroSection.clientHeight || 500;
 
   
-  const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2('rgba(85, 74, 153, 1)', 0.1);
+  const scene = new Scene();
+  scene.fog = new FogExp2('rgba(85, 74, 153, 1)', 0.1);
 
   
-  const camera = new THREE.PerspectiveCamera(90, width / height, 0.1, 500);
+  const camera = new PerspectiveCamera(90, width / height, 0.1, 500);
   camera.position.set(0, 0, 8);
 
   
-  const renderer = new THREE.WebGLRenderer({ canvas: canvasElement, antialias: true, alpha: true });
+  const renderer = new WebGLRenderer({ canvas: canvasElement, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(width, height);
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFShadowMap;
+  renderer.shadowMap.type = PCFShadowMap;
 
   
-  const ambientLight = new THREE.AmbientLight(heroSceneSettings.ambientColor, 2);
+  const ambientLight = new AmbientLight(heroSceneSettings.ambientColor, 2);
   scene.add(ambientLight);
 
-  const mainLight = new THREE.DirectionalLight(0xffffff, heroSceneSettings.lightIntensity);
+  const mainLight = new DirectionalLight(0xffffff, heroSceneSettings.lightIntensity);
   mainLight.position.set(20, 1, 20);
   mainLight.castShadow = true;
   mainLight.shadow.mapSize.width = 1024;
   mainLight.shadow.mapSize.height = 1024;
   scene.add(mainLight);
 
-  const spotLight = new THREE.SpotLight(heroSceneSettings.primaryColor, 4, 15, Math.PI / 4, 0.5, 1);
+  const spotLight = new SpotLight(heroSceneSettings.primaryColor, 4, 15, Math.PI / 4, 0.5, 1);
   spotLight.position.set(0, 0, 4);
   scene.add(spotLight);
 
   
-  const sceneGroup = new THREE.Group();
+  const sceneGroup = new Group();
   scene.add(sceneGroup);
 
-  const heroModelGroup = new THREE.Group();
+  const heroModelGroup = new Group();
   sceneGroup.add(heroModelGroup);
 
   
   const particleCount = heroSceneSettings.particleCount;
-  const particleGeometry = new THREE.BufferGeometry();
+  const particleGeometry = new BufferGeometry();
   const particlePositions = new Float32Array(particleCount * 3);
   const particleSpeeds = new Float32Array(particleCount);
 
@@ -83,30 +83,30 @@ export function initHero3D() {
     particleSpeeds[i] = 0.01 + Math.random() * 0.02;
   }
 
-  particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
-  const particleMaterial = new THREE.PointsMaterial({
-    color: new THREE.Color(heroSceneSettings.particleColor),
+  particleGeometry.setAttribute('position', new BufferAttribute(particlePositions, 3));
+  const particleMaterial = new PointsMaterial({
+    color: new Color(heroSceneSettings.particleColor),
     size: 0.08,
     transparent: true,
     opacity: 0.4,
-    blending: THREE.AdditiveBlending,
+    blending: AdditiveBlending,
   });
 
-  const particleField = new THREE.Points(particleGeometry, particleMaterial);
+  const particleField = new Points(particleGeometry, particleMaterial);
   scene.add(particleField);
 
   
   const updateHeroModelMaterials = (object) => {
     let meshIndex = 0;
     object.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
+      if (child instanceof Mesh) {
         child.castShadow = true;
         child.receiveShadow = true;
         meshIndex++;
         const isPrimary = meshIndex % 2 !== 0;
         const activeColor = isPrimary ? heroSceneSettings.primaryColor : heroSceneSettings.secondaryColor;
-        child.material = new THREE.MeshPhysicalMaterial({
-          color: new THREE.Color(activeColor),
+        child.material = new MeshPhysicalMaterial({
+          color: new Color(activeColor),
           roughness: heroSceneSettings.roughness,
           metalness: heroSceneSettings.metalness,
           wireframe: heroSceneSettings.wireframe,
@@ -136,7 +136,7 @@ export function initHero3D() {
     const ndcX = ((rect.left + rect.width / 2) - (heroSectionRect.left + heroSectionRect.width / 2)) / (heroSectionRect.width / 2);
     const ndcY = -(((rect.top + rect.height / 2) - (heroSectionRect.top + heroSectionRect.height / 2)) / (heroSectionRect.height / 2));
 
-    const vFOV = THREE.MathUtils.degToRad(camera.fov);
+    const vFOV = MathUtils.degToRad(camera.fov);
     const vHeight = 2 * Math.tan(vFOV / 2) * camera.position.z;
     const vWidth = vHeight * camera.aspect;
 
@@ -258,15 +258,15 @@ export function initHero3D() {
       const heroModel = gltf.scene;
 
       
-      const modelBounds = new THREE.Box3().setFromObject(heroModel);
-      const modelSize = modelBounds.getSize(new THREE.Vector3());
+      const modelBounds = new Box3().setFromObject(heroModel);
+      const modelSize = modelBounds.getSize(new Vector3());
       const maxModelDimension = Math.max(modelSize.x, modelSize.y, modelSize.z);
       const modelScaleFactor = (3.2 / maxModelDimension) * heroSceneSettings.scale;
       heroModel.scale.setScalar(modelScaleFactor);
 
       
       modelBounds.setFromObject(heroModel);
-      const center = modelBounds.getCenter(new THREE.Vector3());
+      const center = modelBounds.getCenter(new Vector3());
       heroModel.position.sub(center);
       heroModel.position.y += 0.8;
 

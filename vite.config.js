@@ -4,8 +4,21 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [],
   build: {
-    // Gera arquivos .map para depuração e para que o Lighthouse possa acessá-los.
-    // Alternativas: 'inline' (incluir no bundle) ou 'hidden' (gera mapas mas não adiciona sourceMappingURL).
     sourcemap: true,
+    rollupOptions: {
+      treeshake: {
+        // Trata módulos sem side-effects como tree-shakeable (essencial para three.js)
+        moduleSideEffects: false,
+        preset: 'recommended',
+      },
+      output: {
+        manualChunks(id) {
+          // Three.js em chunk separado — carregado só quando HeroScene é importado
+          if (id.includes('node_modules/three')) {
+            return 'three';
+          }
+        },
+      },
+    },
   },
 })
