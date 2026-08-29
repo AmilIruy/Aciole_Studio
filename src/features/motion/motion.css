@@ -1,17 +1,9 @@
-
-
-
-
-
 #motion-experience {
   background: var(--bg-dark);
   color: var(--white);
   overflow: hidden;
   margin-top: -1px;
 }
-
-
-
 
 #motion-title-block {
   position: relative;
@@ -334,7 +326,7 @@
 .motion-includes-list li {
   border: 1px solid hsla(345, 100%, 60%, 0.218);
   padding: 6px 14px;
-  border-radius: 100px;
+  border-radius: 6px;
   font-size: 0.8rem;
   color: var(--yellow);
 }

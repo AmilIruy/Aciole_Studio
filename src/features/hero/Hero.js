@@ -137,3 +137,77 @@ export function initHeroGlitch() {
     if (io) io.disconnect();
   }, { once: true });
 }
+
+export function initScrollIndicator(lenis) {
+  // Cria e anexa direto ao body — fora de qualquer stacking context
+  const indicator = document.createElement('div');
+  indicator.className = 'scroll-indicator';
+  indicator.id = 'scroll-indicator';
+  indicator.setAttribute('aria-hidden', 'true');
+  indicator.innerHTML = `
+    <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+      <path d="M40.836,34.437c-0.195,0.195-0.451,0.293-0.707,0.293s-0.512-0.098-0.707-0.293
+        L25.129,20.144L10.836,34.437c-0.391,0.391-1.023,0.391-1.414,0
+        s-0.391-1.023,0-1.414l15-15c0.391-0.391,1.023-0.391,1.414,0l15,15
+        C41.227,33.414,41.227,34.046,40.836,34.437z"
+        transform="rotate(180 25 25)"/>
+    </svg>
+  `;
+  document.body.appendChild(indicator);
+
+  let hideTimer = null;
+  let isHidden = false;
+  let destroyed = false;
+
+  const show = () => {
+    if (destroyed) return;
+    isHidden = false;
+    indicator.classList.remove('hidden');
+  };
+
+  const hide = () => {
+    if (destroyed) return;
+    isHidden = true;
+    indicator.classList.add('hidden');
+  };
+
+  const onScroll = () => {
+    if (!isHidden) hide();
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(show, 800);
+  };
+
+  const destroy = () => {
+    if (destroyed) return;
+    destroyed = true;
+    clearTimeout(hideTimer);
+    indicator.classList.add('hidden');
+    if (lenis) {
+      lenis.off('scroll', onScroll);
+    } else {
+      window.removeEventListener('scroll', onScroll);
+    }
+  };
+
+  // Subscreve ao Lenis (preferencial) ou fallback nativo
+  if (lenis) {
+    lenis.on('scroll', onScroll);
+  } else {
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // Some permanentemente quando o footer entra na viewport
+  const footerTrigger = document.getElementById('footer-cta');
+  if (footerTrigger) {
+    const footerObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          destroy();
+          footerObserver.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    footerObserver.observe(footerTrigger);
+  }
+}

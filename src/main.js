@@ -1,7 +1,7 @@
 import './index.css';
 import { Header } from './features/header/Header.js';
 import { initMobileMenu } from './features/header/MobileMenu.js';
-import { Hero, initHeroGlitch } from './features/hero/Hero.js';
+import { Hero, initHeroGlitch, initScrollIndicator } from './features/hero/Hero.js';
 import { MotionSection } from './features/motion/MotionSection.js';
 import { LandingPagesSection } from './features/landingPages/LandingPagesSection.js';
 import { ProjectsSection } from './features/projects/ProjectsSection.js';
@@ -29,7 +29,10 @@ const isDesktop = window.matchMedia('(min-width: 769px)').matches;
 if (isDesktop) {
   import('./features/hero/HeroScene.js').then(({ initHero3D }) => initHero3D());
 }
-import('./features/scroll/lenis.js').then(({ initLenis }) => initLenis());
+import('./features/scroll/lenis.js').then(({ initLenis }) => {
+  const lenis = initLenis();
+  initScrollIndicator(lenis);
+});
 
 const loadMotionOnInteraction = () => {
   const events = ['scroll', 'wheel', 'touchstart', 'mousemove'];

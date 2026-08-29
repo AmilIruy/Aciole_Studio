@@ -9,7 +9,7 @@ export function MotionSection() {
     <div id="motion-experience">
 
       <section id="motion-title-block" aria-label="Motion Design">
-        <p class="motion-section-label">01 — MOTION DESIGN</p>
+        <p class="motion-section-label">01 — AUDIOVISUAL</p>
 
         <div class="motion-title-video-bg" id="motion-zoom-mask" aria-hidden="true">
           <div class="motion-white-overlay" id="motion-white-overlay"></div>
@@ -60,9 +60,8 @@ export function MotionSection() {
               <div class="motion-card__line motion-card__includes">
                 <ul class="motion-includes-list">
                   <li>Motion Graphics</li>
-                  <li>Logo Animation</li>
+                  <li>Animação Comercial</li>
                   <li>VFX</li>
-                  <li>Composição</li>
                 </ul>
               </div>
             </div>
@@ -86,9 +85,7 @@ export function MotionSection() {
                 <ul class="motion-includes-list">
                   <li>Reels</li>
                   <li>Vídeos Comerciais</li>
-                  <li>VFX</li>
-                  <li>Motion</li>
-                  <li>Edição</li>
+                  <li>Edição de Vídeos Para Instagram</li>
                 </ul>
               </div>
             </div>
@@ -127,29 +124,27 @@ export function MotionSection() {
             <div class="motion-card__video-overlay"></div>
           </div>
           <div class="motion-card__desc motion-card__desc--right">
-            <span class="motion-card__tag">Conteúdo Educativo</span>
+            <span class="motion-card__tag">CONTEÚDO PARA YOUTUBE</span>
             <h2 class="motion-card__title">
-              <span class="motion-card__line">Conhecimento</span>
-              <span class="motion-card__line">entregue com</span>
-              <span class="motion-card__line"><em>clareza.</em></span>
+              <span class="motion-card__line">Vídeos que</span>
+              <span class="motion-card__line">Prendem do</span>
+              <span class="motion-card__line"><em>Inicio ao fim.</em></span>
             </h2>
             <div class="motion-card__body">
-              <span class="motion-card__line">Vídeos educativos, histórias e conteúdos</span>
-              <span class="motion-card__line">de curiosidades que transformam</span>
-              <span class="motion-card__line">informação em narrativas visuais</span>
-              <span class="motion-card__line">fáceis de entender e interessantes de assistir.</span>
+              <span class="motion-card__line">Da edição ao acabamento final,</span>
+              <span class="motion-card__line">transformamos gravações em vídeos</span>
+              <span class="motion-card__line">envolventes e profissionais para YouTube.</span>
+              <span class="motion-card__line">Utilizamos edição dinâmica, motion graphics,</span>
+                            <span class="motion-card__line">efeitos visuais, sound design e storytelling.</span>
               <div class="motion-card__line motion-card__includes">
                 <ul class="motion-includes-list">
-                  <li>História</li>
-                  <li>Curiosidades</li>
-                  <li>Videoaulas</li>
-                  <li>Motion</li>
+                  <li>Storytelling</li>
+                  <li>Vídeos longos</li>
+                  <li>Shorts</li>
+                  <li>Edição de Vídeo Para o Youtube</li>
                 </ul>
               </div>
             </div>
-            <a href="#projects-section" class="btn-primary motion-card__button">
-              Ver Mais Projetos <span class="arrow">→</span>
-            </a>
           </div>
         </div>
 
