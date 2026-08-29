@@ -42,7 +42,7 @@ export function ProjectsSection() {
             <span class="section-label">Projetos em Destaque</span>
             <h2>
               RESULTADOS<br />
-              QUE <span class="highlight">FALAM POR SI.</span>
+              QUE <span class="highlight">FALAM<br />POR SI.</span>
             </h2>
           </div>
         </div>

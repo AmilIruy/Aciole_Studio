@@ -101,7 +101,10 @@ if (projectsSection) jsLazyLoadObserver.observe(projectsSection);
 // 5. Intersection Observer para animações puramente visuais (fade-in)
 const visualObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
-  visualObserver.unobserve(entry.target);
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      visualObserver.unobserve(entry.target);
+    }
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 

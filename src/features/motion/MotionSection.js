@@ -11,7 +11,7 @@ export function MotionSection() {
       <!-- ─── 1. BLOCO TÍTULO ─────────────────────────────────────────────── -->
       <section id="motion-title-block" aria-label="Motion Design">
         <!-- Texto gigante -->
-        <p class="motion-section-label">01 — AUDIOVISUAL</p>
+        <p class="motion-section-label">01 — MOTION DESIGN</p>
 
         <!-- Container do Vídeo e da Máscara (branco por cima que vai sumindo) -->
         <div class="motion-title-video-bg" id="motion-zoom-mask" aria-hidden="true">
