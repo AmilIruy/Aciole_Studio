@@ -1,8 +1,7 @@
-
 .process-section {
   padding: var(--section-padding);
   background: var(--yellow);
-  background-image: 
+  background-image:
     linear-gradient(to bottom, rgb(127, 86, 229) 0%, transparent 100%);
 }
 
@@ -38,7 +37,7 @@
 }
 
 .process-header h2 .highlight {
-  background: linear-gradient(100deg, var(--purple-light), var(--yellow));
+  background: linear-gradient(100deg, var(--white), var(--yellow));
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }

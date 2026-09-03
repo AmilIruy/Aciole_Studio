@@ -4,6 +4,7 @@ export function Footer() {
   return `
     <section class="footer-cta animate-in" id="footer-cta">
       <div class="container">
+        <img src="/aciole9.svg" alt="Aciole Logo" class="footer-logo" />
         <h2>
           VAMOS CRIAR ALGO<br />
           INCRÍVEL JUNTOS?

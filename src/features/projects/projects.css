@@ -28,8 +28,8 @@
 .projects-carousel {
   display: flex;
   gap: 30px;
-  overflow: hidden;
-  scroll-behavior: smooth;
+  overflow-x: auto;
+  overflow-y: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
   padding-top: 20px;
@@ -45,21 +45,34 @@
   display: flex;
   gap: 30px;
   width: max-content;
-  animation: scroll 30s linear infinite;
-  will-change: transform;
 }
 
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-50%));
-  }
+.projects-nav-buttons {
+  display: flex;
+  gap: 12px;
 }
 
-.projects-carousel:hover .track {
-  animation-play-state: paused;
+.nav-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--white);
+  background: transparent;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.nav-btn:hover {
+  background: var(--white);
+  border-color: var(--white);
+  color: var(--bg-dark);
 }
 
 .project-card {

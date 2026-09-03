@@ -1,16 +1,14 @@
 import './about.css';
+import yuriImage from '../../assets/Yuri-Aciole.webp';
 
 export function AboutSection() {
-  const stats = [
-    { icon: '⭐', number: '+50', label: 'Projetos Entregues' },
-    { icon: '🏆', number: '+30', label: 'Marcas Atendidas' },
-    { icon: '🎯', number: '100%', label: 'Foco em Resultados' },
-    { icon: '🌎', number: 'Brasil', label: 'Atendemos em todo o país' },
-  ];
-
   return `
     <section class="about-section" id="about-section">
       <div class="container">
+        <div class="about-media">
+          <img src="${yuriImage}" alt="Yuri Aciole" class="about-image" />
+        </div>
+        
         <div class="about-content">
           <span class="section-label" style="color: rgba(255,255,255,0.6)">Sobre a Aciole Studio</span>
           <h2>
@@ -18,21 +16,11 @@ export function AboutSection() {
             COM <span class="highlight">PROPÓSITO.</span>
           </h2>
           <p>
-            A Aciole Studio nasceu para unir design, tecnologia e estratégia em projetos que realmente geram resultados.
+            A Aciole Studio nasceu para unir design, tecnologia e audiovisual em projetos que realmente geram resultados.
           </p>
           <p>
-            Nós criamos agency de experiências, criamos experiências digitais capazes de destacar empresas em mercados cada vez mais competitivos.
+            Criamos experiências digitais e conteúdos visuais que conectam marcas e pessoas, ajudando empresas a se destacar em mercados cada vez mais competitivos.
           </p>
-        </div>
-
-        <div class="about-stats" id="about-stats">
-          ${stats.map(stat => `
-            <div class="about-stat">
-              <div class="stat-icon">${stat.icon}</div>
-              <span class="stat-number">${stat.number}</span>
-              <span class="stat-label">${stat.label}</span>
-            </div>
-          `).join('')}
         </div>
       </div>
     </section>

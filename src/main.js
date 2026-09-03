@@ -4,7 +4,7 @@ import { initMobileMenu } from './features/header/MobileMenu.js';
 import { Hero, initHeroGlitch, initScrollIndicator } from './features/hero/Hero.js';
 import { MotionSection } from './features/motion/MotionSection.js';
 import { LandingPagesSection } from './features/landingPages/LandingPagesSection.js';
-import { ProjectsSection } from './features/projects/ProjectsSection.js';
+import { ProjectsSection, initProjects } from './features/projects/ProjectsSection.js';
 import { AboutSection } from './features/about/AboutSection.js';
 import { ProcessSection } from './features/process/ProcessSection.js';
 import { Footer } from './features/footer/Footer.js';
@@ -24,6 +24,7 @@ document.getElementById('root').innerHTML = `
 
 initMobileMenu();
 initHeroGlitch();
+initProjects();
 
 const isDesktop = window.matchMedia('(min-width: 769px)').matches;
 

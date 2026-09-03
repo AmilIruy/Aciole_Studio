@@ -19,13 +19,13 @@ export function ProjectsSection() {
     },
     {
       image: landingMockup,
-      title: 'Landing Page Nacera',
+      title: 'Landing Page',
       category: 'Landing Page',
       hasPlay: false,
     },
     {
       image: landingMockup,
-      title: 'Landing Page Nacera',
+      title: 'Landing Page',
       category: 'Landing Page',
       hasPlay: false,
     },
@@ -44,6 +44,14 @@ export function ProjectsSection() {
               RESULTADOS<br />
               QUE <span class="highlight">FALAM POR SI.</span>
             </h2>
+          </div>
+          <div class="projects-nav-buttons">
+            <button class="nav-btn" id="carousel-prev" aria-label="Anterior">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </button>
+            <button class="nav-btn" id="carousel-next" aria-label="Próximo">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
           </div>
         </div>
 
@@ -73,5 +81,67 @@ export function ProjectsSection() {
       </div>
     </section>
   `;
+}
+
+export function initProjects() {
+  const carousel = document.getElementById('projects-carousel');
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+
+  if (carousel && prevBtn && nextBtn) {
+    const scrollAmount = 324;
+    let isHovering = false;
+    let clickTimeout;
+
+    // Smooth auto-scroll
+    const autoScroll = () => {
+      if (!isHovering) {
+        carousel.scrollLeft += 1;
+        // Snap back to start if we scrolled past the original set
+        if (carousel.scrollLeft >= carousel.scrollWidth / 2) {
+          carousel.scrollLeft -= carousel.scrollWidth / 2;
+        }
+      }
+      requestAnimationFrame(autoScroll);
+    };
+    
+    // Start auto scroll
+    requestAnimationFrame(autoScroll);
+
+    // Pause on hover
+    carousel.addEventListener('mouseenter', () => isHovering = true);
+    carousel.addEventListener('mouseleave', () => isHovering = false);
+    
+    // Handle manual scroll clicks smoothly
+    const handleManualScroll = (amount) => {
+      isHovering = true;
+      clearTimeout(clickTimeout);
+      
+      const halfWidth = carousel.scrollWidth / 2;
+
+      // Wrap around logic for manual scroll
+      if (amount < 0 && carousel.scrollLeft < Math.abs(amount)) {
+        carousel.scrollLeft += halfWidth;
+      } else if (amount > 0 && carousel.scrollLeft >= halfWidth - amount) {
+        carousel.scrollLeft -= halfWidth;
+      }
+
+      carousel.scrollBy({ left: amount, behavior: 'smooth' });
+      
+      clickTimeout = setTimeout(() => {
+        isHovering = false;
+      }, 800); // Resume auto-scroll after smooth transition finishes
+    };
+
+    prevBtn.addEventListener('click', () => handleManualScroll(-scrollAmount));
+    nextBtn.addEventListener('click', () => handleManualScroll(scrollAmount));
+
+    // Support touch devices (pause while touching)
+    carousel.addEventListener('touchstart', () => isHovering = true, { passive: true });
+    carousel.addEventListener('touchend', () => {
+      clearTimeout(clickTimeout);
+      clickTimeout = setTimeout(() => { isHovering = false; }, 800);
+    });
+  }
 }
 
