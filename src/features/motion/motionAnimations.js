@@ -51,9 +51,9 @@ function calculateMaskPosition() {
   const vh = window.innerHeight;
   const maskMultiplier = parseFloat(MOTION_ANIMATION_CONFIG.titleMaskSize) / 100;
   const iw = maskMultiplier * vw; 
-  const ih = iw / (572.09 / 234.37);
-  const fx = 277.91 / 572.09;
-  const fy = 52.185 / 234.37;
+  const ih = iw / (533.79 / 235.01);
+  const fx = 235.94 / 533.79;
+  const fy = 52.185 / 235.01;
   const x = (vw / 2 - iw * fx) / (vw - iw) * 100;
   const y = (vh / 2 - ih * fy) / (vh - ih) * 100;
   cachedMaskPosition = `${x}% ${y}%`;

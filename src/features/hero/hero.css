@@ -226,17 +226,16 @@
 @media (max-width: 1024px) {
   .hero .container {
     flex-direction: column;
-    text-align: center;
+    text-align: left;
   }
 
   .hero-content {
+    width: 100%;
     max-width: 100%;
   }
 
   .hero-subtitle {
     max-width: 560px;
-    margin-right: auto;
-    margin-left: auto;
   }
 
   .hero-title {

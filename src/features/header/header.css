@@ -93,10 +93,10 @@
 
 .header-cta {
   padding: 10px 24px;
-  background: transparent;
+  background: linear-gradient(to right, var(--yellow), var(--purple), var(--blue-light));
   color: var(--white);
   border: 1.5px solid var(--white);
-  border-radius: 50px;
+  border-radius: 6px;
   font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.5px;

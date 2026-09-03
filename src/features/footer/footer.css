@@ -1,7 +1,9 @@
-
 .footer-cta {
   padding: 60px 0;
   background: var(--purple);
+  background-image:
+    linear-gradient(to right, rgba(173, 34, 117, 0.504) 0%, transparent 40%),
+    linear-gradient(to left, rgba(51, 204, 255, 0.504) 0%, transparent 40%);
   color: var(--white);
 }
 
@@ -37,10 +39,10 @@
 
 .footer-cta-btn {
   padding: 16px 36px;
-  background: var(--white);
-  color: var(--purple);
-  border: none;
-  border-radius: 50px;
+  background: linear-gradient(to right, var(--yellow), var(--purple), var(--blue-light));
+  color: var(--white);
+  border: 1.5px solid var(--white);
+  border-radius: 6px;
   font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -49,7 +51,7 @@
 }
 
 .footer-cta-btn:hover {
-  background: var(--yellow);
+  background: var(--white);
   color: var(--bg-dark);
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
