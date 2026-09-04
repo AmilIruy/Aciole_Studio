@@ -1,9 +1,8 @@
 .footer-cta {
   padding: 60px 0;
-  background: var(--purple);
+  background: var(--bg-dark);
   background-image:
-    linear-gradient(to right, rgba(173, 34, 117, 0.504) 0%, transparent 40%),
-    linear-gradient(to left, rgba(51, 204, 255, 0.504) 0%, transparent 40%);
+    linear-gradient(to top, rgba(127, 86, 229, 0.093) 0%, transparent 50%);
   color: var(--white);
 }
 
@@ -27,7 +26,6 @@
   height: 150px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 0px 60px rgba(25, 17, 45, 0.615));
 }
 
 .footer-cta-right {
@@ -70,7 +68,7 @@
 
 .footer {
   padding: 24px 0;
-  background: var(--bg-dark);
+  background: rgba(127, 86, 229, 0.093);
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 

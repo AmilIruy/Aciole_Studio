@@ -2,7 +2,7 @@
 .projects-section {
   padding: var(--section-padding);
   background-image: 
-    radial-gradient(ellipse at center, rgba(47, 16, 248, 0.020) 0%, transparent 50%);
+    radial-gradient(ellipse at center, rgba(127, 86, 229, 0.044) 0%, transparent 50%);
   color: var(--white);
   overflow: hidden;
 }
@@ -81,10 +81,10 @@
   overflow: hidden;
   min-width: 300px;
   flex-shrink: 0;
+  border-radius: 6px;
   overflow: hidden;
   box-shadow:
-    0 0 0 0.4px hsl(248, 35%, 45%),
-    0 0 10px 0.1px hsla(248, 35%, 45%, 0.184);
+    0 0 0 0.4px rgba(127, 86, 229, 0.637);
   transition: var(--transition);
   cursor: pointer;
 }
@@ -92,8 +92,8 @@
 .project-card:hover {
   transform: translateY(-6px);
   box-shadow:
-    0 0 0 0.4px hsl(248, 35%, 45%),
-    0 0 12px 0.1px hsla(248, 35%, 45%, 0.385);
+    0 0 0 0.4px rgb(127, 86, 229),
+    0 0 12px 0.1px rgba(127, 86, 229, 0.29);
 }
 
 .project-card-image {
