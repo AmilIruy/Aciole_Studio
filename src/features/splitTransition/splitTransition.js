@@ -88,6 +88,7 @@ function createContent(sectionElement, type) {
 }
 
 function createSplitTimeline(wrapper, sliderA, sliderB, axis) {
+
   const timeline = gsap.timeline({
     scrollTrigger: {
       trigger: wrapper,
@@ -98,7 +99,26 @@ function createSplitTimeline(wrapper, sliderA, sliderB, axis) {
       scrub: true,
       anticipatePin: 1,
       invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        // Dispara animação da seção Sobre quando o slide passa da metade
+        if (self.progress > 0.4) {
+          const aboutSources = wrapper.querySelectorAll('.split-source--about');
+          aboutSources.forEach(el => el.classList.add('visible'));
+        }
+      }
     },
+  });
+
+  // Gatilho separado para animar a seção de Processos mais cedo,
+  // assim que ela entra na tela (antes mesmo do scroll pinar no topo).
+  ScrollTrigger.create({
+    trigger: wrapper,
+    start: 'top 80%',
+    once: true,
+    onEnter: () => {
+      const processSources = wrapper.querySelectorAll('.split-source--process');
+      processSources.forEach(el => el.classList.add('visible'));
+    }
   });
 
   timeline.to({}, { duration: INITIAL_HOLD_DURATION });

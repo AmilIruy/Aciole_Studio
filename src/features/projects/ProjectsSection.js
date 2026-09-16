@@ -10,26 +10,29 @@ export function ProjectsSection() {
       title: 'Portfólio Completo',
       category: 'Landing Page',
       hasPlay: false,
+      featured: true,
     },
     {
       image: motionThumb,
       title: 'Campanha Viva',
       category: 'Motion Design',
       hasPlay: true,
+      featured: false,
     },
     {
       image: landingMockup,
       title: 'Landing Page',
       category: 'Landing Page',
       hasPlay: false,
+      featured: false,
     },
     {
       image: landingMockup,
       title: 'Landing Page',
       category: 'Landing Page',
       hasPlay: false,
+      featured: false,
     },
-    
   ];
 
   const marqueeProjects = [...projects, ...projects];
@@ -38,31 +41,34 @@ export function ProjectsSection() {
     <section class="projects-section animate-in" id="projects-section">
       <div class="container">
         <div class="projects-header">
-          <div>
+          <div class="projects-header-left">
             <span class="section-label">Projetos em Destaque</span>
             <h2>
               RESULTADOS<br />
               QUE <span class="highlight">FALAM POR SI.</span>
             </h2>
           </div>
-          <div class="projects-nav-buttons">
-            <button class="nav-btn" id="carousel-prev" aria-label="Anterior">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            </button>
-            <button class="nav-btn" id="carousel-next" aria-label="Próximo">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
+          <div class="projects-header-meta">
+            <span class="projects-count">${projects.length} Projetos</span>
+            <div class="projects-nav-buttons">
+              <button class="nav-btn" id="carousel-prev" aria-label="Anterior">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              </button>
+              <button class="nav-btn" id="carousel-next" aria-label="Próximo">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
           </div>
         </div>
 
         <div class="projects-carousel" id="projects-carousel">
-         <div class="track">
-            ${marqueeProjects.map(project => `
-              <div class="project-card">
+          <div class="track">
+            ${marqueeProjects.map((project) => `
+              <div class="project-card${project.featured ? ' project-card--featured' : ''}">
                 <div class="project-card-image">
-                  <img src="${project.image}" alt="${project.title}" />
+                  <img src="${project.image}" alt="${project.title}" loading="lazy" />
                   ${project.hasPlay ? `
-                    <div class="project-card-play">
+                    <div class="project-card-play" aria-hidden="true">
                       <svg viewBox="0 0 24 24">
                         <polygon points="5 3 19 12 5 21 5 3" />
                       </svg>
@@ -70,13 +76,12 @@ export function ProjectsSection() {
                   ` : ''}
                 </div>
                 <div class="project-card-info">
+                  <span class="project-card-category">${project.category}</span>
                   <h3>${project.title}</h3>
-                  <span>${project.category}</span>
                 </div>
               </div>
             `).join('')}
           </div>
-        </div>
         </div>
       </div>
     </section>
@@ -89,7 +94,7 @@ export function initProjects() {
   const nextBtn = document.getElementById('carousel-next');
 
   if (carousel && prevBtn && nextBtn) {
-    const scrollAmount = 324;
+    const scrollAmount = 340;
     let isHovering = false;
     let clickTimeout;
 
@@ -104,19 +109,19 @@ export function initProjects() {
       }
       requestAnimationFrame(autoScroll);
     };
-    
+
     // Start auto scroll
     requestAnimationFrame(autoScroll);
 
     // Pause on hover
     carousel.addEventListener('mouseenter', () => isHovering = true);
     carousel.addEventListener('mouseleave', () => isHovering = false);
-    
+
     // Handle manual scroll clicks smoothly
     const handleManualScroll = (amount) => {
       isHovering = true;
       clearTimeout(clickTimeout);
-      
+
       const halfWidth = carousel.scrollWidth / 2;
 
       // Wrap around logic for manual scroll
@@ -127,7 +132,7 @@ export function initProjects() {
       }
 
       carousel.scrollBy({ left: amount, behavior: 'smooth' });
-      
+
       clickTimeout = setTimeout(() => {
         isHovering = false;
       }, 800); // Resume auto-scroll after smooth transition finishes
@@ -144,4 +149,3 @@ export function initProjects() {
     });
   }
 }
-

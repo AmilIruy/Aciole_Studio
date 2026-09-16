@@ -9,7 +9,8 @@
 
 :root {
   --bg-dark: #080b15;
-  --bg-dark-alt: #121111;
+  --bg-dark-alt: #0d0f1a;
+  --bg-surface: #0f1220;
   --purple: #7F56E5;
   --purple-light: #9B5FFF;
   --purple-dark: #5A1FCC;
@@ -30,6 +31,13 @@
   --section-padding: 100px 0;
   --border-radius: 12px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Depth tokens — superfícies e bordas sutis */
+  --surface-1: rgba(255, 255, 255, 0.025);
+  --surface-2: rgba(255, 255, 255, 0.045);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --border-accent: rgba(127, 86, 229, 0.3);
 }
 
 *,
@@ -53,6 +61,8 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
 a {
@@ -94,12 +104,24 @@ h2,h3 {
 
 
 .section-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 2px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--gray-300);
-  margin-bottom: 16px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: currentColor;
+  flex-shrink: 0;
 }
 
 

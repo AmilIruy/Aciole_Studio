@@ -5,71 +5,47 @@ export function ProcessSection() {
     {
       number: '01',
       title: 'Descoberta',
-      description: 'Entendemos sua marca, público e objetivos.',
-      icon: `
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-      `,
+      description: 'Entendemos sua marca, público e objetivos para construir uma base sólida.',
     },
     {
       number: '02',
       title: 'Estratégia',
-      description: 'Planejamos a melhor solução para o projeto.',
-      icon: `
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-        </svg>
-      `,
+      description: 'Planejamos a melhor solução criativa e técnica para o seu projeto.',
     },
     {
       number: '03',
       title: 'Criação',
-      description: 'Desenvolvemos design, motion ou experiência web.',
-      icon: `
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 19l7-7 3 3-7 7-3-3z"/>
-          <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
-          <path d="M2 2l7.586 7.586"/>
-          <circle cx="11" cy="11" r="2"/>
-        </svg>
-      `,
+      description: 'Desenvolvemos design, motion ou experiência web com foco em resultado.',
     },
     {
       number: '04',
       title: 'Entrega',
-      description: 'Publicação, otimização e suporte.',
-      icon: `
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="22" y1="2" x2="11" y2="13"/>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-        </svg>
-      `,
+      description: 'Publicação, otimização e suporte para garantir o sucesso do projeto.',
     },
   ];
 
   return `
-    <section class="process-section" id="process-section">
+    <section class="process-section animate-in" id="process-section">
       <div class="container">
         <div class="process-header">
-          <div>
-            <span class="section-label">Nosso Processo</span>
-            <h2>
-              COMO TRANSFORMAMOS<br />
-              IDEIAS EM <span class="highlight">RESULTADOS.</span>
-            </h2>
-          </div>
+          <span class="section-label">Nosso Processo</span>
+          <h2>
+            COMO TRANSFORMAMOS<br />
+            IDEIAS EM <span class="highlight">RESULTADOS.</span>
+          </h2>
+          <p class="process-header-desc">
+            Um processo estruturado que garante clareza, qualidade e impacto em cada etapa do projeto.
+          </p>
         </div>
 
         <div class="process-steps" id="process-steps">
           ${steps.map(step => `
             <div class="process-step">
-              <div class="process-step-icon">${step.icon}</div>
               <span class="process-step-number">${step.number}</span>
-              <h3>${step.title}</h3>
-              <p>${step.description}</p>
+              <div class="process-step-body">
+                <h3>${step.title}</h3>
+                <p>${step.description}</p>
+              </div>
             </div>
           `).join('')}
         </div>

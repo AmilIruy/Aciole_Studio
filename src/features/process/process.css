@@ -1,210 +1,315 @@
+/* ── Process Section ─────────────────────────────────────── */
+
 .process-section {
   padding: var(--section-padding);
-  background: var(--yellow);
-  background-image:
-    linear-gradient(to bottom, rgb(127, 86, 229) 0%, transparent 100%);
+  background: var(--bg-dark-alt);
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
 }
+
+/* (sem linha decorativa superior) */
+
+/* ── Container — layout de 2 colunas ────────────────────── */
 
 .process-section .container {
   display: grid;
-  align-items: center;
-  height: 100%;
-  gap: 40px;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
 }
 
-@media (min-width: 769px) {
-  .process-section .container {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .process-section .container {
-    grid-template-rows: 1fr 1fr;
-  }
-}
+/* ── Header (coluna esquerda) ────────────────────────────── */
 
 .process-header {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-self: center;
 }
 
 .process-header h2 {
-  font-size: 2.2rem;
+  font-size: 2.8rem;
   font-weight: 800;
-  line-height: 1.15;
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+  margin-bottom: 24px;
 }
 
 .process-header h2 .highlight {
-  background: linear-gradient(100deg, var(--white), var(--yellow));
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--purple);
 }
+
+.process-header-desc {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 340px;
+}
+
+/* ── Steps (coluna direita — timeline) ──────────────────── */
 
 .process-steps {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-}
-
-.process-step {
-  padding: 32px 24px;
-  background: var(--bg-dark);
-  border-radius: 6px;
-  border: 1px solid #554a99;
-  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
   position: relative;
 }
 
-.process-step:hover {
-  border-color: var(--purple);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(123, 47, 255, 0.15);
+/* Linha vertical de progresso */
+.process-steps::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--border-subtle) 10%,
+    var(--border-subtle) 90%,
+    transparent
+  );
+  pointer-events: none;
 }
 
-.process-step-icon {
-  width: 48px;
-  height: 48px;
-  background: rgba(123, 47, 255, 0.15);
-  box-shadow: 0 0px 6px rgba(123, 47, 255, 0.59);
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
+/* ── Step Individual ─────────────────────────────────────── */
+
+.process-step {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 0 28px;
+  padding: 36px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background 0.3s ease;
+  position: relative;
 }
 
-.process-step-icon svg {
-  width: 22px;
-  height: 22px;
-  stroke: var(--yellow);
+.process-step:first-child {
+  padding-top: 0;
 }
+
+.process-step:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Ponto na linha vertical */
+.process-step::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  background: var(--purple);
+  border-radius: 50%;
+  transform: translate(-2px, -50%);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.process-step:first-child::before {
+  top: 14px;
+  transform: translate(-2px, 0);
+}
+
+.process-step:last-child::before {
+  top: auto;
+  bottom: 14px;
+  transform: translate(-2px, 0);
+}
+
+.process-step:hover::before {
+  transform: translate(-2px, -50%) scale(1.6);
+  box-shadow: 0 0 0 3px rgba(127, 86, 229, 0.2);
+}
+
+/* ── Step Number ─────────────────────────────────────────── */
 
 .process-step-number {
-  position: absolute;
-  top: 32px;
-  right: 24px;
-  font-size: 2rem;
+  font-size: 1rem;
   font-weight: 800;
-  color: rgb(255, 51, 102);
-  filter: drop-shadow(5px 3px 0px rgba(255, 51, 102, 0.249));
+  color: var(--purple);
+  letter-spacing: -0.5px;
+  line-height: 1;
+  padding-top: 4px;
+  text-align: right;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  /* Remove posicionamento absoluto — agora é coluna do grid */
+  position: static;
+  top: auto;
+  right: auto;
+  filter: none;
+}
+
+.process-step:hover .process-step-number {
+  opacity: 1;
+}
+
+/* ── Step Body ───────────────────────────────────────────── */
+
+.process-step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .process-step h3 {
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  margin-bottom: 10px;
+  letter-spacing: -0.2px;
+  line-height: 1.2;
+  color: var(--white);
+  transition: color 0.3s ease;
+}
+
+.process-step:hover h3 {
+  color: var(--white);
 }
 
 .process-step p {
-  font-size: 0.85rem;
-  color: var(--gray-200);
-  line-height: 1.6;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.65;
+  transition: color 0.3s ease;
 }
 
+.process-step:hover p {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Ícone — oculto (removido da timeline) */
+.process-step-icon {
+  display: none;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
 
 @media (min-width: 1920px) {
-  .process-header {
-    margin-bottom: 80px;
+  .process-section .container {
+    gap: 120px;
   }
 
   .process-header h2 {
-    font-size: 3rem;
-    max-width: 560px;
+    font-size: 3.5rem;
+    letter-spacing: -2px;
   }
 
-  .process-steps {
-    gap: 32px;
+  .process-header-desc {
+    font-size: 1.25rem;
+    max-width: 400px;
   }
 
   .process-step {
-    padding: 40px 32px;
-  }
-
-  .process-step-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 14px;
-    margin-bottom: 24px;
-  }
-
-  .process-step-icon svg {
-    width: 28px;
-    height: 28px;
+    padding: 44px 0;
+    gap: 0 36px;
   }
 
   .process-step h3 {
-    font-size: 1.3rem;
-    margin-bottom: 12px;
+    font-size: 1.4rem;
   }
 
   .process-step p {
-    font-size: 1rem;
-  }
-
-  .process-step-number {
-    font-size: 2.5rem;
-    top: 36px;
-    right: 28px;
+    font-size: 1.15rem;
   }
 }
-
 
 @media (max-width: 1024px) {
-  .process-steps {
-    gap: 20px;
+  .process-section .container {
+    gap: 60px;
+  }
+
+  .process-header h2 {
+    font-size: 2.2rem;
+    letter-spacing: -1px;
+  }
+
+  .process-header {
+    position: static;
   }
 }
 
-
 @media (max-width: 768px) {
-  .process-header h2 {
-    font-size: 1.9rem;
+  .process-section .container {
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
 
-  .process-steps {
-    gap: 16px;
+  .process-header {
+    position: static;
+  }
+
+  .process-header h2 {
+    font-size: 2rem;
+    letter-spacing: -0.8px;
+    margin-bottom: 16px;
+  }
+
+  .process-header-desc {
+    max-width: 100%;
+    font-size: 0.9rem;
   }
 
   .process-step {
-    padding: 24px 18px;
+    grid-template-columns: 48px 1fr;
+    gap: 0 20px;
+    padding: 28px 0;
   }
 
   .process-step h3 {
     font-size: 1rem;
   }
-
-  .process-step-number {
-    font-size: 1.6rem;
-    top: 20px;
-    right: 18px;
-  }
 }
-
 
 @media (max-width: 480px) {
   .process-header h2 {
-    font-size: 1.65rem;
-  }
-
-  .process-steps {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    font-size: 1.75rem;
   }
 
   .process-step {
-    padding: 20px 16px;
+    grid-template-columns: 40px 1fr;
+    gap: 0 16px;
+    padding: 24px 0;
   }
 
-  .process-step-icon {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 14px;
+  .process-step-number {
+    font-size: 0.85rem;
   }
 
-  .process-step-icon svg {
-    width: 18px;
-    height: 18px;
+  .process-step h3 {
+    font-size: 0.95rem;
+  }
+
+  .process-step p {
+    font-size: 0.9rem;
   }
 }
+
+/* ── Animate-in (usa .visible adicionado pelo visualObserver existente) ─── */
+
+.process-section .process-header {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.process-section.visible .process-header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.process-section .process-step {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.process-section.visible .process-step {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.process-section.visible .process-step:nth-child(1) { transition-delay: 0.15s; }
+.process-section.visible .process-step:nth-child(2) { transition-delay: 0.3s; }
+.process-section.visible .process-step:nth-child(3) { transition-delay: 0.45s; }
+.process-section.visible .process-step:nth-child(4) { transition-delay: 0.6s; }
