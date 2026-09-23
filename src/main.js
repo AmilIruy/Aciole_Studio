@@ -70,29 +70,7 @@ const loadMotionOnInteraction = () => {
 
 loadMotionOnInteraction();
 
-const jsLazyLoadObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
 
-        if (el.id === 'projects-section') {
-          jsLazyLoadObserver.unobserve(el);
-          import('./features/splitTransition/splitTransition.js')
-            .then(({ initSplitTransition }) => initSplitTransition())
-            .catch(err => console.error('[splitTransition] Falha ao carregar', err));
-        }
-      }
-    });
-  },
-  { 
-    rootMargin: '24px 0px 24px 0px',
-    threshold: 0 
-  }
-);
-
-const projectsSection = document.getElementById('projects-section');
-if (projectsSection) jsLazyLoadObserver.observe(projectsSection);
 
 const visualObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
@@ -113,3 +91,14 @@ const visualObserver = new IntersectionObserver((entries) => {
 
 const animatedElements = document.querySelectorAll('.animate-in');
 animatedElements.forEach((el) => visualObserver.observe(el));
+
+// --- Global Scroll Gradient Tracker ---
+const updateScrollGradient = () => {
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  if (maxScroll <= 0) return;
+  const progress = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
+  document.documentElement.style.setProperty('--scroll-gradient-x', `-${progress * 900}vw`);
+};
+window.addEventListener('scroll', updateScrollGradient, { passive: true });
+window.addEventListener('resize', updateScrollGradient, { passive: true });
+updateScrollGradient();

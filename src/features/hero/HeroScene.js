@@ -1,4 +1,4 @@
-import { Scene, FogExp2, PerspectiveCamera, WebGLRenderer, PCFShadowMap, AmbientLight, DirectionalLight, SpotLight, Group, BufferGeometry, BufferAttribute, PointsMaterial, Color, AdditiveBlending, Points, Mesh, MeshPhysicalMaterial, MathUtils, Box3, Vector3 } from 'three';
+import { Scene, FogExp2, PerspectiveCamera, WebGLRenderer, PCFShadowMap, AmbientLight, DirectionalLight, SpotLight, Group, Color, Mesh, MeshPhysicalMaterial, MathUtils, Box3, Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 
@@ -12,8 +12,6 @@ const heroSceneSettings = {
   autoRotateSpeed: 0.7,
   interactiveTilt: true,
   tiltIntensity: 0.5,
-  particleCount: 0,
-  particleColor: 'rgba(85, 74, 153, 1)',
   lightIntensity: 8,
   ambientColor: 'rgba(85, 74, 153, 1)',
   showGrid: false,
@@ -69,31 +67,6 @@ export function initHero3D() {
 
   const heroModelGroup = new Group();
   sceneGroup.add(heroModelGroup);
-
-  
-  const particleCount = heroSceneSettings.particleCount;
-  const particleGeometry = new BufferGeometry();
-  const particlePositions = new Float32Array(particleCount * 3);
-  const particleSpeeds = new Float32Array(particleCount);
-
-  for (let i = 0; i < particleCount; i++) {
-    particlePositions[i * 3]     = (Math.random() - 0.5) * 25;
-    particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 15;
-    particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 15;
-    particleSpeeds[i] = 0.01 + Math.random() * 0.02;
-  }
-
-  particleGeometry.setAttribute('position', new BufferAttribute(particlePositions, 3));
-  const particleMaterial = new PointsMaterial({
-    color: new Color(heroSceneSettings.particleColor),
-    size: 0.08,
-    transparent: true,
-    opacity: 0.4,
-    blending: AdditiveBlending,
-  });
-
-  const particleField = new Points(particleGeometry, particleMaterial);
-  scene.add(particleField);
 
   
   const updateHeroModelMaterials = (object) => {
@@ -201,20 +174,6 @@ export function initHero3D() {
     spotLight.position.y = Math.cos(time * 1.1) * 2.5;
 
     
-    const positionsAttr = particleGeometry.attributes.position;
-    for (let i = 0; i < particleCount; i++) {
-      let py = positionsAttr.getY(i);
-      py -= particleSpeeds[i] * 0.2;
-      if (py < -5) py = 5;
-      positionsAttr.setY(i, py);
-
-      let px = positionsAttr.getX(i);
-      px += Math.sin(time + i) * 0.001;
-      positionsAttr.setX(i, px);
-    }
-    particleGeometry.attributes.position.needsUpdate = true;
-
-    
     if (heroSceneSettings.autoRotate) {
       heroModelGroup.rotation.y += heroSceneSettings.autoRotateSpeed * delta;
     } else {
@@ -235,8 +194,6 @@ export function initHero3D() {
       heroModelGroup.position.y = layoutCache.baseOffsetY;
       heroModelGroup.position.x = layoutCache.baseOffsetX;
     }
-
-    particleField.rotation.y = time * 0.02;
 
     renderer.render(scene, camera);
 

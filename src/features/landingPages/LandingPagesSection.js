@@ -16,7 +16,7 @@ export function LandingPagesSection() {
             <span class="landing-line">PARA <em class="highlight">CONVERTER.</em></span>
           </h2>
           
-          <p class="landing-description">
+          <p class="landing-description global-scroll-gradient">
             Criamos landing pages modernas, responsivas e desenvolvidas para gerar resultados. Cada projeto é construído com código limpo, organizado e otimizado para oferecer carregamento rápido, excelente desempenho e uma experiência consistente em computadores, tablets e celulares.
             Aplicamos boas práticas de SEO técnico, estrutura semântica e otimização de performance para melhorar a visibilidade da página nos mecanismos de busca. Também desenvolvemos animações e interações personalizadas que tornam a experiência mais dinâmica e ajudam sua marca a se destacar sem comprometer a velocidade do site.
             Do design ao código, cada detalhe é pensado para unir estética, performance, acessibilidade e conversão transformando visitantes em clientes.

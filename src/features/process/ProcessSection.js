@@ -33,7 +33,7 @@ export function ProcessSection() {
             COMO TRANSFORMAMOS<br />
             IDEIAS EM <span class="highlight">RESULTADOS.</span>
           </h2>
-          <p class="process-header-desc">
+          <p class="process-header-desc global-scroll-gradient">
             Um processo estruturado que garante clareza, qualidade e impacto em cada etapa do projeto.
           </p>
         </div>

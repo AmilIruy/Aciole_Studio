@@ -53,10 +53,10 @@ export function MotionSection() {
               <span class="motion-card__line"><em>MOVIMENTO.</em></span>
             </h2>
             <div class="motion-card__body">
-              <span class="motion-card__line">Animações, motion graphics e efeitos</span>
-              <span class="motion-card__line">visuais que transformam conceitos,</span>
-              <span class="motion-card__line">produtos e identidades em experiências</span>
-              <span class="motion-card__line">que chamam atenção.</span>
+              <span class="motion-card__line global-scroll-gradient">Animações, motion graphics e efeitos</span>
+              <span class="motion-card__line global-scroll-gradient">visuais que transformam conceitos,</span>
+              <span class="motion-card__line global-scroll-gradient">produtos e identidades em experiências</span>
+              <span class="motion-card__line global-scroll-gradient">que chamam atenção.</span>
               <div class="motion-card__line motion-card__includes">
                 <ul class="motion-includes-list">
                   <li>Motion Graphics</li>
@@ -77,10 +77,10 @@ export function MotionSection() {
               <span class="motion-card__line">O <em>SCROLL.</em></span>
             </h2>
             <div class="motion-card__body">
-              <span class="motion-card__line">Vídeos e animações pensados para</span>
-              <span class="motion-card__line">redes sociais, combinando edição,</span>
-              <span class="motion-card__line">ritmo, motion e efeitos visuais para</span>
-              <span class="motion-card__line">prender a atenção desde o primeiro frame.</span>
+              <span class="motion-card__line global-scroll-gradient">Vídeos e animações pensados para</span>
+              <span class="motion-card__line global-scroll-gradient">redes sociais, combinando edição,</span>
+              <span class="motion-card__line global-scroll-gradient">ritmo, motion e efeitos visuais para</span>
+              <span class="motion-card__line global-scroll-gradient">prender a atenção desde o primeiro frame.</span>
               <div class="motion-card__line motion-card__includes">
                 <ul class="motion-includes-list">
                   <li>Reels</li>
@@ -131,11 +131,11 @@ export function MotionSection() {
               <span class="motion-card__line"><em>Inicio ao fim.</em></span>
             </h2>
             <div class="motion-card__body">
-              <span class="motion-card__line">Da edição ao acabamento final,</span>
-              <span class="motion-card__line">transformamos gravações em vídeos</span>
-              <span class="motion-card__line">envolventes e profissionais para YouTube.</span>
-              <span class="motion-card__line">Utilizamos edição dinâmica, motion graphics,</span>
-                            <span class="motion-card__line">efeitos visuais, sound design e storytelling.</span>
+              <span class="motion-card__line global-scroll-gradient">Da edição ao acabamento final,</span>
+              <span class="motion-card__line global-scroll-gradient">transformamos gravações em vídeos</span>
+              <span class="motion-card__line global-scroll-gradient">envolventes e profissionais para YouTube.</span>
+              <span class="motion-card__line global-scroll-gradient">Utilizamos edição dinâmica, motion graphics,</span>
+                            <span class="motion-card__line global-scroll-gradient">efeitos visuais, sound design e storytelling.</span>
               <div class="motion-card__line motion-card__includes">
                 <ul class="motion-includes-list">
                   <li>Storytelling</li>

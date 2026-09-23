@@ -4,13 +4,12 @@ export function Footer() {
   return `
     <section class="footer-cta animate-in" id="footer-cta">
       <div class="container">
-        <img src="/aciole9.svg" alt="Aciole Logo" class="footer-logo" />
         <h2>
           VAMOS CRIAR ALGO<br />
           INCRÍVEL JUNTOS?
         </h2>
         <div class="footer-cta-right">
-          <p>
+          <p class="global-scroll-gradient">
             Quer criar uma experiência digital incrível e garantir resultados? Fale com a gente.
           </p>
           <a href="https://wa.me/24999593389" target="_blank" rel="noopener noreferrer" class="footer-cta-btn" id="footer-cta-btn" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:8px;">
@@ -27,9 +26,8 @@ export function Footer() {
       <div class="container">
         <p>© 2025 Aciole Studio. Todos os direitos reservados.</p>
         <div class="footer-links">
-          <a href="#">Termos</a>
-          <a href="#">Privacidade</a>
-          <a href="#">Contato</a>
+          <a href="tel:+5524999593389">WhatsApp: (24) 99959-3389</a>
+          <a href="mailto:yuriaciole@hotmail.com">E-mail: yuriaciole@hotmail.com</a>
         </div>
       </div>
     </footer>

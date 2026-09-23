@@ -18,10 +18,10 @@ export function AboutSection() {
             CRIATIVIDADE<br />
             COM <span class="highlight">PROPÓSITO.</span>
           </h2>
-          <p>
+          <p class="global-scroll-gradient">
             A Aciole Studio nasceu para unir design, tecnologia e audiovisual em projetos que realmente geram resultados.
           </p>
-          <p>
+          <p class="global-scroll-gradient">
             Criamos experiências digitais e conteúdos visuais que conectam marcas e pessoas, ajudando empresas a se destacar em mercados cada vez mais competitivos.
           </p>
 
