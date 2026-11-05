@@ -50,8 +50,7 @@ export function initScrollVideoTransition({
 	const prevBg = document.querySelector(prevBgLayerSelector);
 	const nextBg = document.querySelector(nextBgLayerSelector);
 	let videoDuration = 0;
-	let seekPending = false;
-	let pendingProgress = null;
+	let seekRafId = null;
 	let videoLoaded = false;
 	let scrollTrigger = null;
 
@@ -59,29 +58,22 @@ export function initScrollVideoTransition({
 		if (videoLoaded) return;
 		videoLoaded = true;
 		video.src = videoSrc;
+		// Fix 3 — no mobile, preload=metadata evita seeks sem dados disponíveis
+		video.preload = isMobile ? 'metadata' : 'auto';
 		video.load();
 	};
 
+	// Fix 1 — throttle via rAF: no máximo 1 seek por frame, sem acúmulo de seeks atrasados
 	const applySeek = (progress) => {
 		if (!videoDuration) return;
 		const targetTime = Math.min(Math.max(progress * videoDuration, 0), videoDuration);
 		if (Math.abs(video.currentTime - targetTime) < 0.016) return;
-		if (seekPending) {
-			pendingProgress = progress;
-			return;
-		}
-		seekPending = true;
-		video.currentTime = targetTime;
+		if (seekRafId) return; // já tem seek agendado neste frame, descarta
+		seekRafId = requestAnimationFrame(() => {
+			seekRafId = null;
+			video.currentTime = targetTime;
+		});
 	};
-
-	video.addEventListener('seeked', () => {
-		seekPending = false;
-		if (pendingProgress !== null) {
-			const progress = pendingProgress;
-			pendingProgress = null;
-			applySeek(progress);
-		}
-	});
 
 	const onMetadata = () => {
 		videoDuration = video.duration || 0;
@@ -116,7 +108,8 @@ export function initScrollVideoTransition({
 			start: startPos,
 			endTrigger: resolvedEnd,
 			end: endPos,
-			scrub: true,
+			// Fix 2 — scrub com smoothing no mobile: reduz frequência de onUpdate
+			scrub: isMobile ? 1.5 : true,
 			invalidateOnRefresh: true,
 			onToggle: (self) => {
 				if (self.isActive) {

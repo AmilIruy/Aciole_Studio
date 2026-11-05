@@ -79,29 +79,19 @@ function animateMotionTitle() {
   bgVideo.addEventListener('play', () => bgVideo.pause(), { passive: true });
 
   let videoDuration = 0;
-  let seekPending = false;
-  let pendingProgress = null;
+  let seekRafId = null;
 
+  // Fix 1 — throttle via rAF: no máximo 1 seek por frame, sem acúmulo de seeks atrasados
   function applySeek(progress) {
     if (!videoDuration) return;
     const targetTime = progress * videoDuration;
     if (Math.abs(bgVideo.currentTime - targetTime) < 0.016) return;
-    if (seekPending) {
-      pendingProgress = progress;
-      return;
-    }
-    seekPending = true;
-    bgVideo.currentTime = targetTime;
+    if (seekRafId) return; // já tem seek agendado neste frame, descarta
+    seekRafId = requestAnimationFrame(() => {
+      seekRafId = null;
+      bgVideo.currentTime = targetTime;
+    });
   }
-
-  bgVideo.addEventListener('seeked', () => {
-    seekPending = false;
-    if (pendingProgress !== null) {
-      const progress = pendingProgress;
-      pendingProgress = null;
-      applySeek(progress);
-    }
-  });
 
   const initVideoScrub = () => {
     videoDuration = bgVideo.duration || 0;
@@ -112,6 +102,8 @@ function animateMotionTitle() {
   } else {
     bgVideo.addEventListener('loadedmetadata', initVideoScrub, { once: true });
   }
+
+  const isMobile = window.innerWidth <= 768;
 
   gsap.fromTo(
     mask,
@@ -278,6 +270,8 @@ function animateMotionCards() {
 function animateCardsParallaxEntry() {
   const cardsSection = document.getElementById('motion-cards');
   if (!cardsSection) return;
+
+  const isMobile = window.innerWidth <= 768;
 
   gsap.fromTo(
     cardsSection,
