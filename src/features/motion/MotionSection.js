@@ -7,7 +7,7 @@ import motionThumb from '../../assets/motion_thumb.webp';
 export function MotionSection() {
   return `
     <div id="motion-experience">
-
+      <div class="motion-bg-layer" id="motion-bg-layer"></div>
       <section id="motion-title-block" aria-label="Motion Design">
         <p class="motion-section-label">01 — AUDIOVISUAL</p>
 
@@ -18,8 +18,7 @@ export function MotionSection() {
             src="${motionVideo}"
             muted
             playsinline
-            loop
-            preload="metadata"
+            preload="auto"
           ></video>
           <div class="motion-title-video-overlay"></div>
         </div>

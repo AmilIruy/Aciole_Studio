@@ -4,6 +4,7 @@ import yuriImage from '../../assets/Yuri-Aciole.webp';
 export function AboutSection() {
   return `
     <section class="about-section animate-in" id="about-section">
+      <div class="about-bg-layer" id="about-bg-layer"></div>
       <div class="container">
         <div class="about-media">
           <span class="about-media-label">Yuri Aciole — Designer & Dev</span>
@@ -13,13 +14,15 @@ export function AboutSection() {
         </div>
 
         <div class="about-content">
-          <span class="section-label" style="color: rgba(255,255,255,0.35)">Sobre a Aciole Studio</span>
+          <span class="section-label" style="color: rgba(255,255,255,0.35)">Sobre Yuri Aciole</span>
           <h2>
             CRIATIVIDADE<br />
-            COM <span class="highlight">PROPÓSITO.</span>
+            EM <span class="highlight">MOVIMENTO.</span>
           </h2>
           <p class="global-scroll-gradient">
-            A Aciole Studio nasceu para unir design, tecnologia e audiovisual em projetos que realmente geram resultados.
+            Sou Yuri Aciole, profissional de audiovisual com experiência em edição de vídeo, motion design e pós-produção. Meu trabalho é transformar ideias em narrativas visuais, combinando ritmo, movimento, efeitos visuais e identidade.
+
+Ao longo da minha trajetória, desenvolvi projetos que vão de vídeos para redes sociais e conteúdos institucionais a animações e experiências visuais. Tenho interesse especial em explorar a tecnologia e o design como ferramentas para criar trabalhos que vão além da estética: comunicam, envolvem e deixam uma impressão.
           </p>
           <p class="global-scroll-gradient">
             Criamos experiências digitais e conteúdos visuais que conectam marcas e pessoas, ajudando empresas a se destacar em mercados cada vez mais competitivos.
@@ -27,15 +30,15 @@ export function AboutSection() {
 
           <div class="about-stats">
             <div class="about-stat">
-              <span class="about-stat-value">3+</span>
+              <span class="about-stat-value global-scroll-gradient">3+</span>
               <span class="about-stat-label">Anos</span>
             </div>
             <div class="about-stat">
-              <span class="about-stat-value">50+</span>
+              <span class="about-stat-value global-scroll-gradient">50+</span>
               <span class="about-stat-label">Projetos</span>
             </div>
             <div class="about-stat">
-              <span class="about-stat-value">100%</span>
+              <span class="about-stat-value global-scroll-gradient">100%</span>
               <span class="about-stat-label">Foco</span>
             </div>
           </div>

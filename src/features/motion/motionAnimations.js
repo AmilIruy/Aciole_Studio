@@ -1,5 +1,4 @@
 
-
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { connectLenisToGsap } from '../scroll/lenis.js';
@@ -15,32 +14,20 @@ const MOTION_ANIMATION_CONFIG = {
   cardLineStagger: 0.08,
 };
 
-
-
+// ---------------------------------------------------------------------------
+// safePlay / safePause — only used by card videos, NOT by the scrub video.
+// The scrub bg-video must NEVER be played via play(); its currentTime is
+// driven exclusively by applySeek() so the browser never fights over frames.
+// ---------------------------------------------------------------------------
 function safePlay(video) {
   if (!video || video.paused === false) return;
-  video.play().catch(() => {});
+  video.play().catch(() => { });
 }
 
 function safePause(video) {
   if (!video || video.paused) return;
   video.pause();
 }
-
-function setupVideoPlaybackTrigger(video, triggerElement, start, end) {
-  if (!video || !triggerElement) return;
-
-  ScrollTrigger.create({
-    trigger: triggerElement,
-    start,
-    end,
-    onEnter: () => safePlay(video),
-    onLeave: () => safePause(video),
-    onEnterBack: () => safePlay(video),
-    onLeaveBack: () => safePause(video),
-  });
-}
-
 
 
 let cachedMaskPosition = null;
@@ -50,7 +37,7 @@ function calculateMaskPosition() {
   const vw = window.innerWidth;
   const vh = window.innerHeight;
   const maskMultiplier = parseFloat(MOTION_ANIMATION_CONFIG.titleMaskSize) / 100;
-  const iw = maskMultiplier * vw; 
+  const iw = maskMultiplier * vw;
   const ih = iw / (533.79 / 235.01);
   const fx = 235.94 / 533.79;
   const fy = 52.185 / 235.01;
@@ -81,6 +68,51 @@ function animateMotionTitle() {
 
   if (!block || !mask || !bgVideo) return;
 
+  // -------------------------------------------------------------------------
+  // FIX 1 — Keep the scrub video permanently paused.
+  // Calling play() while scrub drives currentTime causes the browser to run
+  // two independent decode pipelines (playback + seek), which produces the
+  // visible flickering. We set currentTime directly; no play() is needed.
+  // -------------------------------------------------------------------------
+  bgVideo.pause();
+  // Ensure the video never auto-starts even if the browser decides to
+  bgVideo.addEventListener('play', () => bgVideo.pause(), { passive: true });
+
+  let videoDuration = 0;
+  let seekPending = false;
+  let pendingProgress = null;
+
+  function applySeek(progress) {
+    if (!videoDuration) return;
+    const targetTime = progress * videoDuration;
+    if (Math.abs(bgVideo.currentTime - targetTime) < 0.016) return;
+    if (seekPending) {
+      pendingProgress = progress;
+      return;
+    }
+    seekPending = true;
+    bgVideo.currentTime = targetTime;
+  }
+
+  bgVideo.addEventListener('seeked', () => {
+    seekPending = false;
+    if (pendingProgress !== null) {
+      const progress = pendingProgress;
+      pendingProgress = null;
+      applySeek(progress);
+    }
+  });
+
+  const initVideoScrub = () => {
+    videoDuration = bgVideo.duration || 0;
+  };
+
+  if (bgVideo.readyState >= 1) {
+    initVideoScrub();
+  } else {
+    bgVideo.addEventListener('loadedmetadata', initVideoScrub, { once: true });
+  }
+
   gsap.fromTo(
     mask,
     { y: 60, opacity: 0 },
@@ -105,6 +137,9 @@ function animateMotionTitle() {
       pin: true,
       scrub: true,
       anticipatePin: 1,
+      onUpdate(self) {
+        applySeek(self.progress);
+      },
     },
   });
 
@@ -136,14 +171,16 @@ function animateMotionTitle() {
     .to(bgVideo, { opacity: 0, scale: 1.04, duration: 0.3, ease: 'power2.in' }, 0.7)
     .to(overlay, { opacity: 0.72, duration: 0.3 }, 0.7);
 
-  setupVideoPlaybackTrigger(bgVideo, block, 'top top', '+=150%');
+  // FIX 1 — setupVideoPlaybackTrigger() call removed.
+  // Playing the scrub video via play() while scrub controls currentTime
+  // causes the browser to maintain two concurrent decode pipelines,
+  // producing the frame-skip / flicker artifact described in the bug report.
 }
 
 function animateMotionCards() {
   const cards = document.querySelectorAll('.motion-card');
   const isMobile = window.innerWidth <= 768;
   const cardStart = isMobile ? 'top 92%' : 'top 82%';
-  const lineStart = isMobile ? 'top 90%' : 'top 75%';
 
   cards.forEach((card) => {
     const video = card.querySelector('.motion-card__video');
@@ -152,7 +189,7 @@ function animateMotionCards() {
     const descRight = card.querySelector('.motion-card__desc--right');
     const lines = card.querySelectorAll('.motion-card__line');
 
-    
+
     const cardTl = gsap.timeline({
       scrollTrigger: {
         trigger: card,
@@ -176,7 +213,7 @@ function animateMotionCards() {
     if (lines.length) {
       const fromX = descRight ? 50 : -50;
       const delayOffset = isMobile ? 0.1 : 0.15;
-      
+
       cardTl.fromTo(
         lines,
         { opacity: 0, x: fromX },
@@ -196,10 +233,10 @@ function animateMotionCards() {
         document.querySelectorAll('.motion-card__video').forEach(v => {
           if (v !== video && (!v.paused || v.hasAttribute('src'))) {
             v.pause();
-            v.removeAttribute('src'); 
+            v.removeAttribute('src');
             v.load();
             v.classList.remove('playing');
-            
+
             const parent = v.closest('.motion-card__video-wrap');
             if (parent) {
               const otherBtn = parent.querySelector('.motion-play-btn');
@@ -227,7 +264,7 @@ function animateMotionCards() {
           });
         }
       });
-      
+
       video.addEventListener('click', () => {
         if (!video.paused) {
           video.pause();
@@ -265,7 +302,7 @@ export function initMotion() {
   isMotionInitialized = true;
 
   connectLenisToGsap(gsap, ScrollTrigger);
-  
+
   animateMotionTitle();
   animateMotionCards();
   animateCardsParallaxEntry();

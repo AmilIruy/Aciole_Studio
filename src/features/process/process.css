@@ -2,10 +2,19 @@
 
 .process-section {
   padding: var(--section-padding);
-  background: var(--bg-dark-alt);
+  background: transparent;
   color: var(--white);
   position: relative;
   overflow: hidden;
+  z-index: 2;
+}
+
+.process-bg-layer {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-dark);
+  z-index: 0;
+  pointer-events: none;
 }
 
 /* (sem linha decorativa superior) */
@@ -17,6 +26,9 @@
   grid-template-columns: 1fr 1fr;
   gap: 80px;
   align-items: start;
+  position: relative;
+  z-index: 2;
+  isolation: isolate;
 }
 
 /* ── Header (coluna esquerda) ────────────────────────────── */

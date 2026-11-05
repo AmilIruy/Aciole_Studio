@@ -1,8 +1,18 @@
 #motion-experience {
-  background: var(--bg-dark);
+  position: relative;
+  z-index: 2;
+  background: transparent;
   color: var(--white);
   overflow: hidden;
   margin-top: -1px;
+}
+
+.motion-bg-layer {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-dark);
+  z-index: 0;
+  pointer-events: none;
 }
 
 #motion-title-block {
@@ -16,14 +26,13 @@
   background: var(--bg-dark);
   background-image: linear-gradient(to bottom, rgba(173, 34, 117, 0.037) 0%, transparent 80%);
   z-index: 1;
-  
+
 }
 
 .motion-title-video-bg {
   position: absolute;
   inset: 0;
   z-index: 2;
-  
 
   -webkit-mask-image: url("../../assets/motion-design-mask.svg");
   mask-image: url("../../assets/motion-design-mask.svg");
@@ -33,12 +42,14 @@
   mask-position: 50% 50%;
   -webkit-mask-size: 52.36vw;
   mask-size: 52.36vw;
-  
-  
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  will-change: transform;
+
+  /* FIX 2 — translateZ(0) / will-change:transform criam uma compositing
+     layer separada que conflita com a animação de mask-image no GSAP.
+     Em Chromium e Safari isso fazia a máscara ser promovida para GPU
+     antes do browser terminar de processar o seek, causando flicker.
+     Isolate() via isolation:isolate garante o stacking context sem
+     forçar uma nova layer de compositing desnecessária. */
+  isolation: isolate;
 }
 
 .motion-white-overlay {
@@ -53,7 +64,7 @@
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  
+
 }
 
 
@@ -118,7 +129,7 @@
 
 
 .motion-card--horizontal-md {
-  
+
   flex-direction: row;
 }
 

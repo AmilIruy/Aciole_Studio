@@ -16,7 +16,6 @@ export function Header() {
           <a href="#hero">Início</a>
           <a href="#motion-cards">Vídeos</a>
           <a href="#landing-section">Landing Pages</a>
-          <a href="#projects-section">Projetos</a>
           <a href="#process-section">Processos</a>
           <a href="#about-section">Sobre</a>
           <a href="#footer-cta">Contato</a>

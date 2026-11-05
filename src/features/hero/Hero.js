@@ -26,8 +26,8 @@ export function Hero() {
           <p class="hero-subtitle global-scroll-gradient">
             Transformamos ideias em experiências digitais memoráveis através de Motion Design e Landing Pages estratégicas.
           </p>
-          <a href="#projects-section" class="btn-primary" id="hero-cta">
-            Ver Projetos <span class="arrow">→</span>
+          <a href="#motion-cards" class="btn-primary" id="hero-cta">
+            Ver trabalhos <span class="arrow">→</span>
           </a>
           <a href="https://wa.me/24999593389" target="_blank" rel="noopener noreferrer" class="btn-outline-dark" id="hero-cta" style="display: inline-flex; align-items: center; gap: 8px;">
             Contato <span class="arrow" style="display: flex; align-items: center;">

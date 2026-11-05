@@ -4,37 +4,38 @@ export function ProcessSection() {
   const steps = [
     {
       number: '01',
-      title: 'Descoberta',
-      description: 'Entendemos sua marca, público e objetivos para construir uma base sólida.',
+      title: 'EDIÇÃO',
+      description: 'Cortes, ritmo, tratamento de imagem e sound design. Aqui que o material bruto começa a ganhar forma.',
     },
     {
       number: '02',
-      title: 'Estratégia',
-      description: 'Planejamos a melhor solução criativa e técnica para o seu projeto.',
+      title: 'MOTION DESIGN',
+      description: 'Animação de elementos, tipografia e composição. Movimento pensado para dar vida às ideias e transmitir mensagens.',
     },
     {
       number: '03',
-      title: 'Criação',
-      description: 'Desenvolvemos design, motion ou experiência web com foco em resultado.',
+      title: 'COMPOSIÇÃO & PÓS-PRODUÇÃO',
+      description: 'Camadas, máscaras, recortes e efeitos visuais que ampliam as possibilidades da imagem.',
     },
     {
       number: '04',
-      title: 'Entrega',
-      description: 'Publicação, otimização e suporte para garantir o sucesso do projeto.',
+      title: 'CAPTAÇÃO & IMAGEM',
+      description: 'Enquadramento, iluminação e movimento de câmera para construir imagens que contam histórias.',
     },
   ];
 
   return `
     <section class="process-section animate-in" id="process-section">
+      <div class="process-bg-layer" id="process-bg-layer"></div>
       <div class="container">
         <div class="process-header">
-          <span class="section-label">Nosso Processo</span>
+          <span class="section-label">NOS BASTIDORES</span>
           <h2>
-            COMO TRANSFORMAMOS<br />
-            IDEIAS EM <span class="highlight">RESULTADOS.</span>
+            ONDE AS IDEIAS<br />
+            GANHAM <span class="highlight">MOVIMENTO.</span>
           </h2>
           <p class="process-header-desc global-scroll-gradient">
-            Um processo estruturado que garante clareza, qualidade e impacto em cada etapa do projeto.
+            Um olhar por trás de cada projeto. Das primeiras gravações à edição e animação, explore os processos que transformam ideias em experiências visuais.
           </p>
         </div>
 

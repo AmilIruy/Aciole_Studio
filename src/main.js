@@ -4,7 +4,6 @@ import { initMobileMenu } from './features/header/MobileMenu.js';
 import { Hero, initHeroGlitch, initScrollIndicator } from './features/hero/Hero.js';
 import { MotionSection } from './features/motion/MotionSection.js';
 import { LandingPagesSection } from './features/landingPages/LandingPagesSection.js';
-import { ProjectsSection, initProjects } from './features/projects/ProjectsSection.js';
 import { AboutSection } from './features/about/AboutSection.js';
 import { ProcessSection } from './features/process/ProcessSection.js';
 import { Footer } from './features/footer/Footer.js';
@@ -15,7 +14,6 @@ document.getElementById('root').innerHTML = `
     ${Hero()}
     ${MotionSection()}
     ${LandingPagesSection()}
-    ${ProjectsSection()}
     ${ProcessSection()}
     ${AboutSection()}
   </main>
@@ -24,8 +22,6 @@ document.getElementById('root').innerHTML = `
 
 initMobileMenu();
 initHeroGlitch();
-initProjects();
-
 const isDesktop = window.matchMedia('(min-width: 769px)').matches;
 
 // Adia Lenis + HeroScene para tempo ocioso — evita long tasks no startup
@@ -48,10 +44,10 @@ if ('requestIdleCallback' in window) {
 
 const loadMotionOnInteraction = () => {
   const events = ['scroll', 'wheel', 'touchstart', 'mousemove'];
-  
+
   const trigger = () => {
     events.forEach(e => window.removeEventListener(e, trigger));
-    
+
     const fetchMotion = () => {
       import('./features/motion/motionAnimations.js')
         .then(({ initMotion }) => initMotion())

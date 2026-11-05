@@ -2,10 +2,26 @@
 
 .about-section {
   padding: var(--section-padding);
-  background: var(--bg-dark);
+  background: transparent;
   color: var(--white);
   position: relative;
   overflow: hidden;
+  z-index: 2;
+}
+
+@media (min-width: 769px) {
+  .about-section.section--video-transition {
+    margin-top: calc(-1 * var(--video-transition-overlap));
+    padding-top: calc(100px + var(--video-transition-overlap));
+  }
+}
+
+.about-bg-layer {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-dark);
+  z-index: 0;
+  pointer-events: none;
 }
 
 /* (sem linha decorativa superior) */
@@ -17,6 +33,8 @@
   grid-template-columns: 1fr 1fr;
   gap: 80px;
   align-items: center;
+  position: relative;
+  z-index: 2;
 }
 
 /* ── Media (foto) ────────────────────────────────────────── */
@@ -190,11 +208,17 @@
   }
 
   .about-media-label {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
   }
 }
 
 @media (max-width: 768px) {
+  .about-section.section--video-transition {
+    margin-top: -45vh;
+    padding-top: calc(100px + 45vh);
+  }
+
   .about-section .container {
     grid-template-columns: 1fr;
     gap: 48px;
@@ -206,7 +230,8 @@
   }
 
   .about-media-label {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
   }
 
   .about-image-frame {

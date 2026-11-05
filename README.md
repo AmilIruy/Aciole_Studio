@@ -28,7 +28,9 @@ A organização principal segue a separação por funcionalidades:
     ├── features/
     │   ├── hero/
     │   ├── motion/
-    │   └── projects/
+    │   ├── landingPages/
+    │   ├── process/
+    │   └── about/
     ├── styles/
     └── main.js
 
@@ -77,22 +79,7 @@ A seção utiliza:
 
 As animações devem ser interrompidas ou suspensas quando a seção não estiver visível, evitando processamento desnecessário.
 
-## 6. Projetos
-
-A seção de projetos apresenta trabalhos em formato de carrossel.
-
-Os vídeos dos projetos utilizam carregamento sob demanda.
-
-A estratégia atual inclui:
-- `data-video`;
-- carregamento do vídeo somente quando necessário;
-- botão de reprodução;
-- pausa de vídeos anteriores;
-- remoção do `src` de vídeos que não estão sendo utilizados.
-
-O objetivo é evitar o download desnecessário de vídeos durante o carregamento inicial.
-
-## 7. Performance
+## 6. Performance
 
 Performance é uma preocupação importante do projeto, mas não deve comprometer desnecessariamente a experiência visual.
 
@@ -137,7 +124,7 @@ Vídeos não devem ser carregados automaticamente sem necessidade.
 
 Sempre que possível, utilizar carregamento sob demanda e iniciar o download somente quando houver uma necessidade real de reprodução.
 
-## 8. Mobile
+## 7. Mobile
 
 Mobile deve ser tratado como um cenário de performance próprio.
 
@@ -147,7 +134,7 @@ No mobile, a Hero utiliza o SVG `aciole9.svg`.
 
 Animações e recursos pesados também podem ser simplificados em dispositivos menores quando isso melhorar significativamente a performance sem prejudicar o design.
 
-## 9. Desenvolvimento e manutenção
+## 8. Desenvolvimento e manutenção
 
 Antes de modificar uma funcionalidade:
 1. Verifique como ela está implementada atualmente.
@@ -158,19 +145,18 @@ Antes de modificar uma funcionalidade:
 
 Ao corrigir um problema, prefira a menor alteração necessária para resolver a causa sem introduzir regressões.
 
-## 10. Regras importantes
+## 9. Regras importantes
 
 - Three.js não deve carregar em mobile.
 - A Hero 3D deve aparecer somente quando estiver pronta para renderização.
 - Recursos pesados devem ser carregados sob demanda quando possível.
 - GSAP e ScrollTrigger não devem aumentar desnecessariamente o JavaScript inicial.
-- Vídeos de projetos devem utilizar carregamento controlado.
 - Animações fora da área visível devem evitar processamento contínuo desnecessário.
 - O design e as animações existentes não devem ser removidos apenas por motivos de performance sem avaliar o impacto visual.
 - Não substituir a arquitetura atual sem justificativa técnica.
 - Mudanças de performance não devem causar regressões visuais ou funcionais.
 
-## 11. Comandos
+## 10. Comandos
 
 Instalar dependências:
 `npm install`
@@ -184,7 +170,7 @@ Gerar build:
 Visualizar build:
 `npm run preview`
 
-## 12. Princípio geral
+## 11. Princípio geral
 
 O Aciole Studio deve equilibrar:
 

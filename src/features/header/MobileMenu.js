@@ -9,7 +9,6 @@ export function MobileMenu() {
         <a href="#hero" class="mobile-menu-link" data-menu-link>Início</a>
         <a href="#motion-cards" class="mobile-menu-link" data-menu-link>Vídeos</a>
         <a href="#landing-section" class="mobile-menu-link" data-menu-link>Landing Pages</a>
-        <a href="#projects-section" class="mobile-menu-link" data-menu-link>Projetos</a>
         <a href="#process-section" class="mobile-menu-link" data-menu-link>Processos</a>
         <a href="#about-section" class="mobile-menu-link" data-menu-link>Sobre</a>
         <a href="#footer-cta" class="mobile-menu-link" data-menu-link>Contato</a>

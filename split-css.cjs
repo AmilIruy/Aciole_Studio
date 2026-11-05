@@ -15,7 +15,6 @@ const markers = [
   { name: 'landingPages', match: '/* ===== LANDING PAGES SECTION ===== */' },
   { name: 'about', match: '/* ===== ABOUT SECTION ===== */' },
   { name: 'process', match: '/* ===== PROCESS SECTION ===== */' },
-  { name: 'projects', match: '/* ===== PROJECTS SECTION ===== */' },
   { name: 'footer', match: '/* ===== FOOTER CTA ===== */' },
 ];
 
@@ -95,8 +94,6 @@ const media768 = `
 
   .process-steps { grid-template-columns: 1fr; }
 
-  .projects-header { flex-direction: column; align-items: flex-start; gap: 16px; }
-
   .footer-cta h2 { font-size: 1.6rem; }
 }
 `;
@@ -148,10 +145,6 @@ sections.process += `\n@media (max-width: 1024px) {
   .process-steps { grid-template-columns: 1fr; }
 }\n`;
 
-sections.projects += `\n@media (max-width: 768px) {
-  .projects-header { flex-direction: column; align-items: flex-start; gap: 16px; }
-}\n`;
-
 sections.footer += `\n@media (max-width: 1024px) {
   .footer-cta .container { flex-direction: column; text-align: center; }
   .footer-cta-right { align-items: center; }
@@ -177,7 +170,6 @@ writeCss('src/features/motion/motion.css', sections.motion);
 writeCss('src/features/landingPages/landingPages.css', sections.landingPages);
 writeCss('src/features/about/about.css', sections.about);
 writeCss('src/features/process/process.css', sections.process);
-writeCss('src/features/projects/projects.css', sections.projects);
 writeCss('src/features/footer/footer.css', sections.footer);
 
 console.log('CSS separated successfully!');
