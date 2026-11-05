@@ -80,16 +80,19 @@ function animateMotionTitle() {
 
   let videoDuration = 0;
   let seekRafId = null;
+  let pendingSeekTime = 0;
 
-  // Fix 1 — throttle via rAF: no máximo 1 seek por frame, sem acúmulo de seeks atrasados
+  // Keep only one seek per frame, but always use the latest scroll position.
   function applySeek(progress) {
     if (!videoDuration) return;
-    const targetTime = progress * videoDuration;
-    if (Math.abs(bgVideo.currentTime - targetTime) < 0.016) return;
-    if (seekRafId) return; // já tem seek agendado neste frame, descarta
+    pendingSeekTime = progress * videoDuration;
+    if (Math.abs(bgVideo.currentTime - pendingSeekTime) < 0.016) return;
+    if (seekRafId !== null) return;
     seekRafId = requestAnimationFrame(() => {
       seekRafId = null;
-      bgVideo.currentTime = targetTime;
+      if (Math.abs(bgVideo.currentTime - pendingSeekTime) >= 0.016) {
+        bgVideo.currentTime = pendingSeekTime;
+      }
     });
   }
 
