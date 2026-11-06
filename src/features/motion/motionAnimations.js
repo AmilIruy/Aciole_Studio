@@ -87,6 +87,197 @@ function animateMotionTitle() {
   let disposed = false;
   const seekTolerance = 0.016;
   const seekTimeout = 2000;
+  const performanceMetrics = {
+    intervalStartedAt: performance.now(),
+    interval: {},
+    totals: {
+      scrollUpdates: 0,
+      seekRequests: 0,
+      seeksStarted: 0,
+      seekedEvents: 0,
+      seeksCompleted: 0,
+      requestsDuringSeek: 0,
+      timestampsReplaced: 0,
+      seekAttemptsReplaced: 0,
+      timeoutCallbacks: 0,
+      timeoutRecoveries: 0,
+      timeoutFoundIdle: 0,
+      recoveryAttempts: 0,
+      recoveryFailures: 0,
+      seekErrors: 0,
+      frameCallbacks: 0,
+      framesBetweenObservedCallbacks: 0,
+      longScrollGaps: 0,
+    },
+    seekDurations: [],
+    lastScrollUpdateAt: null,
+    lastScrollProgress: null,
+    lastPresentedFrames: null,
+  };
+  let performanceReportId = null;
+  let activeSeekStartedAt = null;
+  let videoFrameCallbackId = null;
+  const longScrollGapThreshold = 100;
+  const maxSeekDurationSamples = 500;
+
+  const createPerformanceInterval = () => ({
+    scrollUpdates: 0,
+    progressMin: Infinity,
+    progressMax: -Infinity,
+    progressVariation: 0,
+    maxProgressDelta: 0,
+    longScrollGaps: 0,
+    maxScrollGapMs: 0,
+    seekRequests: 0,
+    seeksStarted: 0,
+    seekedEvents: 0,
+    seeksCompleted: 0,
+    requestsDuringSeek: 0,
+    timestampsReplaced: 0,
+    seekAttemptsReplaced: 0,
+    timeoutCallbacks: 0,
+    timeoutRecoveries: 0,
+    timeoutFoundIdle: 0,
+    recoveryAttempts: 0,
+    recoveryFailures: 0,
+    seekErrors: 0,
+    frameCallbacks: 0,
+    framesBetweenObservedCallbacks: 0,
+    maxPresentationLagMs: 0,
+    decoderProcessingDurationsMs: [],
+  });
+  performanceMetrics.interval = createPerformanceInterval();
+
+  const recordMetric = (name, amount = 1) => {
+    performanceMetrics.interval[name] += amount;
+    performanceMetrics.totals[name] += amount;
+    schedulePerformanceReport();
+  };
+
+  const summarizeSamples = (samples) => {
+    if (!samples.length) return null;
+    const sorted = [...samples].sort((a, b) => a - b);
+    const sum = sorted.reduce((total, sample) => total + sample, 0);
+    return {
+      count: sorted.length,
+      average: sum / sorted.length,
+      min: sorted[0],
+      max: sorted[sorted.length - 1],
+      p95: sorted[Math.ceil(sorted.length * 0.95) - 1],
+    };
+  };
+
+  const emitPerformanceReport = (final = false) => {
+    const now = performance.now();
+    const intervalSeconds = Math.max((now - performanceMetrics.intervalStartedAt) / 1000, 0.001);
+    const interval = performanceMetrics.interval;
+    const progressRange = Number.isFinite(interval.progressMin)
+      ? [interval.progressMin, interval.progressMax]
+      : null;
+    const report = {
+      final,
+      intervalSeconds,
+      scrollTrigger: {
+        updates: interval.scrollUpdates,
+        updatesPerSecond: interval.scrollUpdates / intervalSeconds,
+        progressRange,
+        totalProgressVariation: interval.progressVariation,
+        maxProgressDelta: interval.maxProgressDelta,
+        gapsOver100ms: interval.longScrollGaps,
+        maxGapMs: interval.maxScrollGapMs,
+      },
+      seeks: {
+        requests: interval.seekRequests,
+        started: interval.seeksStarted,
+        startedPerSecond: interval.seeksStarted / intervalSeconds,
+        seekedEvents: interval.seekedEvents,
+        completed: interval.seeksCompleted,
+        completedPerSecond: interval.seeksCompleted / intervalSeconds,
+        requestsDuringSeek: interval.requestsDuringSeek,
+        timestampsReplaced: interval.timestampsReplaced,
+        attemptsReplacedByRecovery: interval.seekAttemptsReplaced,
+        completionLatencyMsRecent500: summarizeSamples(performanceMetrics.seekDurations),
+      },
+      recovery: {
+        timeoutCallbacks: interval.timeoutCallbacks,
+        timeoutRecoveries: interval.timeoutRecoveries,
+        timeoutsFoundIdle: interval.timeoutFoundIdle,
+        recoveryAttempts: interval.recoveryAttempts,
+        recoveryFailures: interval.recoveryFailures,
+        seekErrors: interval.seekErrors,
+      },
+      presentation: {
+        requestVideoFrameCallbackAvailable: typeof bgVideo.requestVideoFrameCallback === 'function',
+        frameCallbacks: interval.frameCallbacks,
+        frameCallbacksPerSecond: interval.frameCallbacks / intervalSeconds,
+        framesBetweenObservedCallbacks: interval.framesBetweenObservedCallbacks,
+        maxLagFromRequestedTimestampMs: interval.maxPresentationLagMs,
+        decoderProcessingDurationMs: summarizeSamples(interval.decoderProcessingDurationsMs),
+      },
+      totals: { ...performanceMetrics.totals },
+    };
+    console.info('[Motion performance]', report);
+    performanceMetrics.interval = createPerformanceInterval();
+    performanceMetrics.intervalStartedAt = now;
+  };
+
+  function schedulePerformanceReport() {
+    if (disposed || performanceReportId !== null) return;
+    performanceReportId = setTimeout(() => {
+      performanceReportId = null;
+      emitPerformanceReport();
+    }, 1000);
+  }
+
+  const onScrollUpdate = (progress) => {
+    const now = performance.now();
+    const interval = performanceMetrics.interval;
+    recordMetric('scrollUpdates');
+    interval.progressMin = Math.min(interval.progressMin, progress);
+    interval.progressMax = Math.max(interval.progressMax, progress);
+    if (performanceMetrics.lastScrollUpdateAt !== null) {
+      const gap = now - performanceMetrics.lastScrollUpdateAt;
+      interval.maxScrollGapMs = Math.max(interval.maxScrollGapMs, gap);
+      if (gap > longScrollGapThreshold) {
+        recordMetric('longScrollGaps');
+      }
+    }
+    if (performanceMetrics.lastScrollProgress !== null) {
+      const delta = Math.abs(progress - performanceMetrics.lastScrollProgress);
+      interval.progressVariation += delta;
+      interval.maxProgressDelta = Math.max(interval.maxProgressDelta, delta);
+    }
+    performanceMetrics.lastScrollUpdateAt = now;
+    performanceMetrics.lastScrollProgress = progress;
+  };
+
+  const recordSeekStart = () => {
+    if (activeSeekStartedAt !== null) recordMetric('seekAttemptsReplaced');
+    activeSeekStartedAt = performance.now();
+    recordMetric('seeksStarted');
+  };
+
+  const onVideoFrame = (_now, metadata) => {
+    videoFrameCallbackId = null;
+    if (disposed) return;
+    recordMetric('frameCallbacks');
+    const interval = performanceMetrics.interval;
+    if (performanceMetrics.lastPresentedFrames !== null
+      && metadata.presentedFrames > performanceMetrics.lastPresentedFrames + 1) {
+      const missedCallbacks = metadata.presentedFrames - performanceMetrics.lastPresentedFrames - 1;
+      recordMetric('framesBetweenObservedCallbacks', missedCallbacks);
+    }
+    performanceMetrics.lastPresentedFrames = metadata.presentedFrames;
+    const desiredTime = pendingSeekTime ?? bgVideo.currentTime;
+    interval.maxPresentationLagMs = Math.max(
+      interval.maxPresentationLagMs,
+      Math.abs(metadata.mediaTime - desiredTime) * 1000,
+    );
+    if (typeof metadata.processingDuration === 'number') {
+      interval.decoderProcessingDurationsMs.push(metadata.processingDuration * 1000);
+    }
+    videoFrameCallbackId = bgVideo.requestVideoFrameCallback(onVideoFrame);
+  };
 
   const clearSeekTimeout = () => {
     if (seekTimeoutId !== null) {
@@ -100,6 +291,12 @@ function animateMotionTitle() {
     disposed = true;
     if (seekRafId !== null) cancelAnimationFrame(seekRafId);
     seekRafId = null;
+    if (performanceReportId !== null) clearTimeout(performanceReportId);
+    performanceReportId = null;
+    if (videoFrameCallbackId !== null && typeof bgVideo.cancelVideoFrameCallback === 'function') {
+      bgVideo.cancelVideoFrameCallback(videoFrameCallbackId);
+    }
+    videoFrameCallbackId = null;
     clearSeekTimeout();
     pendingSeekTime = null;
     seekInProgress = false;
@@ -107,6 +304,7 @@ function animateMotionTitle() {
     bgVideo.removeEventListener('loadedmetadata', initVideoScrub);
     bgVideo.removeEventListener('seeked', onSeeked);
     bgVideo.removeEventListener('error', onSeekError);
+    emitPerformanceReport(true);
   };
 
   const scheduleSeek = (replaceStalledSeek = false) => {
@@ -117,6 +315,7 @@ function animateMotionTitle() {
 
       if (bgVideo.seeking && !replaceStalledSeek) {
         seekInProgress = true;
+        if (activeSeekStartedAt === null) recordSeekStart();
         startSeekTimeout();
         return;
       }
@@ -130,11 +329,14 @@ function animateMotionTitle() {
 
       seekInProgress = true;
       try {
+        recordSeekStart();
         bgVideo.currentTime = targetTime;
       } catch (error) {
         seekInProgress = false;
+        activeSeekStartedAt = null;
         pendingSeekTime = null;
         recoveringSeek = false;
+        recordMetric('seekErrors');
         console.error('Falha ao buscar quadro do vídeo Motion:', error);
         return;
       }
@@ -160,20 +362,26 @@ function animateMotionTitle() {
     seekTimeoutId = setTimeout(() => {
       seekTimeoutId = null;
       if (disposed || !seekInProgress) return;
+      recordMetric('timeoutCallbacks');
 
       if (!bgVideo.seeking) {
+        recordMetric('timeoutFoundIdle');
         finishSeek();
         return;
       }
 
       if (recoveringSeek) {
+        recordMetric('recoveryFailures');
         console.error('A busca do vídeo Motion não foi concluída após a tentativa de recuperação.');
         seekInProgress = false;
+        activeSeekStartedAt = null;
         pendingSeekTime = null;
         recoveringSeek = false;
         return;
       }
 
+      recordMetric('timeoutRecoveries');
+      recordMetric('recoveryAttempts');
       console.warn('A busca do vídeo Motion excedeu o tempo limite; priorizando a posição mais recente.');
       seekInProgress = false;
       recoveringSeek = true;
@@ -183,14 +391,26 @@ function animateMotionTitle() {
 
   function onSeeked() {
     if (bgVideo.seeking) return;
+    recordMetric('seekedEvents');
+    if (activeSeekStartedAt !== null) {
+      const duration = performance.now() - activeSeekStartedAt;
+      performanceMetrics.seekDurations.push(duration);
+      if (performanceMetrics.seekDurations.length > maxSeekDurationSamples) {
+        performanceMetrics.seekDurations.shift();
+      }
+      activeSeekStartedAt = null;
+      recordMetric('seeksCompleted');
+    }
     finishSeek();
   }
 
   function onSeekError() {
     clearSeekTimeout();
     seekInProgress = false;
+    activeSeekStartedAt = null;
     pendingSeekTime = null;
     recoveringSeek = false;
+    recordMetric('seekErrors');
     if (bgVideo.error) {
       console.error('Erro ao buscar quadro do vídeo Motion:', bgVideo.error);
     }
@@ -199,7 +419,16 @@ function animateMotionTitle() {
   function applySeek(progress) {
     if (disposed || !videoDuration) return;
     const normalizedProgress = Math.min(Math.max(progress, 0), 1);
-    pendingSeekTime = normalizedProgress * videoDuration;
+    const requestedTime = normalizedProgress * videoDuration;
+    const previousPendingSeekTime = pendingSeekTime;
+    recordMetric('seekRequests');
+    if (seekInProgress || bgVideo.seeking) {
+      recordMetric('requestsDuringSeek');
+    }
+    if (previousPendingSeekTime !== null && previousPendingSeekTime !== requestedTime) {
+      recordMetric('timestampsReplaced');
+    }
+    pendingSeekTime = requestedTime;
     if (!seekInProgress && !bgVideo.seeking
       && Math.abs(bgVideo.currentTime - pendingSeekTime) < seekTolerance) {
       pendingSeekTime = null;
@@ -214,6 +443,9 @@ function animateMotionTitle() {
 
   bgVideo.addEventListener('seeked', onSeeked);
   bgVideo.addEventListener('error', onSeekError);
+  if (typeof bgVideo.requestVideoFrameCallback === 'function') {
+    videoFrameCallbackId = bgVideo.requestVideoFrameCallback(onVideoFrame);
+  }
 
   if (bgVideo.readyState >= 1) {
     initVideoScrub();
@@ -249,6 +481,7 @@ function animateMotionTitle() {
       anticipatePin: 1,
       onKill: disposeSeek,
       onUpdate(self) {
+        onScrollUpdate(self.progress);
         applySeek(self.progress);
       },
     },
