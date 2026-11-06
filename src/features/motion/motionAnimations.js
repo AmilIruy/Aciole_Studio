@@ -75,30 +75,145 @@ function animateMotionTitle() {
   // visible flickering. We set currentTime directly; no play() is needed.
   // -------------------------------------------------------------------------
   bgVideo.pause();
-  // Ensure the video never auto-starts even if the browser decides to
-  bgVideo.addEventListener('play', () => bgVideo.pause(), { passive: true });
+  const pauseScrubVideo = () => bgVideo.pause();
+  bgVideo.addEventListener('play', pauseScrubVideo);
 
   let videoDuration = 0;
   let seekRafId = null;
-  let pendingSeekTime = 0;
+  let seekTimeoutId = null;
+  let pendingSeekTime = null;
+  let seekInProgress = false;
+  let recoveringSeek = false;
+  let disposed = false;
+  const seekTolerance = 0.016;
+  const seekTimeout = 2000;
 
-  // Keep only one seek per frame, but always use the latest scroll position.
-  function applySeek(progress) {
-    if (!videoDuration) return;
-    pendingSeekTime = progress * videoDuration;
-    if (Math.abs(bgVideo.currentTime - pendingSeekTime) < 0.016) return;
-    if (seekRafId !== null) return;
+  const clearSeekTimeout = () => {
+    if (seekTimeoutId !== null) {
+      clearTimeout(seekTimeoutId);
+      seekTimeoutId = null;
+    }
+  };
+
+  const disposeSeek = () => {
+    if (disposed) return;
+    disposed = true;
+    if (seekRafId !== null) cancelAnimationFrame(seekRafId);
+    seekRafId = null;
+    clearSeekTimeout();
+    pendingSeekTime = null;
+    seekInProgress = false;
+    bgVideo.removeEventListener('play', pauseScrubVideo);
+    bgVideo.removeEventListener('loadedmetadata', initVideoScrub);
+    bgVideo.removeEventListener('seeked', onSeeked);
+    bgVideo.removeEventListener('error', onSeekError);
+  };
+
+  const scheduleSeek = (replaceStalledSeek = false) => {
+    if (disposed || seekInProgress || pendingSeekTime === null || seekRafId !== null) return;
     seekRafId = requestAnimationFrame(() => {
       seekRafId = null;
-      if (Math.abs(bgVideo.currentTime - pendingSeekTime) >= 0.016) {
-        bgVideo.currentTime = pendingSeekTime;
+      if (disposed || seekInProgress || pendingSeekTime === null) return;
+
+      if (bgVideo.seeking && !replaceStalledSeek) {
+        seekInProgress = true;
+        startSeekTimeout();
+        return;
       }
+
+      const targetTime = pendingSeekTime;
+      if (!bgVideo.seeking && Math.abs(bgVideo.currentTime - targetTime) < seekTolerance) {
+        pendingSeekTime = null;
+        recoveringSeek = false;
+        return;
+      }
+
+      seekInProgress = true;
+      try {
+        bgVideo.currentTime = targetTime;
+      } catch (error) {
+        seekInProgress = false;
+        pendingSeekTime = null;
+        recoveringSeek = false;
+        console.error('Falha ao buscar quadro do vídeo Motion:', error);
+        return;
+      }
+      startSeekTimeout();
     });
+  };
+
+  const finishSeek = () => {
+    clearSeekTimeout();
+    seekInProgress = false;
+    if (disposed || pendingSeekTime === null) return;
+
+    if (Math.abs(bgVideo.currentTime - pendingSeekTime) < seekTolerance) {
+      pendingSeekTime = null;
+      recoveringSeek = false;
+      return;
+    }
+    scheduleSeek();
+  };
+
+  function startSeekTimeout() {
+    clearSeekTimeout();
+    seekTimeoutId = setTimeout(() => {
+      seekTimeoutId = null;
+      if (disposed || !seekInProgress) return;
+
+      if (!bgVideo.seeking) {
+        finishSeek();
+        return;
+      }
+
+      if (recoveringSeek) {
+        console.error('A busca do vídeo Motion não foi concluída após a tentativa de recuperação.');
+        seekInProgress = false;
+        pendingSeekTime = null;
+        recoveringSeek = false;
+        return;
+      }
+
+      console.warn('A busca do vídeo Motion excedeu o tempo limite; priorizando a posição mais recente.');
+      seekInProgress = false;
+      recoveringSeek = true;
+      scheduleSeek(true);
+    }, seekTimeout);
   }
 
-  const initVideoScrub = () => {
+  function onSeeked() {
+    if (bgVideo.seeking) return;
+    finishSeek();
+  }
+
+  function onSeekError() {
+    clearSeekTimeout();
+    seekInProgress = false;
+    pendingSeekTime = null;
+    recoveringSeek = false;
+    if (bgVideo.error) {
+      console.error('Erro ao buscar quadro do vídeo Motion:', bgVideo.error);
+    }
+  }
+
+  function applySeek(progress) {
+    if (disposed || !videoDuration) return;
+    const normalizedProgress = Math.min(Math.max(progress, 0), 1);
+    pendingSeekTime = normalizedProgress * videoDuration;
+    if (!seekInProgress && !bgVideo.seeking
+      && Math.abs(bgVideo.currentTime - pendingSeekTime) < seekTolerance) {
+      pendingSeekTime = null;
+      return;
+    }
+    scheduleSeek();
+  }
+
+  function initVideoScrub() {
     videoDuration = bgVideo.duration || 0;
-  };
+  }
+
+  bgVideo.addEventListener('seeked', onSeeked);
+  bgVideo.addEventListener('error', onSeekError);
 
   if (bgVideo.readyState >= 1) {
     initVideoScrub();
@@ -132,10 +247,12 @@ function animateMotionTitle() {
       pin: true,
       scrub: true,
       anticipatePin: 1,
+      onKill: disposeSeek,
       onUpdate(self) {
         applySeek(self.progress);
       },
     },
+    onInterrupt: disposeSeek,
   });
 
   titleTimeline
