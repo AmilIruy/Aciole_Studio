@@ -273,7 +273,14 @@ function animateMotionTitle() {
       ease: 'power1.out',
     }, 0.2)
     .to(label, { opacity: 0, y: -20, duration: 0.5 }, 0)
+    .fromTo(
+      bgVideo,
+      { opacity: 0},
+      { opacity: 0.8, duration: 0.5, ease: 'power2.out' },
+      0.1
+    )
     .to(overlay, { opacity: 0.15, duration: 0.5 }, 0.1)
+    .to(bgVideo, { opacity: 0, duration: 0.3, ease: 'power2.in' }, 0.7)
     .to(overlay, { opacity: 0.72, duration: 0.3 }, 0.7);
 
   // FIX 1 — setupVideoPlaybackTrigger() call removed.
